@@ -1,9 +1,42 @@
 # Trading prototypes
 
+## Switchable presentation experiment
+
+Open **[presentation-prototype.html](presentation-prototype.html)** by
+double-clicking it in a modern browser. It is a portable, throwaway HTML file;
+no server, installation, or network access is needed.
+
+- **A — The trading terminal:** quote comparison table, nearby execution panel,
+  and a shared hand.
+- **B — The exposure board:** company islands, allocation bars, active powers,
+  and cards below the board.
+- **C — The market journal:** public evidence and report calendar first, with
+  a quote strip and a decision column.
+
+Use the floating bottom arrows or keyboard Left/Right to cycle. The same live
+session and selected company carry across scenes. Arrow keys stay native while
+editing an input, select, textarea, or editable content. `?variant=A`,
+`?variant=B`, and `?variant=C` select a scene on reload where browser file-URL
+history updates are supported. Reload resets play; only scene selection survives.
+
+The engine is copied unchanged from the uncertain-market playable. Previous-tick
+quotes, fee-inclusive average entry, exposure, and unrealized profit are visible
+for all companies. News history, contributions, and a public state record are
+available in disclosures. Debug spoilers remain separately labelled.
+
+Source and in-memory smoke checks passed, including a full 12-turn run and
+state-preserving scene switches. **Browser visual review remains unperformed:**
+the browser tool blocked the file URL and prohibited workarounds. These checks
+do not establish layout quality or a presentation winner. See the
+[presentation issue](.scratch/presentation-scenes/issues/01-compare-scenes.md).
+
+Stop for human comparison before choosing or combining scenes and before
+starting rival design. Prototype branch: `codex/presentation-scenes`.
+
 Latest human feedback: [uncertain-market playtest](docs/uncertain-market-playtest.md)
 reports more tension, deliberate exposure choices, and more useful cards.
-Next: [switchable presentation scenes](docs/presentation-prototype-brief.md),
-then a bounded rival experiment after presentation feedback.
+The [switchable presentation brief](docs/presentation-prototype-brief.md) defines
+the current experiment; a bounded rival experiment follows presentation feedback.
 
 ## Current experiment: uncertain opportunities
 
