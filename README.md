@@ -1,17 +1,28 @@
 # Trading prototypes
 
-## Switchable presentation experiment
+## Switchable presentation experiment · round two
 
 Open **[presentation-prototype.html](presentation-prototype.html)** by
 double-clicking it in a modern browser. It is a portable, throwaway HTML file;
 no server, installation, or network access is needed.
 
-- **A — The trading terminal:** quote comparison table, nearby execution panel,
-  and a shared hand.
-- **B — The exposure board:** company islands, allocation bars, active powers,
-  and cards below the board.
-- **C — The market journal:** public evidence and report calendar first, with
-  a quote strip and a decision column.
+- **A — Asset desk (standard):** wide company dossiers with history, accounting,
+  local trading, price contributions, powers and evidence grouped per asset.
+- **B — Company board (game-like):** three company tiles with allocation banners,
+  local trades and the complete information for each company.
+- **C — Tactics table (most gamified):** choose a card from the hand, then play it
+  onto an eligible company territory. Each territory retains its complete data.
+
+All three use dark palettes. Graphs and exact price contributions are always
+visible. A hollow chart marker and numeric quote show the price without that
+tick's price cards, starting from the same previous quote. This is not a
+whole-run simulation with every earlier card removed.
+
+The creator preferred round one's B for its grouped asset information and solid
+layout, liked A's dark colors, and found C's light palette uncomfortable and its
+information difficult to use. The unchanged first set is preserved as
+[presentation-round-one-prototype.html](presentation-round-one-prototype.html).
+Its source is also captured at `bf04c5b`.
 
 Use the floating bottom arrows or keyboard Left/Right to cycle. The same live
 session and selected company carry across scenes. Arrow keys stay native while
@@ -22,7 +33,8 @@ history updates are supported. Reload resets play; only scene selection survives
 The engine is copied unchanged from the uncertain-market playable. Previous-tick
 quotes, fee-inclusive average entry, exposure, and unrealized profit are visible
 for all companies. News history, contributions, and a public state record are
-available in disclosures. Debug spoilers remain separately labelled.
+available locally; news history and a public state record remain in disclosures.
+Debug spoilers remain separately labelled.
 
 Source and in-memory smoke checks passed, including a full 12-turn run and
 state-preserving scene switches. **Browser visual review remains unperformed:**

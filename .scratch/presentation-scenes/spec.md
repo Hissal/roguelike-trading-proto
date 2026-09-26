@@ -1,6 +1,36 @@
 # Three lenses on one market
 
-Status: implemented; awaiting human presentation feedback.
+Status: round two implemented; awaiting human presentation feedback.
+
+## Round two (current)
+
+The creator preferred B's per-asset grouping and layout, A's dark colors, and
+rejected C's bright palette. They requested visible contribution breakdowns,
+without-cards quotes, and another set progressing from standard to gamified.
+See `docs/presentation-round-one-feedback.md` for the human evidence.
+
+Current `presentation-prototype.html` contains A asset dossiers, B company
+tiles, and C a tactics table. All scenes are dark, with price history, local
+trading, average entry, exposure, unrealized P/L, powers, public evidence, and
+unresolved outlooks grouped per company. Contributions stay expanded. Graphs
+mark the without-this-tick's-cards quote with a hollow marker and connector;
+the matching numeric quote and card delta are always visible. No full-run
+counterfactual is implied. C adds card selection followed by an eligible target
+button; choosing the card alone consumes nothing. Eligibility uses the original
+engine. Scene switching preserves that choice and all three trade quantities.
+
+The first set is preserved unchanged in `presentation-round-one-prototype.html`
+and commit `bf04c5b`. The engine still matches the uncertain-market source.
+
+Round-two temporary DOM stand-in checks passed through all 12 turns and 39 scene
+renders. Each render contained three visible history graphs, three contribution
+panels, and three local trade controls. Buy/sell and quantity handlers, card
+arming and legal target handlers, fees, settlement, complete state preservation,
+keyboard input exclusion, and Investigate reveal/expiry passed. Scripts parse
+and `git diff --check` passes. These are source/in-memory checks, not browser
+tests; the earlier browser security restriction still prevents visual review.
+
+The sections below record round one's scope and verification.
 
 Question: Which presentation makes simultaneous opportunities, uncertainty,
 exposure, and card decisions understandable without losing market tension?
