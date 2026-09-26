@@ -1,6 +1,7 @@
 # Uncertain opportunities
 
-Status: implemented; human playtest pending.
+Status: implemented and human-playtested. Findings: `docs/uncertain-market-playtest.md`.
+Next experiment: `docs/presentation-prototype-brief.md`.
 
 Question: Can uncertain, independently developing opportunities make position
 size and duration matter while allowing concentration and diversification to

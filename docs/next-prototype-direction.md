@@ -1,22 +1,15 @@
 # Next prototype direction — September 26, 2026
 
-Latest checkpoint: the creator played the card experiment, reported persistent
-all-in dominance, and authorized the uncertain-market pass. See
-[feedback and future candidates](card-hand-playtest.md) and the
-[current spec](../.scratch/uncertain-market/spec.md). The historical direction
-below led to the preserved card-hand experiment.
+Latest checkpoint: the creator reported a substantial improvement from the
+uncertain-market experiment. See [latest playtest](uncertain-market-playtest.md).
+The next session will explore radically different switchable presentation scenes
+using the [visual brief](presentation-prototype-brief.md). Rival-profit competition
+follows the presentation phase and human feedback; its rules remain open.
 
-Status: direction endorsed by the creator. Subsequent planning selected the
-turn, hand, deck, and card rules in the
-[bounded experiment spec](../.scratch/card-hand-discard/spec.md).
-The creator authorized implementation; the playable is now
-`card-hand-prototype.html`, awaiting human playtest. The open-decision list below
-records the questions brought into that planning conversation; consult the spec
-for the selected rules and the remaining supporting defaults.
-
-Read [playtest evidence](first-playtest.md) before designing the next experiment.
-The existing artifact is `trading-prototype.html`; its current settings and
-verification limits are in `ASSUMPTIONS.md` and `README.md`.
+Current playable: `uncertain-market-prototype.html`; implementation and temporary
+rules: `../.scratch/uncertain-market/spec.md`. Earlier card and market artifacts
+remain preserved. The material below is historical direction leading to those
+experiments, not the next session's implementation checklist.
 
 ## Preferred direction
 

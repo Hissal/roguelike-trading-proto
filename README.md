@@ -1,5 +1,10 @@
 # Trading prototypes
 
+Latest human feedback: [uncertain-market playtest](docs/uncertain-market-playtest.md)
+reports more tension, deliberate exposure choices, and more useful cards.
+Next: [switchable presentation scenes](docs/presentation-prototype-brief.md),
+then a bounded rival experiment after presentation feedback.
+
 ## Current experiment: uncertain opportunities
 
 Open **[uncertain-market-prototype.html](uncertain-market-prototype.html)** by

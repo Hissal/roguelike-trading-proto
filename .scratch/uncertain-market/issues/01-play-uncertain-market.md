@@ -8,7 +8,10 @@ branch `codex/uncertain-market`.
 
 ## Answer
 
-Implemented; human verdict pending. Staggered company reports, six seeded
+Implemented and human-playtested. The creator reported substantially more
+tension, deliberate diversification, and useful protection cards. Presentation
+overload remains; see `docs/uncertain-market-playtest.md` and
+`docs/presentation-prototype-brief.md`. Staggered company reports, six seeded
 follow-throughs, price gaps, visible uncertainty, and exposure information are
 available. Earlier card powers and accounting remain. Numerical and DOM stand-in
 checks passed as recorded in the spec; browser/visual review is unperformed.
