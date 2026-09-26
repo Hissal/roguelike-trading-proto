@@ -1,8 +1,12 @@
 # Next prototype direction — September 26, 2026
 
-Status: direction endorsed by the creator; turn rules and card content remain
-open. This session stops at documentation and handoff. Implementation belongs
-to a subsequent session under that session's user request.
+Status: direction endorsed by the creator. Subsequent planning selected the
+turn, hand, deck, and card rules in the
+[bounded experiment spec](../.scratch/card-hand-discard/spec.md).
+The creator authorized implementation; the playable is now
+`card-hand-prototype.html`, awaiting human playtest. The open-decision list below
+records the questions brought into that planning conversation; consult the spec
+for the selected rules and the remaining supporting defaults.
 
 Read [playtest evidence](first-playtest.md) before designing the next experiment.
 The existing artifact is `trading-prototype.html`; its current settings and

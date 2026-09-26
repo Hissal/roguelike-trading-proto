@@ -1,4 +1,10 @@
-# Temporary experiment settings
+# Temporary settings for the previous small-engine experiment
+
+These settings describe `trading-prototype.html`, preserved unchanged.
+The current `card-hand-prototype.html` uses the market/accounting baseline below
+with the new hand and power rules recorded in the
+[card experiment spec](.scratch/card-hand-discard/spec.md). Its recurring card
+supply replaces the two-use power limit. Current verification is in `README.md`.
 
 These are reversible implementation choices, not approved final-game rules.
 The September 26 handoff and accepted repository plan override the broader GDD.

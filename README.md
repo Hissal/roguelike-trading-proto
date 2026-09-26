@@ -1,4 +1,45 @@
-# Small Engine — first playable prototype
+# Trading prototypes
+
+## Current experiment: three cards, two plays
+
+Open **[card-hand-prototype.html](card-hand-prototype.html)** in a modern browser
+by double-clicking the file. No installation, server, or internet is needed.
+
+This bounded experiment asks whether varied temporary hands create meaningful
+trading choices and a card you wish you could keep. It implements the
+[agreed experiment spec](.scratch/card-hand-discard/spec.md).
+
+1. Select a company and read the news. Trade freely at the displayed quote.
+2. Draw three cards and play up to two on eligible companies. Select another
+   company to change the card target; disabled cards explain why they cannot play.
+3. End turn to discard unused cards and resolve one market tick. Activated
+   effects persist for their stated durations. A fresh hand arrives each turn.
+4. Inspect the card contribution breakdown and active commitments. The deck
+   contains two of each of seven powers and reshuffles the discard when needed.
+5. Finish 12 turns for automatic closing settlement, then share your feedback.
+
+Optional guided walkthrough tabs below the game demonstrate choosing two cards,
+Echo targeting, and Extend/expiry using arranged opening hands. They reset the
+session and are labelled as guided. Use **Restart playtest** for the ordinary
+seeded deck. Keep debug inspection closed during playtests.
+
+Ask after playing: Which discard was difficult? Did the later turns still offer
+choices? Did a past commitment shape a new hand, or did the same pair dominate?
+Stop at this feedback checkpoint before expanding the experiment. Restart
+repeats both market and draw order; familiarity affects subsequent results.
+
+Verification: both scripts parsed; temporary direct smoke checks passed for the
+seven powers, play limits, Echo, expiry, Extend, shaping/floor arithmetic,
+60 full action-policy runs, deck conservation and reshuffles, closing accounting,
+trade independence, pure transitions, and deterministic restarts. In-memory DOM
+stand-in checks passed for rendering and handlers across a session, restart,
+opening concealment, and guided action sequences. These are not an actual browser
+playthrough or visual check; those remain unperformed. No test suite was added.
+
+The previous playable below is preserved unchanged. Its reported human results
+are historical evidence, not results for the new card experiment.
+
+## Previous experiment: operate a small engine
 
 Open **trading-prototype.html** in a modern browser (double-click the file).
 No installation, build, server, account, or internet connection is needed.
