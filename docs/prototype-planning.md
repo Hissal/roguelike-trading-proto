@@ -1,7 +1,11 @@
 # Prototype planning
 
-Status: bounded plan accepted through the grilling session, including optional
-later flow-specific variants. Prototype implementation has not been authorized.
+Status: the bounded plan below records the original planning session. Experiment
+1 and a feedback revision were subsequently authorized and implemented. Read
+[playtest results](first-playtest.md) and
+[the current next-experiment direction](next-prototype-direction.md) before
+continuing. Those later records supersede the original implementation boundary
+and the fixed order of subsequent experiments; the remaining text is historical.
 
 ## Reference material
 

@@ -7,8 +7,9 @@ This throwaway prototype implements experiment 1 from
 [the accepted plan](docs/prototype-planning.md): operate a small engine.
 It asks whether allocating limited information and influence across overlapping
 opportunities produces understandable, interesting decisions. The creator has
-played the initial version twice; this revision responds to that feedback.
-See [playtest notes](docs/first-playtest.md).
+played the initial version twice and subsequently tried the feedback revision.
+See [playtest notes](docs/first-playtest.md) and
+[the next prototype direction](docs/next-prototype-direction.md).
 
 ## Try it
 
@@ -34,7 +35,8 @@ Keep the separately labelled debug disclosure closed during playtests.
 - If you reached the target, did it make further decisions less interesting?
 
 Profit alone is not evidence of engagement. Replays here are confounded by
-scenario familiarity. Experiment 2 and fresh variants await user feedback.
+scenario familiarity. The next endorsed direction is varied cards with hand
+discard and turn-based play; its turn rules and card content remain open.
 
 ## Revision 2 — clearer consequences, shorter session
 
@@ -66,7 +68,8 @@ boosted versus ordinary Influence, unchanged underlying value under Influence,
 and fresh-state resource restoration. All checks passed. An ordinary-trade run
 and a no-trade run had identical market quotes at all 18 steps.
 
-**UI verification remains unperformed.** The browser automation tool rejected
+**Agent browser UI verification remains unperformed.** The creator has played
+both versions and reported their experience. The browser automation tool rejected
 the local file URL because its security policy allows only HTTP/HTTPS and forbids
 workarounds for the blocked action. No screenshot inspection, browser console
 check, click-through session, or restart-button verification is claimed.
