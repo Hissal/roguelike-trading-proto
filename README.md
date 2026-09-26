@@ -6,8 +6,9 @@ No installation, build, server, account, or internet connection is needed.
 This throwaway prototype implements experiment 1 from
 [the accepted plan](docs/prototype-planning.md): operate a small engine.
 It asks whether allocating limited information and influence across overlapping
-opportunities produces understandable, interesting decisions. No human evidence
-or design verdict exists yet.
+opportunities produces understandable, interesting decisions. The creator has
+played the initial version twice; this revision responds to that feedback.
+See [playtest notes](docs/first-playtest.md).
 
 ## Try it
 
@@ -18,10 +19,10 @@ or design verdict exists yet.
    is revealed to activate the equipped Informed Influence modifier.
 4. Advance the market when ready. There is no action timer. Inspect the news,
    price changes, power durations, and positions after each advance.
-5. Finish 18 steps for closing settlement and a short result view. Restart repeats
+5. Finish 12 steps for closing settlement and a short result view. Restart repeats
    the same scenario and restores cash and both power supplies.
 
-Allow roughly 5–10 minutes for the first trial. Refreshing loses progress.
+This revision shortens the session from 18 to 12 steps. Refreshing loses progress.
 Keep the separately labelled debug disclosure closed during playtests.
 
 ## Observe before expanding
@@ -35,7 +36,27 @@ Keep the separately labelled debug disclosure closed during playtests.
 Profit alone is not evidence of engagement. Replays here are confounded by
 scenario familiarity. Experiment 2 and fresh variants await user feedback.
 
-## Verification performed, September 26, 2026
+## Revision 2 — clearer consequences, shorter session
+
+The selected company now shows market movement, base Influence, the Informed
+Influence bonus, and actual movement separately after each advance. The hollow
+chart marker shows the quote without that step’s active Influence, starting from
+the same previous quote. It is not a whole-run alternate timeline. The breakdown
+persists on the final affected step even after the power expires.
+
+Accounting, activity, instructions, and earlier news are collapsed by default.
+Powers sit beside trading controls, with an explicit synergy preview and active
+bonus status. The main summary shows available cash and profit.
+
+Revision checks: both scripts parsed; direct simulation checked same-step
+counterfactual quotes, an overpriced asset falling despite boosted Influence,
+contribution arithmetic, price-floor handling, final-tick feedback, ordinary-trade
+independence across all 12 steps, and closing settlement. An in-memory DOM stand-in
+exercised rendering and handlers through powers, a complete session, and restart,
+including hidden-value concealment at opening and the synergy preview. All passed.
+This was not an actual browser or visual layout check; that remains unverified.
+
+## Initial-version verification, September 26, 2026
 
 Both inline JavaScript blocks parsed under Node. A temporary direct simulation
 smoke check exercised purchases, partial sales, average-cost accounting,

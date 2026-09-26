@@ -5,9 +5,13 @@ The September 26 handoff and accepted repository plan override the broader GDD.
 
 - **Packaging:** one portable HTML file instead of the reference's proposed
   TypeScript/Vite application. It keeps this checkpoint trivial to open.
-- **Session:** one authored scenario, 18 manual advances instead of the broader
-  reference's 24-step, three-day slice. Intended first trial: roughly 5–10 minutes;
-  this duration is not measured yet. Unlimited actions between advances.
+- **Session:** one authored scenario, now 12 manual advances (initial checkpoint: 18;
+  broader reference: 24 steps across each of three days). Shortened after the
+  creator reported advancing mainly to finish once powers and the profit goal
+  were exhausted. Unlimited actions between advances. Existing events move from
+  steps 3/6/10/14 to 2/4/7/10; closing notice moves from 17 to 11. Event effects,
+  market formula, power strength, power supply, fees, and target are unchanged.
+  Compressed event timing affects outcomes, so this is not a pure UI comparison.
 - **Capital and target:** $1,000 cash; temporary +$100 profit target. Reaching it
   never disables play. The first observed mark-to-market target crossing is
   recorded, and final profit is measured after closing fees.
@@ -37,9 +41,15 @@ The September 26 handoff and accepted repository plan override the broader GDD.
   remove proportional cost rounded to cents; the last sale clears the remainder.
   Realised profit subtracts cost and selling fees. Open profit and wealth use
   current quotes before future sale fees. All remaining positions close at step
-  18 with the same fee. Money and quotes round to cents after each transition.
-- **Information:** normal charts contain observed prices only; no hidden values
-  are rendered unless currently revealed. Debug is explicitly separate and
+  12 with the same fee. Money and quotes round to cents after each transition.
+- **Information:** charts contain observed prices plus a labelled same-step quote without
+  active Influence. It uses the same starting price and current market forces,
+  not a simulated alternate history. No hidden underlying values are rendered
+  unless currently revealed. Market contribution = floor-clamped natural quote
+  minus starting quote; base contribution = quote with base minus natural quote;
+  synergy contribution = final quote minus quote with base. This cent-rounded,
+  floor-aware breakdown exactly reconciles to the observed change. It shows only
+  aggregate market forces, not their hidden-value component. Debug is explicitly separate and
   marks the session debug-assisted when opened. Source code contains scenario
   truth, as is inevitable for a local prototype; this is not a secrecy boundary.
 - **Restart:** repeats this same scenario. No persistence, telemetry or export.
