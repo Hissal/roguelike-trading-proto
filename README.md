@@ -1,6 +1,35 @@
 # Trading prototypes
 
-## Current experiment: three cards, two plays
+## Current experiment: uncertain opportunities
+
+Open **[uncertain-market-prototype.html](uncertain-market-prototype.html)** by
+double-clicking it in a modern browser. No setup or server is needed.
+
+The same three-card/two-play rules now run against independently developing
+company stories. Watch the **Open questions & exposure** panel: it shows what is
+unresolved, when reports arrive, and how much of your wealth each company risks.
+News can move the price sharply before your next trade. Investigate reveals
+current value, not future reports.
+
+**Replay current seed** repeats outcomes. **New scenario** changes follow-throughs;
+the card shuffle stays fixed. You can load a numbered seed to reproduce a run.
+Optional guided tabs below the game demonstrate report gaps and ambiguous
+selloffs. Those reset into labelled guided sessions.
+
+Play a full run and report whether holding cash, splitting positions, sizing down,
+or holding through a fall ever felt worthwhile—and whether all-in still felt
+obviously best. More losses alone would not establish an improvement.
+
+The [spec](.scratch/uncertain-market/spec.md) records exact temporary rules and
+verification. Both scripts parsed; numerical checks across 128 seeds and DOM
+stand-in checks passed. Actual browser playthrough and visual layout remain
+unverified. No dependencies or test suite were added. Earlier playables below
+are preserved unchanged.
+
+The [card-hand feedback](docs/card-hand-playtest.md) also records the proposed
+rival-profit goal. It is a separate candidate, not part of this market-only pass.
+
+## Previous experiment: three cards, two plays
 
 Open **[card-hand-prototype.html](card-hand-prototype.html)** in a modern browser
 by double-clicking the file. No installation, server, or internet is needed.

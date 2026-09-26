@@ -2,7 +2,8 @@
 
 Planning and implementation checkpoint: September 26, 2026. Rules below were
 accepted in the planning conversation; the creator then authorized building
-the prototype. Implemented in `card-hand-prototype.html`. Human playtest pending.
+the prototype. Implemented in `card-hand-prototype.html`. Human feedback is now
+recorded in `docs/card-hand-playtest.md`; the next pass is uncertain-market.
 These are temporary experiment rules, not final-game balance decisions.
 
 ## Question

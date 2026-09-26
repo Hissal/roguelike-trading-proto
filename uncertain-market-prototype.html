@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Uncertain opportunities · Trading prototype</title><style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#101819;color:#e8efea}*{box-sizing:border-box}body{margin:0;max-width:1320px;padding:28px;margin:auto}h1{font-size:30px;margin:4px 0}h2{font-size:20px;margin:0 0 12px}h3{font-size:16px}p{line-height:1.5}small,.muted{color:#b0c0ba}.eyebrow{color:#92d5b7;font-size:12px;letter-spacing:2px;text-transform:uppercase}.top,.stats,.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.top{justify-content:space-between}.stats{margin:22px 0}.stat{flex:1;min-width:140px;background:#1b2929;padding:16px;border-radius:10px}.stat strong{display:block;font-size:24px;margin-top:6px}.layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(300px,1fr);gap:18px}.panel{background:#192525;border:1px solid #344644;padding:20px;border-radius:12px;margin-bottom:18px}.assets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.asset{text-align:left;min-height:104px}.asset strong{display:block;font-size:22px;margin:6px 0}.selected{border-color:#9fe3c3;background:#29463c}button,input{font:inherit;border:1px solid #54716a;border-radius:7px;padding:10px 13px;background:#223732;color:inherit}button{cursor:pointer}button:hover:enabled{background:#36584a}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #eacb83;outline-offset:3px}button:disabled{opacity:.4;cursor:not-allowed}.primary{background:#9fe3c3;color:#10271e;font-weight:700}.primary:hover:enabled{background:#c0f3db}input{width:90px}svg{width:100%;height:150px;display:block}.reveal{border-left:3px solid #9fe3c3;padding:10px 14px;background:#233b33;margin:12px 0}.powers{display:grid;grid-template-columns:1fr 1fr;gap:12px}.power{border:1px solid #466057;padding:14px;border-radius:8px}.power p{font-size:14px;min-height:64px}.power button{width:100%}.feed{max-height:330px;overflow:auto}.entry{border-top:1px solid #344644;padding:10px 0;font-size:14px}.entry p{margin:4px 0}.feedback{padding:12px 16px;background:#2a4037;border-radius:8px;min-height:48px;margin-bottom:18px}.positive{color:#a7e5c4}.negative{color:#ffb7a5}progress{width:100%;accent-color:#9fe3c3;height:8px}summary{cursor:pointer;padding:8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:right;padding:9px 4px;border-bottom:1px solid #344644}th:first-child,td:first-child{text-align:left}.hidden{display:none}#result{border:2px solid #9fe3c3} @media(max-width:850px){.layout{grid-template-columns:1fr}body{padding:16px}.assets{gap:5px}.asset{padding:10px;font-size:13px}.powers{grid-template-columns:1fr}.power p{min-height:0}}
+.movement{background:#20332d;border-radius:8px;padding:14px;margin:14px 0}.movement p{margin:10px 0}.breakdown{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}.breakdown span{flex:1;min-width:95px;font-size:12px;color:#b0c0ba}.breakdown strong{display:block;font-size:18px;margin-top:4px}.stats{max-width:600px}.power p{min-height:80px}.layout{align-items:start}details.panel{padding:12px 20px}#selected svg{height:110px}
+
+.hand{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.card{border:1px solid #54716a;border-radius:8px;padding:14px;display:flex;flex-direction:column}.card p{font-size:14px;flex:1}.card small{min-height:40px;display:block;margin-top:10px}.card button{width:100%}.stats{max-width:none}.layout{grid-template-columns:minmax(0,2fr) minmax(280px,1fr)}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.walksteps{display:flex;gap:8px;flex-wrap:wrap}#hand-summary{line-height:1.6}.effect-list{font-size:14px} @media(max-width:850px){.layout{grid-template-columns:1fr}.hand{grid-template-columns:1fr}.card small{min-height:0}}
+</style></head><body>
+<header class="top"><div><div class="eyebrow">Experiment 03 · throwaway prototype</div><h1>How much will you commit?</h1></div><div class="actions"><label for="scenario-seed">Scenario seed</label><input id="scenario-seed" type="number" min="1" max="999999" value="1"><button id="load-seed">Load seed</button><button id="restart">Replay current seed</button><button id="new-scenario">New scenario</button></div></header>
+<p>Can uncertain, independently developing opportunities make position size and holding time matter?</p>
+<p class="muted">Choose a company → trade and play up to two cards → end turn. One turn advances one market tick.</p>
+<p class="muted" id="scenario-info"></p><details><summary>Rules & card reference</summary><p>Public briefs show what is known and when unresolved reports are due. Outcomes vary by seed; a warning is not a prediction. News and its price reaction arrive together, so you cannot exit at the old quote after seeing a bad report. Investigate reveals current value, not future outcomes. Splitting positions reduces exposure to one company’s surprise but can dilute gains; cash avoids price risk while giving up opportunities.</p><p>Start with $1,000 and aim for $100 profit across 12 turns. Trade whole shares freely at current quotes, paying 0.5% per trade. No borrowing or shorting. Ordinary trades do not move prices. At closing, remaining shares sell automatically with the same fee.</p><p>Draw three cards per turn, play up to two, and discard the rest. No replacement draws. The deck has two copies of each of seven powers. When it runs out, shuffle the discard pile and finish drawing. Active effects survive discarded cards. Restart repeats the same market and shuffle.</p><p>End turn applies incoming news and resolves one tick before showing the new quotes and news together. Effects then expire and the next hand arrives. Stabilize and Accelerate last one tick; pressure lasts three ticks. Only one pressure effect per company. Stabilize and Accelerate can combine, but duplicate copies cannot stack on the same company.</p><div id="reference"></div></details>
+<div id="stats" class="stats"></div><div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+<section id="result" class="panel hidden" tabindex="-1"></section>
+<div class="layout"><main><section class="panel"><h2>Choose an opportunity</h2><div id="assets" class="assets"></div><div id="selected"></div><label for="quantity">Shares</label> <input id="quantity" type="number" min="1" step="1" value="1"><div id="preview" class="muted" style="margin:12px 0"></div><div class="actions"><button id="buy">Buy shares</button><button id="sell">Sell shares</button></div></section>
+<section class="panel"><h2>Your hand</h2><p id="hand-summary"></p><div id="hand" class="hand"></div></section>
+<details class="panel"><summary>Positions & accounting</summary><div id="positions"></div></details></main>
+<aside><section class="panel"><h2 id="step"></h2><progress id="progress" max="12" value="0"></progress><p id="turn-summary"></p><button id="advance" class="primary" style="width:100%">End turn →</button><h3>Active commitments</h3><div id="effects" class="effect-list"></div></section>
+<section class="panel"><h2>Open questions & exposure</h2><div id="outlooks"></div></section><section class="panel"><h2>Latest news</h2><div id="news"></div><details><summary>Earlier news</summary><div id="news-history" class="feed"></div></details></section>
+<details class="panel"><summary>Draw & discard piles</summary><p id="piles"></p><div id="discard"></div></details>
+<details class="panel"><summary>Your activity & discarded hands</summary><div id="activity" class="feed"></div><div id="turn-history"></div></details></aside></div>
+<details class="panel" id="walkthroughs"><summary>Guided walkthroughs · separate from your playtest</summary><p>These reset the session with an arranged hand. Use them to inspect rules; restart the playtest afterwards for the ordinary shuffled deck.</p><div class="tabs" id="walk-tabs" role="tablist" aria-label="Guided scenarios"></div><div id="walk-body" role="tabpanel"></div></details>
+<details id="debug"><summary>Debug inspection · spoilers, keep closed during playtests</summary><p>Opening this marks the session debug-assisted.</p><pre id="debug-state"></pre></details>
+<script>
+// Pure, deterministic state transitions. No DOM and no trading-dependent randomness.
+const Engine=(()=>{
+ const steps=12;
+ const names=['Forge Works','Harbor Freight','Lumen Grid'];
+ const descriptions=['Makes machinery. Orders help its business; high energy costs hurt margins.','Moves cargo. Reopening routes helps deliveries; congestion creates delays.','Supplies power. Strong demand helps earnings; price caps can limit them.'];
+ const opening='Three unresolved stories: Forge faces a maintenance review, Lumen is bidding for a power contract, and Harbor is testing a new route. Reports arrive separately; initial reactions can overstate or understate the eventual outcome.';
+ const openingOutlooks=[
+  'Maintenance review due tick 1; engineering findings tick 4. Repairs may be limited or expose a longer shutdown. A sharp initial fall need not mean recovery is coming.',
+  'Route pilot report due tick 3; operating results tick 7. Early interest may become repeat business or fail to cover costs.',
+  'Contract shortlist due tick 2; award decision tick 5. Enthusiasm can reverse abruptly if the bid loses.'
+ ];
+ function makeEvents(seed){
+  let rng=(seed^0x9e3779b9)>>>0;
+  const flip=()=>{rng=(rng+0x6d2b79f5)>>>0;let n=rng;n=Math.imul(n^(n>>>15),n|1);n^=n+Math.imul(n^(n>>>7),n|61);return ((n^(n>>>14))>>>0)/4294967296<.5;};
+  const repair=flip(),contract=flip(),route=flip(),renewal=flip(),audit=flip(),costs=flip();
+  const event=(asset,text,value,pressure,shock,outlook,kind='Confirmed report')=>({asset,text,value,pressure,shock,outlook,kind});
+  return {
+   1:event(0,'Forge announces an unplanned maintenance stop. Sellers react sharply, but engineers have not established its extent. Findings are due at tick 4.',-2,-2,-11,'Findings tick 4: a contained repair could reverse the selloff; deeper damage could cause another fall.','Initial report · extent unresolved'),
+   2:event(2,'Lumen makes the contract shortlist. Buyers rush in, although the award is still contested. Decision due tick 5.',0,2,9,'Award tick 5: winning supports earnings; losing could erase the shortlist rally.','Shortlist · not an award'),
+   3:event(1,'Harbor’s route pilot attracts customers. Management has not yet established whether repeat orders cover operating costs. Results due tick 7.',0,.5,1,'Operating results tick 7: repeat customers may support expansion, or weak margins may make it unviable.','Pilot update · economics unresolved'),
+   4:repair?event(0,'Forge engineers find limited damage. The stoppage also enabled an efficiency upgrade. Initial selling overstated the lasting cost.',8,2,14,'Contained repair confirmed. A customer renewal remains undecided; terms update expected tick 8, decision tick 10.'):event(0,'Forge engineers uncover wider damage. The plant will stay shut longer than the initial report suggested.',-20,-2,-15,'Longer shutdown confirmed. A customer renewal remains undecided; terms update expected tick 8, decision tick 10.'),
+   5:contract?event(2,'Lumen wins the contract, improving its earnings outlook. The early rally had anticipated some of this success.',15,1,7,'Contract won. A tariff review can still affect margins; scope update tick 9, ruling tick 11.'):event(2,'Lumen loses the contract. Buyers unwind positions built during the shortlist rally; the price gaps down before new trades can be placed.',-18,-3,-22,'Bid lost. A tariff review can still affect margins; scope update tick 9, ruling tick 11.'),
+   6:event(1,'Harbor sees repeat bookings, but fuel and overtime costs remain unsettled. The operating report at tick 7 will determine whether this is profitable growth.',0,.5,0,'Operating results next tick. Bookings alone do not establish profit.','Public evidence · outcome unresolved'),
+   7:route?event(1,'Harbor’s pilot earns a sustainable margin. Repeat orders justify expanding the route.',16,2,11,'Profitable route confirmed. A fuel-supply settlement is still open and will resolve at closing tick 12.'):event(1,'Harbor’s pilot loses money despite repeat bookings. Operating costs exceed what customers will pay.',-16,-2,-14,'Loss-making pilot confirmed. A fuel-supply settlement is still open and will resolve at closing tick 12.'),
+   8:event(0,'Forge’s largest customer is negotiating a renewal. Volume could increase, but the customer is also considering another supplier. Decision at tick 10.',0,0,0,'Renewal tick 10: a larger order or a lost customer. Current valuation does not reveal the decision.','Negotiations · no agreement'),
+   9:event(2,'Lumen’s tariff review enters its final stage. Regulators may allow cost recovery or impose a restrictive cap. Ruling at tick 11.',0,0,-2,'Ruling tick 11: cost recovery or a restrictive cap. Current valuation does not reveal the decision.','Policy review · ruling pending'),
+   10:renewal?event(0,'Forge secures the customer renewal with additional volume.',12,1,10,'Renewal secured. No further scheduled company report before closing.'):event(0,'Forge’s customer switches suppliers. The lost order reduces the earnings outlook.',-18,-2,-19,'Customer lost. No further scheduled company report before closing.'),
+   11:audit?event(2,'Lumen is allowed to recover its costs through tariffs. Harbor’s fuel settlement remains due at closing next tick.',10,1,9,'Cost recovery approved. No further scheduled company report before closing.'):event(2,'Lumen receives a restrictive tariff cap, compressing margins. Harbor’s fuel settlement remains due at closing next tick.',-16,-2,-18,'Restrictive cap confirmed. No further scheduled company report before closing.'),
+   12:costs?event(1,'Harbor agrees a favorable fuel settlement. Closing positions settle at the resulting quotes.',12,1,10,'Fuel settlement complete; session closed.'):event(1,'Harbor must absorb a costly fuel settlement. Closing positions settle after the price reaction.',-16,-2,-17,'Fuel settlement complete; session closed.')
+  };
+ }
+ const round=n=>Math.round((n+Number.EPSILON)*100)/100;
+ const fee=n=>round(n*.005);
+ const baseInitial=()=>({step:0,cash:1000,realized:0,fees:0,ended:false,targetStep:null,debug:false,trades:0,boosts:0,message:'Read the three opportunities, then choose where to commit your cash and powers.',news:[{step:0,text:opening,kind:'Opening brief · unresolved opportunities'}],log:[],assets:names.map((name,i)=>({name,description:descriptions[i],price:100,value:[104,102,108][i],pressure:0,outlook:openingOutlooks[i],qty:0,cost:0,realized:0,revealUntil:0,effect:null,stabilize:false,accelerate:false,history:[100],movement:null}))});
+ const revealed=(s,a)=>s.step<a.revealUntil;
+ const equity=s=>round(s.cash+s.assets.reduce((n,a)=>n+a.qty*a.price,0));
+ const record=(s,text)=>{s.message=text;s.log.unshift({step:s.step,text});};
+ function sell(s,a,q){const gross=round(q*a.price),f=fee(gross),basis=q===a.qty?a.cost:round(a.cost*q/a.qty),profit=round(gross-f-basis);s.cash=round(s.cash+gross-f);a.qty-=q;a.cost=round(a.cost-basis);a.realized=round(a.realized+profit);s.realized=round(s.realized+profit);s.fees=round(s.fees+f);return profit;}
+ function act(state,action){const s=structuredClone(state),a=s.assets[action.asset];if(s.ended)return s;
+  if(action.type==='buy'||action.type==='sell'){
+   const q=Number(action.qty);if(!a||!Number.isSafeInteger(q)||q<1){s.message='Choose a positive whole number of shares.';return s;}
+   const gross=round(q*a.price),f=fee(gross),total=round(gross+f);
+   if(action.type==='buy'){if(!Number.isFinite(total)||total>s.cash){s.message='Not enough cash for these shares and their fee.';return s;}s.cash=round(s.cash-total);a.qty+=q;a.cost=round(a.cost+total);s.fees=round(s.fees+f);record(s,`Bought ${q} ${a.name} for $${total.toFixed(2)}, including $${f.toFixed(2)} fee.`);}
+   else{if(q>a.qty){s.message='You do not own that many shares.';return s;}const profit=sell(s,a,q);record(s,`Sold ${q} ${a.name}. Realised profit: $${profit.toFixed(2)} after fees.`);}s.trades++;
+  }else if(action.type==='card'){
+   const problem=cardReason(s,action.index,action.asset);
+   if(problem){s.message=problem;return s;}
+   const card=s.hand[action.index],kind=card==='echo'?s.played[0].kind:card;
+   applyCard(s,kind,action.asset);
+   s.hand.splice(action.index,1);s.discard.push(card);
+   s.played.push({card,kind,asset:action.asset});s.cardsPlayed++;
+   record(s,`${labels[card]}${card==='echo'?` → ${labels[kind]}`:''} on ${a.name}. ${effectText(s,a)} ${2-s.played.length} card plays left.`);
+  }else if(action.type==='advance'){
+   const unused=s.hand.map(c=>labels[c]).join(', ');
+   s.discard.push(...s.hand);s.hand=[];
+   s.turnHistory.push({turn:s.step+1,played:s.played.map(p=>`${labels[p.card]} on ${s.assets[p.asset].name}`),unused});
+   s.played=[];
+   s.step++;const event=s.events[s.step];if(event){s.news.unshift({step:s.step,text:event.text,kind:event.kind});const target=s.assets[event.asset];target.value+=event.value;target.pressure=event.pressure;target.outlook=event.outlook;}
+   s.assets.forEach((a,i)=>{
+    const before=a.price,noise=(((s.step*17+i*11)%13)-6)*.12;
+    const correction=.12*(a.value-before),natural=correction+a.pressure+noise+(event?.asset===i?event.shock:0);
+    const accelerated=natural+(a.accelerate?correction:0);
+    const shaped=a.stabilize?accelerated*.5:accelerated;
+    const base=a.effect?(a.effect.kind==='suppress'?-3:3):0,bonus=a.effect?.boost?3:0;
+    const quote=delta=>round(Math.max(10,before+delta));
+    const without=quote(natural),afterAccelerate=quote(accelerated),afterStabilize=quote(shaped),withBase=quote(shaped+base);
+    a.price=quote(shaped+base+bonus);
+    const parts=[{label:'Market forces',amount:round(without-before)}];
+    // Group simultaneous shaping so its interaction is not presented as two
+    // independent contributions. Never render the hidden valuation input.
+    const shaping=round(afterStabilize-without);
+    if(a.accelerate||a.stabilize)parts.push({label:a.accelerate&&a.stabilize?'Accelerate + Stabilize':a.accelerate?'Accelerate':'Stabilize',amount:shaping});
+    if(a.effect)parts.push({label:labels[a.effect.kind],amount:round(withBase-afterStabilize)});
+    if(a.effect?.boost)parts.push({label:'Informed Influence',amount:round(a.price-withBase)});
+    a.movement={step:s.step,before,without,parts,actual:round(a.price-before),powered:!!(a.effect||a.accelerate||a.stabilize)};
+    a.stabilize=false;a.accelerate=false;
+    a.history.push(a.price);a.pressure=round(a.pressure*.65);
+    if(a.effect&&--a.effect.remaining===0)a.effect=null;
+   });
+   record(s,`Discarded: ${unused||'none'}. Market advanced to tick ${s.step}.${event?' New public news.':''}${s.assets.some(a=>a.revealUntil===s.step)?' A revelation expired.':''}`);
+   if(s.step===steps){s.assets.forEach(a=>{if(a.qty){const q=a.qty,p=sell(s,a,q);s.log.unshift({step:s.step,text:`Closing sale: ${q} ${a.name}; realised profit $${p.toFixed(2)} after fee.`});}});s.ended=true;s.message='Experiment complete. All remaining shares were sold at closing quotes with the 0.5% fee.';}else draw(s);
+  }
+  if(s.targetStep===null&&equity(s)>=1100)s.targetStep=s.step;return s;
+ }
+
+ const labels={investigate:'Investigate',influence:'Influence',suppress:'Suppress',stabilize:'Stabilize',accelerate:'Accelerate',extend:'Extend',echo:'Echo'};
+ const descriptionsByCard={
+  investigate:'Reveal live underlying value now and through the next two results. Hides on the third tick.',
+  influence:'+$3 per tick for 3 ticks. If revealed at activation: +$6 per tick, locked in. Cannot replace active pressure.',
+  suppress:'−$3 per tick for 3 ticks. Underlying value stays unchanged. Cannot replace active pressure.',
+  stabilize:'Halve natural market movement next tick—both rises and falls. Card pressure applies afterwards.',
+  accelerate:'Double correction toward underlying value next tick. News pressure and fluctuations stay unchanged.',
+  extend:'Add 1 tick to active Influence or Suppress. Each pressure effect can be extended only once.',
+  echo:'Use as your second play. Repeat your first card on a different eligible company; its conditions are checked again.'
+ };
+ function shuffle(s,cards){
+  const pile=[...cards];
+  for(let i=pile.length-1;i>0;i--){s.seed=(Math.imul(1664525,s.seed)+1013904223)>>>0;const j=Math.floor(s.seed/4294967296*(i+1));[pile[i],pile[j]]=[pile[j],pile[i]];}
+  return pile;
+ }
+ function draw(s){while(s.hand.length<3){if(!s.deck.length){if(!s.discard.length)break;s.deck=shuffle(s,s.discard);s.discard=[];s.reshuffles++;}s.hand.push(s.deck.pop());}}
+ function initial(scenarioSeed=1){const s=baseInitial();Object.assign(s,{scenarioSeed,events:makeEvents(scenarioSeed),seed:260926,deck:[],discard:[],hand:[],played:[],cardsPlayed:0,reshuffles:0,turnHistory:[],guided:false});s.deck=shuffle(s,Object.keys(labels).flatMap(c=>[c,c]));draw(s);s.message='Draw three, play up to two. Choose a company, trade freely, and decide which card to leave behind.';return s;}
+ function targetReason(s,kind,index){
+  const a=s.assets[index];if(!a)return 'Choose a company.';
+  if(kind==='investigate'&&revealed(s,a))return 'Already revealed; choose another company.';
+  if((kind==='influence'||kind==='suppress')&&a.effect)return 'Pressure already active; choose another company.';
+  if(kind==='stabilize'&&a.stabilize)return 'Already stabilized for the next tick.';
+  if(kind==='accelerate'&&a.accelerate)return 'Already accelerated for the next tick.';
+  if(kind==='extend'&&!a.effect)return 'Needs active Influence or Suppress.';
+  if(kind==='extend'&&a.effect.extended)return 'This pressure effect has already been extended.';
+  return '';
+ }
+ function cardReason(s,index,asset){
+  if(s.ended)return 'Session complete.';
+  if(s.played.length>=2)return 'Two cards played. End the turn for a fresh hand.';
+  const card=s.hand[index];if(!card)return 'Choose a card in your hand.';
+  if(card==='echo'){
+   if(s.played.length!==1)return 'Play another card first.';
+   if(s.played[0].asset===asset)return 'Echo needs a different company.';
+   return targetReason(s,s.played[0].kind,asset);
+  }
+  return targetReason(s,card,asset);
+ }
+ function applyCard(s,kind,index){const a=s.assets[index];
+  if(kind==='investigate')a.revealUntil=s.step+3;
+  if(kind==='influence'||kind==='suppress'){const boost=kind==='influence'&&revealed(s,a);a.effect={kind,remaining:3,amount:kind==='suppress'?-3:boost?6:3,boost,extended:false};if(boost)s.boosts++;}
+  if(kind==='stabilize')a.stabilize=true;
+  if(kind==='accelerate')a.accelerate=true;
+  if(kind==='extend'){a.effect.remaining++;a.effect.extended=true;}
+ }
+ function effectText(s,a){return [revealed(s,a)?`Revealed until tick ${a.revealUntil}.`:'',a.effect?`${labels[a.effect.kind]}: ${a.effect.amount>0?'+':''}$${a.effect.amount} for ${a.effect.remaining} ticks${a.effect.boost?' (Informed Influence)':''}${a.effect.extended?', extended':''}.`:'',a.stabilize?'Stabilize next tick.':'',a.accelerate?'Accelerate next tick.':''].filter(Boolean).join(' ')||'No active effects.';}
+ return {steps,initial,act,fee,round,revealed,equity,labels,descriptionsByCard,cardReason,effectText};
+})();
+</script>
+<script>
+let state=Engine.initial(),selection=0,walk=null,walkStep=0;
+const $=id=>document.getElementById(id),money=n=>'$'+n.toFixed(2),signed=n=>(n>=0?'+':'−')+money(Math.abs(n));
+function dispatch(action){state=Engine.act(state,action);render();if(state.ended)$('result').focus();}
+function preview(){const a=state.assets[selection],q=Number($('quantity').value),valid=Number.isSafeInteger(q)&&q>0,gross=Engine.round(q*a.price),fee=Engine.fee(gross);$('preview').textContent=valid?`Buy total ${money(Engine.round(gross+fee))} · Sell proceeds ${money(Engine.round(gross-fee))} · Fee ${money(fee)} (0.5%)`:'Enter a positive whole number of shares.';$('buy').disabled=state.ended||!valid||gross+fee>state.cash;$('sell').disabled=state.ended||!valid||q>a.qty;}
+function render(){const a=state.assets[selection],profit=Engine.round(Engine.equity(state)-1000);
+ $('stats').innerHTML=[['Cash to trade',money(state.cash)],['Profit / $100 target',signed(profit)],['Card plays left',state.ended?'Closed':2-state.played.length]].map(([label,value])=>`<div class="stat"><small>${label}</small><strong>${value}</strong></div>`).join('');
+ $('feedback').textContent=state.message;
+ $('scenario-info').textContent=`Scenario ${state.scenarioSeed}. Same opening evidence; uncertain follow-throughs. Replaying this seed repeats outcomes. New scenarios keep the card shuffle fixed to focus on market behavior.`;
+ const wealth=Engine.equity(state);
+ $('outlooks').innerHTML=state.assets.map(a=>`<p><b>${a.name} · ${Math.round(100*a.qty*a.price/wealth)}% of wealth</b><br>${a.outlook}</p>`).join('')+`<p>Cash: ${Math.round(100*state.cash/wealth)}% of wealth. Reports can move the quote sharply before you can sell.</p>`;
+ $('assets').innerHTML=state.assets.map((a,i)=>`<button class="asset ${selection===i?'selected':''}" aria-pressed="${selection===i}" data-select="${i}">${a.name}<strong>${money(a.price)}</strong><small>${a.qty} shares held${a.movement?` · ${signed(a.movement.actual)}`:''}</small></button>`).join('');
+ document.querySelectorAll('[data-select]').forEach(b=>b.onclick=()=>{selection=Number(b.dataset.select);render();});
+ const m=a.movement,lo=Math.min(...a.history,m?.without??a.price)-3,hi=Math.max(...a.history,m?.without??a.price)+3;
+ const x=i=>10+i*480/Engine.steps,y=p=>135-(p-lo)/(hi-lo)*115,points=a.history.map((p,i)=>`${x(i)},${y(p)}`).join(' ');
+ $('selected').innerHTML=`<p class="muted">${a.description}</p><svg viewBox="0 0 500 150" role="img" aria-label="${a.name} price history, current quote ${money(a.price)}"><polyline points="${points}" fill="none" stroke="#9fe3c3" stroke-width="3"/>${m?.powered?`<line x1="${x(state.step)}" y1="${y(m.without)}" x2="${x(state.step)}" y2="${y(a.price)}" stroke="#eacb83" stroke-dasharray="4 3"/><circle cx="${x(state.step)}" cy="${y(m.without)}" r="5" fill="#192525" stroke="#eacb83" stroke-width="2"/>`:''}<circle cx="${x(state.step)}" cy="${y(a.price)}" r="4" fill="#9fe3c3"/></svg><small>● Actual quote${m?.powered?' · ○ Without this tick’s price cards':''}</small>
+ <div class="movement"><b>${m?`Tick ${m.step} · ${money(m.before)} → ${money(a.price)}`:'Opening quote'}</b>${m?`<div class="breakdown">${m.parts.map(p=>`<span>${p.label}<strong>${signed(p.amount)}</strong></span>`).join('')}<span>Actual movement<strong>${signed(m.actual)}</strong></span></div><p>${m.powered?`Cards changed this tick’s quote by ${signed(Engine.round(a.price-m.without))} per share. Without them: ${money(m.without)}.`:'No price-affecting cards were active this tick.'}</p><small>Same starting quote; not an alternate run. Contributions reconcile after rounding and the $10 floor.${m.parts.some(p=>p.label==='Accelerate + Stabilize')?' Combined shaping is shown together.':''}</small>`:'<p>End a turn to see market movement and card contributions.</p>'}</div>
+ ${Engine.revealed(state,a)?`<div class="reveal"><b>Revealed value ${money(a.value)}</b><br><small>Current value, not future reports or a promised price. Hides at tick ${a.revealUntil}.</small></div>`:'<p class="muted">Underlying value hidden · Investigate to reveal it.</p>'}<p>${Engine.effectText(state,a)}</p>`;
+ $('hand-summary').textContent=state.ended?'Session closed.':`Playing on ${a.name}. ${2-state.played.length} plays left. ${state.hand.length} cards will be discarded if you end now.${state.played.length?' Played: '+state.played.map(p=>`${Engine.labels[p.card]} on ${state.assets[p.asset].name}`).join('; ')+'.':''}`;
+ $('hand').innerHTML=state.hand.map((c,i)=>{const reason=Engine.cardReason(state,i,selection),kind=c==='echo'?state.played[0]?.kind:c;const bonus=kind==='influence'&&!reason?` Will activate at +$${Engine.revealed(state,a)?6:3} per tick${Engine.revealed(state,a)?' with Informed Influence':''}.`:'';return `<article class="card"><h3>${Engine.labels[c]}</h3><p>${Engine.descriptionsByCard[c]}${c==='echo'&&kind?` Copying ${Engine.labels[kind]}.`:''}</p><button data-card="${i}" ${reason?'disabled':''}>Play ${Engine.labels[c]}</button><small>${reason||`Target: ${a.name}.${bonus}`}</small></article>`;}).join('')||'<p class="muted">No cards in hand.</p>';
+ document.querySelectorAll('[data-card]').forEach(b=>b.onclick=()=>dispatch({type:'card',index:Number(b.dataset.card),asset:selection}));
+ $('positions').innerHTML=`<table><thead><tr><th>Company</th><th>Shares</th><th>Cost paid</th><th>Open profit*</th></tr></thead><tbody>${state.assets.map(a=>`<tr><td>${a.name}</td><td>${a.qty}</td><td>${money(a.cost)}</td><td>${signed(Engine.round(a.qty*a.price-a.cost))}</td></tr>`).join('')}</tbody></table><p><small>Realised profit ${signed(state.realized)} · Fees ${money(state.fees)}<br>*Open profit excludes future selling fees. Cost includes buying fees.</small></p>`;
+ $('step').textContent=state.ended?'12 turns complete':`Turn ${state.step+1} / 12`;$('progress').value=state.step;
+ $('turn-summary').textContent=state.ended?'All positions settled.':`${state.step} market ticks resolved. End turn discards ${state.hand.length} remaining cards and resolves tick ${state.step+1}.`;
+ $('advance').disabled=state.ended;$('advance').textContent=state.step===11?'End turn & close session →':'End turn →';
+ $('effects').innerHTML=state.assets.map(a=>`<p><b>${a.name}</b><br>${Engine.effectText(state,a)}</p>`).join('');
+ $('piles').textContent=`Draw pile: ${state.deck.length} · Discard pile: ${state.discard.length} · Hand: ${state.hand.length} · Reshuffles: ${state.reshuffles}. Draw order is hidden.`;
+ $('discard').textContent=Object.keys(Engine.labels).map(c=>`${Engine.labels[c]}: ${state.discard.filter(x=>x===c).length}`).join(' · ');
+ const news=state.news.map(n=>`<div class="entry"><small>Tick ${n.step} · ${n.kind}</small><p>${n.text}</p></div>`);$('news').innerHTML=news[0];$('news-history').innerHTML=news.slice(1).join('')||'<p>No earlier news.</p>';
+ $('activity').innerHTML=state.log.map(n=>`<div class="entry"><small>After tick ${n.step}</small><p>${n.text}</p></div>`).join('')||'<p>No actions yet.</p>';
+ $('turn-history').innerHTML=state.turnHistory.slice().reverse().map(t=>`<p><b>Turn ${t.turn}</b><br>Played: ${t.played.join('; ')||'none'}<br>Left unused: ${t.unused}</p>`).join('');
+ $('result').classList.toggle('hidden',!state.ended);if(state.ended)$('result').innerHTML=`<div class="eyebrow">Experiment complete${state.guided?' · guided scenario':''}${state.debug?' · debug-assisted':''}</div><h2>Final profit ${signed(profit)}</h2><p>${state.cardsPlayed} cards played · ${state.trades} manual trades · ${money(state.fees)} fees.</p><p>${profit>=100?'Finished above the $100 target.':state.targetStep!==null?'Touched the target but finished below it.':'Finished below the $100 target.'}</p><p>Did you reduce a position, keep cash, or hold multiple companies for a reason? Was a fall worth holding through? Did any loss follow a risk you understood? Was going all in still always obvious?</p><small>Stop here and share feedback before expanding the experiment. Restart repeats the market and shuffle; familiarity affects results.</small>`;
+ $('debug-state').textContent=$('debug').open?JSON.stringify(state,null,2):'';preview();renderWalk();
+}
+const walks=[
+ {name:'A report can gap',hand:['investigate','influence','stabilize'],text:'Buy Lumen, reveal its current value, then resolve the shortlist and award. Current value does not reveal the award. The result depends on your scenario seed.',steps:[['Buy nine Lumen shares',{type:'buy',qty:9,asset:2}],['Investigate Lumen',{type:'card',index:0,asset:2}],['Resolve tick 1',{type:'advance'}],['Shortlist rally',{type:'advance'}],['Resolve tick 3',{type:'advance'}],['Forge findings arrive separately',{type:'advance'}],['Award and price reaction arrive together',{type:'advance'}]]},
+ {name:'Fear or deterioration?',hand:['investigate','suppress','stabilize'],text:'Watch Forge sell off at tick 1. Its tick-4 findings can justify a recovery or another fall. The initial headline is the same across seeds.',steps:[['Maintenance selloff',{type:'advance'}],['Other company receives news',{type:'advance'}],['Pilot report elsewhere',{type:'advance'}],['Forge findings: inspect price and news',{type:'advance'}]]},
+ {name:'Choose two',hand:['investigate','influence','stabilize'],text:'Investigate and Influence combine, but leave Stabilize unused. The effect survives hand discard.',steps:[['Investigate Forge',{type:'card',index:0,asset:0}],['Influence Forge (+$6)',{type:'card',index:0,asset:0}],['Try the third card (rejected)',{type:'card',index:0,asset:1}],['End turn; inspect contribution',{type:'advance'}]]},
+ {name:'Echo targeting',hand:['influence','echo','suppress'],text:'Echo needs a first play and a different company. It uses the second play.',steps:[['Try Echo first (rejected)',{type:'card',index:1,asset:1}],['Influence Forge',{type:'card',index:0,asset:0}],['Try Echo on Forge (rejected)',{type:'card',index:0,asset:0}],['Echo Influence on Harbor',{type:'card',index:0,asset:1}],['End turn; both effects resolve',{type:'advance'}]]},
+ {name:'Extend & expiry',hand:['suppress','extend','extend'],text:'Extend adds one tick, only once per pressure activation. Inspect the final affected tick after the effect disappears.',steps:[['Suppress Forge',{type:'card',index:0,asset:0}],['Extend Forge to four ticks',{type:'card',index:0,asset:0}],['End turn: three ticks remain',{type:'advance'}],['Resolve next tick',{type:'advance'}],['Resolve third tick',{type:'advance'}],['Resolve final tick; inspect breakdown',{type:'advance'}]]}
+];
+function renderWalk(){
+ $('walk-tabs').innerHTML=walks.map((w,i)=>`<button role="tab" id="walk-tab-${i}" aria-controls="walk-body" aria-selected="${walk===i}" data-walk="${i}">${w.name}</button>`).join('');
+ document.querySelectorAll('[data-walk]').forEach(b=>b.onclick=()=>startWalk(Number(b.dataset.walk)));
+ if(walk===null){$('walk-body').innerHTML='<p>Select a walkthrough to reset into its arranged hand.</p>';return;}
+ const w=walks[walk];$('walk-body').setAttribute('aria-labelledby',`walk-tab-${walk}`);
+ $('walk-body').innerHTML=`<p><b>Guided session.</b> ${w.text}</p><div class="walksteps">${w.steps.map(([label],i)=>`<button data-walkstep="${i}" ${i!==walkStep?'disabled':''}>${i+1}. ${label}</button>`).join('')}</div>${walkStep===w.steps.length?'<p>Walkthrough complete. Inspect or free-play, then restart for an ordinary playtest.</p>':''}`;
+ document.querySelectorAll('[data-walkstep]').forEach(b=>b.onclick=()=>{const action=w.steps[walkStep][1];if(action.asset!==undefined)selection=action.asset;walkStep++;dispatch(action);});
+}
+function startWalk(i){if((state.step||state.log.length)&&!confirm('Start this guided walkthrough? Current session will be reset.'))return;state=Engine.initial(state.scenarioSeed);state.deck.push(...state.hand);state.hand=[];for(const c of walks[i].hand){state.deck.splice(state.deck.indexOf(c),1);state.hand.push(c);}state.guided=true;state.message='Guided session with an arranged opening hand. Follow the buttons below or free-play.';selection=0;walk=i;walkStep=0;$('quantity').value=1;$('debug').open=false;render();}
+ $('reference').innerHTML=Object.entries(Engine.descriptionsByCard).map(([c,d])=>`<p><b>${Engine.labels[c]}:</b> ${d}</p>`).join('');
+ $('quantity').oninput=preview;$('buy').onclick=()=>dispatch({type:'buy',asset:selection,qty:$('quantity').value});$('sell').onclick=()=>dispatch({type:'sell',asset:selection,qty:$('quantity').value});$('advance').onclick=()=>dispatch({type:'advance'});
+ function resetScenario(seed){if(!state.ended&&(state.step||state.log.length)&&!confirm('Reset the session? Current progress will be lost.'))return;state=Engine.initial(seed);selection=0;walk=null;walkStep=0;$('quantity').value=1;$('scenario-seed').value=seed;$('debug').open=false;render();window.scrollTo(0,0);}
+ $('restart').onclick=()=>resetScenario(state.scenarioSeed);
+ $('new-scenario').onclick=()=>resetScenario(state.scenarioSeed%999999+1);
+ $('load-seed').onclick=()=>{const seed=Number($('scenario-seed').value);if(!Number.isSafeInteger(seed)||seed<1||seed>999999){$('feedback').textContent='Choose a whole scenario seed from 1 to 999999.';return;}resetScenario(seed);};
+ $('debug').ontoggle=()=>{if($('debug').open)state.debug=true;render();};render();
+</script></body></html>

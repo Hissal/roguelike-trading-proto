@@ -1,5 +1,11 @@
 # Next prototype direction — September 26, 2026
 
+Latest checkpoint: the creator played the card experiment, reported persistent
+all-in dominance, and authorized the uncertain-market pass. See
+[feedback and future candidates](card-hand-playtest.md) and the
+[current spec](../.scratch/uncertain-market/spec.md). The historical direction
+below led to the preserved card-hand experiment.
+
 Status: direction endorsed by the creator. Subsequent planning selected the
 turn, hand, deck, and card rules in the
 [bounded experiment spec](../.scratch/card-hand-discard/spec.md).

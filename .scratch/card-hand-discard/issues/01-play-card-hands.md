@@ -11,7 +11,12 @@ Spec: `../spec.md`. Playable: `card-hand-prototype.html` on prototype branch
 
 ## Answer
 
-Implementation is complete; design verdict awaits human playtest. Seven powers,
+Creator playtest: better than before, but predictable all-in concentration made
+many cards irrelevant. Suppress created useful preparation for a future entry;
+Echo offered little reason to split capital. See `docs/card-hand-playtest.md`.
+The authorized follow-up is `.scratch/uncertain-market/spec.md`.
+
+Implementation is complete. Seven powers,
 a 14-card deck, three-card hands, up to two plays, and one tick per turn are
 available in a portable HTML file. Three optional guided walkthroughs demonstrate
 choice, Echo targeting, and effect duration. Verification and limitations are
