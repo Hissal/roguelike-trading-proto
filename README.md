@@ -1,17 +1,31 @@
 # Trading prototypes
 
-## Switchable presentation experiment · round two
+## Switchable presentation experiment · round three
 
 Open **[presentation-prototype.html](presentation-prototype.html)** by
 double-clicking it in a modern browser. It is a portable, throwaway HTML file;
 no server, installation, or network access is needed.
 
-- **A — Asset desk (standard):** wide company dossiers with history, accounting,
-  local trading, price contributions, powers and evidence grouped per asset.
-- **B — Company board (game-like):** three company tiles with allocation banners,
-  local trades and the complete information for each company.
-- **C — Tactics table (most gamified):** choose a card from the hand, then play it
-  onto an eligible company territory. Each territory retains its complete data.
+- **A — Guild board:** a dark green board with the hand below the companies.
+- **B — Command room:** a blue-green board with a vertical hand on the right.
+- **C — Arcane exchange (default):** a purple-and-gold board with the hand above
+  the companies, building on the preferred round-two aesthetic.
+
+Every scene uses **select card, then select company**. Card icons are restored.
+Click the selected card again, Cancel selection, or Escape to cancel without
+spending a play. Selection and trade quantities survive scene switches.
+
+The page uses a fixed viewport instead of a scrolling document. Quotes, charts,
+holdings, price contributions, powers, trades and card targets stay on the board.
+Company briefs, news history, card references, activity and session controls open
+in a modal side drawer with its own scrolling. Closing it returns to the same
+board and selection. Brief buttons show a report time and compact public headline.
+
+Desktop compositions are designed around one-screen play. Below 900px wide,
+all three quote summaries remain visible while company tabs show one detailed
+asset at a time. Very small or dense viewports retain a local company-panel
+scroll fallback so controls are reachable; the document itself never scrolls.
+Actual viewport fit is **not visually verified** under the browser restriction.
 
 All three use dark palettes. Graphs and exact price contributions are always
 visible. A hollow chart marker and numeric quote show the price without that
@@ -23,6 +37,11 @@ layout, liked A's dark colors, and found C's light palette uncomfortable and its
 information difficult to use. The unchanged first set is preserved as
 [presentation-round-one-prototype.html](presentation-round-one-prototype.html).
 Its source is also captured at `bf04c5b`.
+Round two is preserved in
+[presentation-round-two-prototype.html](presentation-round-two-prototype.html)
+and commit `51d351b`. The creator preferred C's aesthetic and card-first flow,
+but found the page scrolling disorienting and the layout unplayable. See
+[round-two feedback](docs/presentation-round-two-feedback.md).
 
 Use the floating bottom arrows or keyboard Left/Right to cycle. The same live
 session and selected company carry across scenes. Arrow keys stay native while

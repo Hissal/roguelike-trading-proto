@@ -1,8 +1,41 @@
 # Three lenses on one market
 
-Status: round two implemented; awaiting human presentation feedback.
+Status: round three implemented; awaiting human screen-fit feedback.
 
-## Round two (current)
+## Round three (current)
+
+The creator preferred C's aesthetic and card-first targeting but found whole-page
+scrolling disorienting and the scene unplayable. B/C were more interesting than
+A. They requested restored card icons, fixed-screen gameplay, and secondary
+information in menus. Full feedback: `docs/presentation-round-two-feedback.md`.
+
+Current scenes are A Guild board (bottom hand), B Command room (right-hand
+column), C Arcane exchange (top hand; default). Every scene uses card-first
+targeting. Card icons, cancel selection, re-click to cancel, and Escape are
+available. Prices, graphs, position accounting, exact contributions, without-tick
+quotes, active powers, trades, and card target buttons remain on the board.
+Report time and a compact public headline link to the complete company dossier.
+
+The document is fixed to the viewport. Native modal drawers independently scroll
+company history, full descriptions, activity, session settings, and rules. They
+trap focus, prevent background interaction, close with Escape, and restore focus
+to their opener. Scene keyboard shortcuts do not fire in a drawer or input.
+Below 900px, all company quote summaries remain visible with a single detailed
+company selected by tabs. Very small/dense viewports retain a local company-panel
+scroll fallback for reachability. No actual visual screen-fit claim is made.
+
+The second set is preserved byte-for-byte in
+`presentation-round-two-prototype.html` and commit `51d351b`.
+
+Temporary in-memory DOM checks passed: unchanged engine; all 39 scene renders
+over a full 12-turn run; three graph/contribution/trade panels per render; card
+icons and card-first handlers; local trades, fees and settlement; scene and
+drawer state preservation; modal keyboard isolation; cancellation; Investigate
+reveal and expiry; public-only dossiers. Scripts parse and whitespace checks
+pass. These do not verify native dialog behavior, visual fit, or actual browser
+focus. The prior browser security rejection still prevents browser review.
+
+## Round two (previous)
 
 The creator preferred B's per-asset grouping and layout, A's dark colors, and
 rejected C's bright palette. They requested visible contribution breakdowns,

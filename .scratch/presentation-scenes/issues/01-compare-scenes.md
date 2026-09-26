@@ -13,9 +13,11 @@ Branch: `codex/presentation-scenes`
 Artifact: `presentation-prototype.html` (double-click to play).
 Spec and validation: `../spec.md`.
 
-A is a trading terminal; B is a spatial exposure board; C is a market journal.
-The bottom switcher and keyboard arrows cycle through the same live state.
-The existing market engine and older playable files are preserved.
+Current round three: A Guild board has a bottom hand; B Command room has a
+right-hand column; C Arcane exchange has a top hand. All scenes use dark game
+styling, card icons, card-first targeting, and a fixed viewport with secondary
+information in modal drawers. The scene switcher preserves the same live state.
+The market engine and both earlier presentation sets are preserved.
 
 ## Answer
 
@@ -23,11 +25,13 @@ Round one: the creator preferred B's grouped company information and solid
 layout, with A's palette also favored. C's bright appearance was uncomfortable.
 See `docs/presentation-round-one-feedback.md` for the full findings.
 
-Round two is ready in `presentation-prototype.html`: A asset dossiers, B company
-board, C tactics table. All are dark, group asset information and trading locally,
-and show price contributions and without-this-tick's-cards quotes continuously.
-The original set remains in `presentation-round-one-prototype.html` and `bf04c5b`.
-No round-two winner is selected. Rival mechanics remain outside this experiment.
+Round two: C's aesthetic and card-first selection were preferred, but extensive
+whole-page scrolling made it unplayable. The creator requested a compact third
+set with main gameplay on one screen and secondary details in menus.
+
+Round three is ready in `presentation-prototype.html`; C is the initial scene.
+Actual visual fit remains unverified. Await human screen-fit and menu feedback.
+Rival mechanics remain outside this experiment.
 
 ## Comments
 
@@ -42,3 +46,9 @@ in-memory checks passed for all scenes through a full run, local trading, card
 selection/targeting, reveal expiry, and switch preservation. Visual review remains
 unverified under the previously reported browser restriction. Await human
 comparison of this new gamification ladder.
+
+September 26, 2026, third pass: rebuilt the page as a fixed viewport with three
+hand placements and a shared card-first interaction. Restored icons and added
+company/reference drawers. Full-run source/DOM stand-in checks passed. Actual
+screen-fit, native modal focus and visual playability remain unverified under
+the previously reported browser restriction. Prior round preserved unchanged.
