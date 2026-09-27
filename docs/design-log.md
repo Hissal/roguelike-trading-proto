@@ -595,6 +595,8 @@ risk. Round 2 is awaiting a playtest. It has restricted boss information plus a
 Wiretap reveal card, a variable-length pump followed immediately by a dump,
 situational Halt, and a stronger boss that dodges news.
 
+Session conclusion and card-design handoff: `boss-session-summary.md`.
+
 Creator-proposed next-session candidates (not built):
 - Card improvements with premade deck presets for different play styles.
 - A news rework: quarterly-style reports, an indirect generic news feed, and
