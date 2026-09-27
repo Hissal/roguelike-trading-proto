@@ -88,9 +88,11 @@ dialog{position:fixed;inset:0 0 0 auto;margin:0;width:min(30rem,100vw);max-width
 .player-effects{grid-column:1/-1;grid-row:1;display:flex;flex-wrap:nowrap;align-items:center;gap:.3rem;margin:0;overflow-x:auto;scrollbar-width:thin;min-height:1.3rem}
 .player-effects small{font-size:.62rem;letter-spacing:.03rem;text-transform:uppercase;margin-right:.2rem;white-space:nowrap}
 .player-effects .none{border:0;color:var(--muted)}
-@media(min-width:901px){.hand-zone{grid-template-rows:auto minmax(0,1fr)!important;row-gap:.35rem}.hand-heading{grid-row:2;grid-column:1}.hand{grid-row:2;grid-column:2}.end-zone{grid-row:2;grid-column:3}.workspace{grid-template-rows:minmax(0,1fr) 9.5rem!important}}
-@media(min-width:901px) and (max-height:800px){.workspace{grid-template-rows:minmax(0,1fr) 8.8rem!important}}
+@media(min-width:901px){.hand-zone{grid-template-rows:auto minmax(0,1fr)!important;row-gap:.35rem}.hand-heading{grid-row:2;grid-column:1}.hand{grid-row:2;grid-column:2}.end-zone{grid-row:2;grid-column:3}.workspace{grid-template-rows:minmax(0,1fr) 11rem!important}}
+@media(min-width:901px) and (max-height:800px){.workspace{grid-template-rows:minmax(0,1fr) 10.5rem!important}}
 @media(max-width:900px){.hand{grid-template-columns:none!important;grid-auto-flow:column;grid-auto-columns:minmax(7rem,1fr);overflow-x:auto;scrollbar-width:thin}.hand-zone{grid-template-rows:auto 2.5rem minmax(0,1fr)!important}.hand-heading{grid-row:2;grid-column:1}.hand{grid-row:3;grid-column:1}.end-zone{grid-row:2/4;grid-column:2}.workspace{grid-template-rows:minmax(0,1fr) 8.5rem!important}}
+/* Card text scrolls inside the card instead of being cut mid-line; ⓘ still shows it in full. */
+@media(min-width:901px){.pick-card>div{display:flex;flex-direction:column;align-self:stretch;justify-content:center}.pick-card div>span{display:block;-webkit-line-clamp:unset;overflow-y:auto;min-height:0;flex:0 1 auto;scrollbar-width:thin;scrollbar-color:#93856877 transparent;padding-right:.2rem}}
 .play-here{font-size:.72rem;margin-top:.3rem;white-space:nowrap}
 body.picking,body.picking html{overflow:auto}
 .picking #app{display:block;height:100dvh;overflow:auto}
@@ -152,43 +154,43 @@ const Engine=(()=>{
  // target lists which kinds of target a card accepts: a company, the boss, yourself ('self') or another card in hand.
  const C=(name,icon,focus,target,text,emp,extra={})=>({name,icon,focus,target,text,emp,...extra});
  const cards={
-  investigate:C('Investigate','◎',1,['company'],'Reveal underlying value for 3 ticks.','Reveal for 5 ticks.'),
-  influence:C('Influence','↗',1,['company'],'+$3 per tick for 2–3 ticks. Informed (revealed value above price when played): +$5.','+$5 per tick for 2–4 ticks. Informed: +$8.'),
-  suppress:C('Suppress','↘',1,['company'],'−$3 per tick for 2–3 ticks. Informed (revealed value below price when played): −$5.','−$5 per tick for 2–4 ticks. Informed: −$8.'),
-  momentum:C('Momentum','⤴',1,['company'],'3 ticks. Gains 1 stack each tick and pushes +$1 per stack: +1, +2, +3.','+$2 per stack: +2, +4, +6.'),
-  accelerate:C('Accelerate','»',1,['company'],'Next tick: pull the price 50% of the way to underlying value. It is your effect, so Stabilize does not cancel it.','Pull the whole way.'),
-  stabilize:C('Stabilize','⏸',1,['company'],'1 tick: cancel all Market forces (correction, report jolts, fluctuation). Boss moves and your effects still apply.','2 ticks.'),
-  freeze:C('Freeze','❄',1,['company'],'1 tick: the price does not move at all, whatever the source.','2 ticks.'),
-  volatility:C('Volatility','≈',1,['company'],'1 tick: double Market forces.','2 ticks.'),
-  spin:C('Spin','↻',1,['company'],'Until this company’s next report: a good jolt is doubled and a bad jolt halved.','A bad jolt is cancelled entirely.'),
-  dividend:C('Dividend','¤',1,['company'],'3 ticks. Every holder, the boss included, receives 1% of their position’s value each tick.','2% each tick.'),
-  foresight:C('Foresight','◔',1,['self'],'This turn: see which way every company will move on the coming tick, counting everything played so far.','Also shows whether each move is small or large.'),
-  projection:C('Projection','◑',1,['company'],'3 ticks. See this company’s direction for each of its remaining ticks, assuming nobody plays anything further.','5 ticks.'),
-  wiretap:C('Wiretap','◉',1,['boss'],'2 turns: reveal the boss’s targets and trades.','3 turns.'),
-  injunction:C('Injunction','⚖',1,['company'],'1 tick: block every Boss price move on this company.','2 ticks.'),
-  counteraudit:C('Counter-audit','⛨',1,['boss'],'Cancel the boss’s committed attack this turn.','It also cannot attack next turn.'),
-  expose:C('Expose','⚑',1,['company'],'Remove 2 Pump stacks. Next tick the price drops $5 per stack removed, while the boss still holds.','Remove every Pump stack.'),
-  cleanslate:C('Clean slate','○',1,['company','boss','self'],'Remove every effect on the target: yours and the boss’s.','Remove every effect everywhere.'),
-  legalteam:C('Legal team','§',1,['company','self'],'Remove the boss’s effects from a company, or your debuffs from you.','Do it on every company and on you.'),
-  extend:C('Extend','✚',1,['company','boss','self'],'+1 tick to every Duration effect on the target.','+2 ticks.'),
-  echo:C('Echo','◈',1,[],'Play a copy of the card you played earlier this turn, on any valid target.','The copy is empowered.'),
+  investigate:C('Investigate','◎',1,['company'],'Reveal underlying value for 3 ticks.','Reveal underlying value for 5 ticks.'),
+  influence:C('Influence','↗',1,['company'],'+$3 per tick for 2–3 ticks. Informed (revealed value above price when played): +$5.','+$5 per tick for 2–4 ticks. Informed (revealed value above price when played): +$8.'),
+  suppress:C('Suppress','↘',1,['company'],'−$3 per tick for 2–3 ticks. Informed (revealed value below price when played): −$5.','−$5 per tick for 2–4 ticks. Informed (revealed value below price when played): −$8.'),
+  momentum:C('Momentum','⤴',1,['company'],'3 ticks. Gains 1 stack each tick and pushes +$1 per stack: +1, +2, +3.','3 ticks. Gains 1 stack each tick and pushes +$2 per stack: +2, +4, +6.'),
+  accelerate:C('Accelerate','»',1,['company'],'Next tick: pull the price 50% of the way to underlying value. It is your effect, so Stabilize does not cancel it.','Next tick: pull the price the whole way to underlying value. It is your effect, so Stabilize does not cancel it.'),
+  stabilize:C('Stabilize','⏸',1,['company'],'1 tick: cancel all Market forces (correction, report jolts, fluctuation). Boss moves and your effects still apply.','2 ticks: cancel all Market forces (correction, report jolts, fluctuation). Boss moves and your effects still apply.'),
+  freeze:C('Freeze','❄',1,['company'],'1 tick: the price does not move at all, whatever the source.','2 ticks: the price does not move at all, whatever the source.'),
+  volatility:C('Volatility','≈',1,['company'],'1 tick: double Market forces.','2 ticks: double Market forces.'),
+  spin:C('Spin','↻',1,['company'],'Until this company’s next report: a good jolt is doubled and a bad jolt halved.','Until this company’s next report: a good jolt is doubled and a bad jolt is cancelled entirely.'),
+  dividend:C('Dividend','¤',1,['company'],'3 ticks. Every holder, the boss included, receives 1% of their position’s value each tick.','3 ticks. Every holder, the boss included, receives 2% of their position’s value each tick.'),
+  foresight:C('Foresight','◔',1,['self'],'This turn: see which way every company will move on the coming tick, counting everything played so far.','This turn: see which way every company will move on the coming tick and whether each move is small or large, counting everything played so far.'),
+  projection:C('Projection','◑',1,['company'],'3 ticks. See this company’s direction for each of its remaining ticks, assuming nobody plays anything further.','5 ticks. See this company’s direction for each of its remaining ticks, assuming nobody plays anything further.'),
+  wiretap:C('Wiretap','◉',1,['boss'],'2 turns: reveal the boss’s targets and trades.','3 turns: reveal the boss’s targets and trades.'),
+  injunction:C('Injunction','⚖',1,['company'],'1 tick: block every Boss price move on this company.','2 ticks: block every Boss price move on this company.'),
+  counteraudit:C('Counter-audit','⛨',1,['boss'],'Cancel the boss’s committed attack this turn.','Cancel the boss’s committed attack this turn, and it cannot attack next turn.'),
+  expose:C('Expose','⚑',1,['company'],'Remove 2 Pump stacks. Next tick the price drops $5 per stack removed, while the boss still holds.','Remove every Pump stack. Next tick the price drops $5 per stack removed, while the boss still holds.'),
+  cleanslate:C('Clean slate','○',1,['company','boss','self'],'Remove every effect on the target: yours and the boss’s.','Remove every effect everywhere: on every company, the boss and you.'),
+  legalteam:C('Legal team','§',1,['company','self'],'Remove the boss’s effects from a company, or your debuffs from you.','Remove the boss’s effects from every company, and your debuffs from you.'),
+  extend:C('Extend','✚',1,['company','boss','self'],'+1 tick to every Duration effect on the target.','+2 ticks to every Duration effect on the target.'),
+  echo:C('Echo','◈',1,[],'Play a copy of the card you played earlier this turn, on any valid target.','Play an empowered copy of the card you played earlier this turn, on any valid target.'),
   empower:C('Empower','✦',1,['self'],'Your next card this turn is empowered.','Your next 2 cards this turn are empowered.'),
   research:C('Research','☰',1,['self'],'Draw 2 cards.','Draw 3 cards.'),
-  rethink:C('Rethink','⟲',1,['self'],'Discard the rest of your hand, then draw that many +1.','Draw that many +2.'),
-  overtime:C('Overtime','⌛',1,['self'],'+2 Focus now. Debuff: −1 Focus next turn.','No debuff.'),
-  teamup:C('Team up','☍',1,['self'],'Buff for your next 3 turns: +1 hand size.','For your next 5 turns.'),
-  barrage:C('Barrage','⁂',2,['company'],'Play every other card in your hand on this company for free. Cards that cannot target a company are discarded.','They are played empowered.'),
+  rethink:C('Rethink','⟲',1,['self'],'Discard the rest of your hand, then draw that many +1.','Discard the rest of your hand, then draw that many +2.'),
+  overtime:C('Overtime','⌛',1,['self'],'+2 Focus now. Debuff: −1 Focus next turn.','+2 Focus now, with no debuff next turn.'),
+  teamup:C('Team up','☍',1,['self'],'Buff for your next 3 turns: +1 hand size.','Buff for your next 5 turns: +1 hand size.'),
+  barrage:C('Barrage','⁂',2,['company'],'Play every other card in your hand on this company for free. Cards that cannot target a company are discarded.','Play every other card in your hand on this company for free, empowered. Cards that cannot target a company are discarded.'),
   holdthought:C('Hold that thought','❝',0,['card'],'Another card in your hand gains Retain: it stays in hand through this End Turn.','—'),
   allin:C('All in','♠',0,['card'],'Another card in your hand gains Burn and will be played empowered.','—'),
-  cleanread:C('Clean read','◎',1,['company'],'Next tick: cancel Market forces and pull the price 60% of the way to underlying value.','Pull the whole way.',{cls:'insider'}),
+  cleanread:C('Clean read','◎',1,['company'],'Next tick: cancel Market forces and pull the price 60% of the way to underlying value.','Next tick: cancel Market forces and pull the price the whole way to underlying value.',{cls:'insider'}),
   insidertrade:C('Insider trade','⚿',1,['company'],'Learn whether this company’s next report is good or bad news. Burn: once per day.','—',{cls:'insider',burn:true}),
   frenzy:C('Frenzy','✺',1,['self'],'Play every other card in hand for free on random valid targets (discard any with none), then draw back up to your hand size.','—',{cls:'gambler'}),
-  hottip:C('Hot tip','⚂',1,['company'],'±$6 per tick for 3 ticks, up or down. 50/50, or 60/40 toward up if only you hold the company, 60/40 toward down if only the boss does.','±$10 per tick, and the lean becomes 80/20.',{cls:'gambler'}),
-  doubleornothing:C('Double or nothing','⚄',0,['self'],'The next card you play this turn resolves twice, or fizzles (50/50).','Triple or nothing: it resolves three times, or fizzles (50/50).',{cls:'gambler'}),
-  paidpromotion:C('Paid promotion','✉',0,['company'],'Pay $25: +$4 per tick for 4 ticks.','Pay only $15.',{cls:'financier',money:25,empMoney:15}),
-  hireanalysts:C('Hire analysts','✎',0,['company'],'Pay $20: draw 2 cards and reveal this company’s value for 3 ticks.','Reveal for 5 ticks.',{cls:'financier',money:20}),
-  buyprotection:C('Buy protection','⛉',0,['boss'],'Pay $30: cancel the boss’s committed attack this turn.','It also cannot attack next turn.',{cls:'financier',money:30}),
-  rumor:C('Rumor','❞',1,['company'],'Persistent, with stacks: starts at 1, +1 for each Influence later played here. At the company’s next report: +$4 per stack.','Starts with 2 stacks.',{cls:'custom'})
+  hottip:C('Hot tip','⚂',1,['company'],'±$6 per tick for 3 ticks. 50/50, leaning 60/40 up if only you hold it, or down if only the boss does.','±$10 per tick for 3 ticks. 50/50, leaning 80/20 up if only you hold it, or down if only the boss does.',{cls:'gambler'}),
+  doubleornothing:C('Double or nothing','⚄',0,['self'],'The next card you play this turn resolves twice, or fizzles (50/50).','Triple or nothing: the next card you play this turn resolves three times, or fizzles (50/50).',{cls:'gambler'}),
+  paidpromotion:C('Paid promotion','✉',0,['company'],'Pay $25: +$4 per tick for 4 ticks.','Pay $15: +$4 per tick for 4 ticks.',{cls:'financier',money:25,empMoney:15}),
+  hireanalysts:C('Hire analysts','✎',0,['company'],'Pay $20: draw 2 cards and reveal this company’s value for 3 ticks.','Pay $20: draw 2 cards and reveal this company’s value for 5 ticks.',{cls:'financier',money:20}),
+  buyprotection:C('Buy protection','⛉',0,['boss'],'Pay $30: cancel the boss’s committed attack this turn.','Pay $30: cancel the boss’s committed attack this turn, and it cannot attack next turn.',{cls:'financier',money:30}),
+  rumor:C('Rumor','❞',1,['company'],'Persistent, with stacks: starts at 1, +1 for each Influence later played here. At the company’s next report: +$4 per stack.','Persistent, with stacks: starts at 2, +1 for each Influence later played here. At the company’s next report: +$4 per stack.',{cls:'custom'})
  };
  const labels=Object.fromEntries(Object.entries(cards).map(([k,c])=>[k,c.name]));
  const passives={
