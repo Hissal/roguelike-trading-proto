@@ -1,2 +1,13 @@
 .claude/
 .agents/
+
+# School-provided course materials (not ours to publish)
+docs/sources/chatgpt-project/course/
+
+# OS and editor clutter
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.log
