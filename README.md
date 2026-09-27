@@ -1,17 +1,27 @@
 # Trading prototypes
 
-## Switchable presentation experiment · round four
+## Switchable presentation experiment · round five
 
 Open **[presentation-prototype.html](presentation-prototype.html)** by
 double-clicking it in a modern browser. It is a portable, throwaway HTML file;
 no server, installation, or network access is needed.
 
-- **A — Exposure ledger (default):** exposure first, a labelled breakdown, and
-  a compact bridge between the without-cards and actual quotes.
-- **B — Price story:** actual and without-cards quotes labelled on the chart,
-  a card-impact badge, and signed contribution bars.
-- **C — Position instruments:** exposure dial and bar, paired price markers,
-  history graph, and signed contribution bars.
+- **A — Position bar:** holdings, value and exposure in a compact bar panel.
+- **B — Compact holdings (default):** bar and shares alongside average entry
+  and unrealized P/L, immediately above the transaction buttons.
+- **C — Side dial:** a single small exposure dial beside the holdings figures;
+  no duplicate exposure bar.
+
+All three now use the favored right-side Actual / No cards graph annotations.
+The graph has a protected minimum height; signed contribution bars and the
+combined card effect sit directly beneath it. Holdings are grouped with trading
+controls and the adjacent report brief. Repeated chart legends and instructional
+subtitles have been removed. Activity and News archive are together at the top.
+End Turn uses no turn fraction; the dots retain progress.
+
+The previous set remains available unchanged as
+[presentation-round-four-prototype.html](presentation-round-four-prototype.html)
+at commit `d405928`. See [round-four feedback](docs/presentation-round-four-feedback.md).
 
 Only company-card presentation changes. All scenes share the same green theme,
 bottom card hand, and bottom-right End Turn button. Responsive typography and

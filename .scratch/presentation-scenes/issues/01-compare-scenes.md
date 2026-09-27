@@ -13,11 +13,11 @@ Branch: `codex/presentation-scenes`
 Artifact: `presentation-prototype.html` (double-click to play).
 Spec and validation: `../spec.md`.
 
-Current round four: A Exposure ledger, B Price story, C Position instruments.
-Only company-card presentation varies. The green theme, bottom hand, bottom-right
-End Turn and card-first targeting are shared. Exposure bars and explicit held
-shares highlight open positions. Secondary information remains in drawers.
-The engine and all three earlier presentation sets are preserved.
+Current round five: A Position bar, B Compact holdings, C Side dial. All use
+annotated charts at the top, contribution bars below, and holdings adjacent to
+trading. The green theme, bottom hand, bottom-right End Turn and card-first
+targeting are shared. Secondary information remains in drawers. The engine
+and all earlier presentation sets are preserved.
 
 ## Answer
 
@@ -34,10 +34,11 @@ Default sizing was too small; exposure needed stronger emphasis. The creator
 requested a shared green shell and three company-card presentation experiments,
 and explicitly asked to keep the current copy available.
 
-Round four is ready in `presentation-prototype.html`; A is the initial comparison.
-The old copy remains in `presentation-round-three-prototype.html`. Await human
-100%-zoom and company-card comparison feedback. No round-four winner is selected.
-Rival mechanics remain outside this experiment.
+Round four: the creator confirmed improved fit, preferred B's graph annotations
+and contribution bars, and requested tighter holdings/trading grouping and less
+duplicate text. Round five is ready in `presentation-prototype.html`, with B as
+the initial scene. Prior copies remain available. Await refinement feedback;
+rival mechanics remain outside this experiment.
 
 ## Comments
 
@@ -64,3 +65,9 @@ bottom hand and bottom-right End Turn; three new company-card designs combine
 exact values with exposure and price-impact graphics. Added Sell All through
 the existing sale action. Full-run in-memory checks passed; visual sizing on
 the creator's monitors remains unverified. Round three preserved byte-for-byte.
+
+September 27, 2026: applied the round-four feedback, including a protected graph
+height, unified graph annotations, contribution totals, compact holdings near
+execution, single exposure encoding per card, nearby archive buttons, and
+simplified End Turn. Full-run source/DOM checks passed; visual review remains
+unverified. Round four preserved unchanged.

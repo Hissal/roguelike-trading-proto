@@ -1,8 +1,31 @@
 # Three lenses on one market
 
-Status: round four implemented; awaiting human company-card comparison.
+Status: round five refinements implemented; awaiting human feedback.
 
-## Round four (current)
+## Round five (current)
+
+Applied `docs/presentation-round-four-feedback.md`: all scenes use right-side
+Actual / No cards labels, without the lower duplicate legend. Price and history
+remain at the top. A nonshrinking graph minimum protects legibility; signed
+contribution bars and their combined card-effect value are directly below.
+Repeated card-impact explanation and unselected-card guidance are removed.
+Holdings, invested value, entry/P&L and exposure sit beside trading, directly
+below the report brief. A/B use one bar; C uses only a side dial. Activity and
+News archive are adjacent. End Turn retains dots but drops the fraction.
+
+A Position bar, B Compact holdings (default), and C Side dial share the same
+green shell, bottom hand, and bottom-right End Turn. The round-four file is
+preserved byte-for-byte at `presentation-round-four-prototype.html` / `d405928`.
+
+Verification: unchanged engine and preserved archive checked; scripts parse;
+39 scene renders across a full run passed the temporary DOM stand-in checks.
+Checked card-first handlers, trade/Sell All, settlement, state preservation,
+single exposure encoding, annotations including opening, component order,
+adjacent archive controls, and removed visible copy while retaining accessible
+meter descriptions. No persistent test suite added. Browser layout and actual
+minimum-height fit remain unverified.
+
+## Round four (previous)
 
 The creator confirmed round three was nicer to play without page scrolling,
 but default UI sizing was too small at 100% zoom and open positions were easy
