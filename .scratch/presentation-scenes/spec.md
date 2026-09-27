@@ -1,8 +1,47 @@
 # Three lenses on one market
 
-Status: round three implemented; awaiting human screen-fit feedback.
+Status: round four implemented; awaiting human company-card comparison.
 
-## Round three (current)
+## Round four (current)
+
+The creator confirmed round three was nicer to play without page scrolling,
+but default UI sizing was too small at 100% zoom and open positions were easy
+to overlook. They requested three company-card designs on the same green theme,
+bottom hand and bottom-right End Turn. See `docs/presentation-round-three-feedback.md`.
+
+A Exposure ledger emphasizes an exposure strip and a labelled price bridge;
+B Price story puts actual/without-tick quotes on the graph with a card-impact
+badge; C Position instruments combines an exposure dial/bar with paired price
+markers. All retain exact signed contributions, quote histories, average entry,
+unrealized P/L, active powers, report countdowns and local trading. Visual bars
+use within-company scales and are labelled in the dossier. Exposure meters use
+0-100% of current wealth, not relative rank among companies. No future values
+or outcomes are inferred by shapes or colors.
+
+All scenes share one full-width green board, a bottom hand and bottom-right
+End Turn. Typography, spacing and controls use rem units with a root size that
+scales with viewport width and height. There is no fixed 1900px width cap.
+Company charts absorb available space. A local scroll fallback remains for
+small or unusually dense screens; no visual-fit claim is made for this version.
+
+Shares-held labels, invested amounts and exposure bars stay prominent. Sell All
+passes the exact remaining share count to the unchanged engine sale action;
+normal quantity-based selling remains available. Closing all shares explicitly
+shows No shares held / Position clear and disables Sell All.
+
+Round three is preserved unchanged in `presentation-round-three-prototype.html`
+and commit `9731403`, following the creator's explicit preservation request.
+
+Verification: both scripts parse; the engine still matches the previous market
+source; the round-three archive matches its commit byte-for-byte. Temporary
+in-memory DOM checks passed across a 12-turn run and 39 scene renders for
+exposure meters, remaining-shares labels, partial sale and Sell All, closing
+settlement, card-first handlers/icons, state-preserving scenes and drawers,
+shared bottom hand/end-turn markup, and negative card impact/without-card quotes
+in every design. Whitespace checks pass. These are not browser layout checks;
+the prior protocol restriction still prevents agent visual verification.
+
+## Round three (previous)
 
 The creator preferred C's aesthetic and card-first targeting but found whole-page
 scrolling disorienting and the scene unplayable. B/C were more interesting than

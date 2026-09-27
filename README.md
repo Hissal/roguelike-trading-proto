@@ -1,15 +1,26 @@
 # Trading prototypes
 
-## Switchable presentation experiment · round three
+## Switchable presentation experiment · round four
 
 Open **[presentation-prototype.html](presentation-prototype.html)** by
 double-clicking it in a modern browser. It is a portable, throwaway HTML file;
 no server, installation, or network access is needed.
 
-- **A — Guild board:** a dark green board with the hand below the companies.
-- **B — Command room:** a blue-green board with a vertical hand on the right.
-- **C — Arcane exchange (default):** a purple-and-gold board with the hand above
-  the companies, building on the preferred round-two aesthetic.
+- **A — Exposure ledger (default):** exposure first, a labelled breakdown, and
+  a compact bridge between the without-cards and actual quotes.
+- **B — Price story:** actual and without-cards quotes labelled on the chart,
+  a card-impact badge, and signed contribution bars.
+- **C — Position instruments:** exposure dial and bar, paired price markers,
+  history graph, and signed contribution bars.
+
+Only company-card presentation changes. All scenes share the same green theme,
+bottom card hand, and bottom-right End Turn button. Responsive typography and
+controls grow with the viewport rather than leaving tiny content inside tall
+panels. Start at **100% browser zoom** to compare the new default sizing.
+
+Prominent exposure bars, shares-held labels and invested amounts make open
+positions visible. Sell All closes the named company's remaining shares through
+the existing sale action and fee rules. No additional market mechanics were added.
 
 Every scene uses **select card, then select company**. Card icons are restored.
 Click the selected card again, Cancel selection, or Escape to cancel without
@@ -27,7 +38,7 @@ asset at a time. Very small or dense viewports retain a local company-panel
 scroll fallback so controls are reachable; the document itself never scrolls.
 Actual viewport fit is **not visually verified** under the browser restriction.
 
-All three use dark palettes. Graphs and exact price contributions are always
+All three use the same dark green palette. Graphs and exact price contributions are always
 visible. A hollow chart marker and numeric quote show the price without that
 tick's price cards, starting from the same previous quote. This is not a
 whole-run simulation with every earlier card removed.
@@ -43,6 +54,11 @@ and commit `51d351b`. The creator preferred C's aesthetic and card-first flow,
 but found the page scrolling disorienting and the layout unplayable. See
 [round-two feedback](docs/presentation-round-two-feedback.md).
 
+**The previous version is kept unchanged**, as requested:
+[presentation-round-three-prototype.html](presentation-round-three-prototype.html)
+(`9731403`). Its successful no-page-scroll behavior, sizing problems, and exposure
+feedback are recorded in [round-three feedback](docs/presentation-round-three-feedback.md).
+
 Use the floating bottom arrows or keyboard Left/Right to cycle. The same live
 session and selected company carry across scenes. Arrow keys stay native while
 editing an input, select, textarea, or editable content. `?variant=A`,
@@ -51,8 +67,8 @@ history updates are supported. Reload resets play; only scene selection survives
 
 The engine is copied unchanged from the uncertain-market playable. Previous-tick
 quotes, fee-inclusive average entry, exposure, and unrealized profit are visible
-for all companies. News history, contributions, and a public state record are
-available locally; news history and a public state record remain in disclosures.
+for all companies. Contributions remain visible; news history and a public state
+record are available in the drawers.
 Debug spoilers remain separately labelled.
 
 Source and in-memory smoke checks passed, including a full 12-turn run and

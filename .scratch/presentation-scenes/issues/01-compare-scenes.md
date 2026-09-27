@@ -13,11 +13,11 @@ Branch: `codex/presentation-scenes`
 Artifact: `presentation-prototype.html` (double-click to play).
 Spec and validation: `../spec.md`.
 
-Current round three: A Guild board has a bottom hand; B Command room has a
-right-hand column; C Arcane exchange has a top hand. All scenes use dark game
-styling, card icons, card-first targeting, and a fixed viewport with secondary
-information in modal drawers. The scene switcher preserves the same live state.
-The market engine and both earlier presentation sets are preserved.
+Current round four: A Exposure ledger, B Price story, C Position instruments.
+Only company-card presentation varies. The green theme, bottom hand, bottom-right
+End Turn and card-first targeting are shared. Exposure bars and explicit held
+shares highlight open positions. Secondary information remains in drawers.
+The engine and all three earlier presentation sets are preserved.
 
 ## Answer
 
@@ -29,8 +29,14 @@ Round two: C's aesthetic and card-first selection were preferred, but extensive
 whole-page scrolling made it unplayable. The creator requested a compact third
 set with main gameplay on one screen and secondary details in menus.
 
-Round three is ready in `presentation-prototype.html`; C is the initial scene.
-Actual visual fit remains unverified. Await human screen-fit and menu feedback.
+Round three: the creator confirmed the fixed-screen experience was much nicer.
+Default sizing was too small; exposure needed stronger emphasis. The creator
+requested a shared green shell and three company-card presentation experiments,
+and explicitly asked to keep the current copy available.
+
+Round four is ready in `presentation-prototype.html`; A is the initial comparison.
+The old copy remains in `presentation-round-three-prototype.html`. Await human
+100%-zoom and company-card comparison feedback. No round-four winner is selected.
 Rival mechanics remain outside this experiment.
 
 ## Comments
@@ -52,3 +58,9 @@ hand placements and a shared card-first interaction. Restored icons and added
 company/reference drawers. Full-run source/DOM stand-in checks passed. Actual
 screen-fit, native modal focus and visual playability remain unverified under
 the previously reported browser restriction. Prior round preserved unchanged.
+
+September 27, 2026: implemented the shared green board with responsive scaling,
+bottom hand and bottom-right End Turn; three new company-card designs combine
+exact values with exposure and price-impact graphics. Added Sell All through
+the existing sale action. Full-run in-memory checks passed; visual sizing on
+the creator's monitors remains unverified. Round three preserved byte-for-byte.
