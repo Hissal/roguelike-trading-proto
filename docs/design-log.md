@@ -1,6 +1,6 @@
 # Roguelike Trading Game — ROLLING DESIGN DOCUMENT
 
-Revision: 4  
+Revision: 5  
 Last updated: 27 September 2026 (Europe/Helsinki)  
 Status: Adopted living design record for this repository.  
 Stable repository path: `docs/design-log.md`
@@ -46,6 +46,7 @@ Use user instructions as authoritative. Treat course materials as guidance or re
 - EXPERIMENT / HUMAN EVIDENCE: uncertain, staggered reports and sharp price reactions improved the creator's perceived agency, position sizing, and protective card use. This supports the direction, not a proof of balance.
 - CONFIRMED prototype presentation: C / Side dial was accepted on 27 September; the presentation checkpoint is complete. Final art, audio, and production platform remain OPEN.
 - EXPERIMENT: one tick per turn, draw three/play up to two, recurring 14-card deck, and a 12-turn authored market underpin the current playable. These do not settle final card circulation, run length, or market equations.
+- EXPERIMENT / HUMAN EVIDENCE: the current playable prototype release is `card-design-prototype.html` (published on GitHub Pages). Classes (Insider, Gambler, Financier, Custom) draw on one shared card pool plus Class cards, with Focus per turn and effects that stack as instances. The creator found the classes play differently, liked Insider most, and saw one very strong Financier run. See [the card-design spec](../.scratch/card-design/spec.md) and [the glossary](../CONTEXT.md).
 - OPEN: final cards and circulation rules, progression economy, market tuning, acquisition process, boss structure, run length, title, and monetisation. The next prototype topic is bounded rival-profit/offensive play; its rules are unselected.
 
 ## 3. Pitch context and requirements
@@ -611,9 +612,46 @@ still needs a concrete example, final framing, loop diagrams, audience interacti
 with fallback, and timed notes under five minutes. Choose work according to the
 user's next request and the pitch deadline; a rival build is not a pitch requirement.
 
+Card design concluded (27 September): the current prototype release is
+`card-design-prototype.html` with three classes; see revision 5 above and
+`../.scratch/card-design/`. DEFERRED creator follow-ups:
+- A Manipulator power that clears player effects or shortens their durations,
+  to counter stacked engines such as the Financier's.
+- A hard mode where the boss is much more dangerous.
+- Trade UI feel: share-quantity entry is clunky; revisit buy/sell sizing
+  controls in a later session.
+
 Real-time comparison, final circulation, between-day progression, modifier choice,
 and balance work remain open. Continue with a question and human checkpoint;
 completed UI acceptance does not authorize an unbounded implementation sequence.
+
+### 27 September 2026 — Revision 5: card design and classes
+
+- Confirmed (prototype scope, creator decisions in a grilling session): prices
+  have three sources, Market forces, Boss effects and Player effects. Effects
+  have one timing (Duration, Next tick, Immediate, Persistent), with stacks
+  separate from timing, and they combine as instances, so any card can be
+  played on any valid target. Focus replaces "play 2 cards". Retain, Burn and
+  Empowered are card keywords. The hand is capped at 5.
+- Confirmed: a Class is a theme, hand rules, a deck from the shared pool
+  (any copy counts) plus Class cards, and a passive. Class cards may be
+  stronger than pool cards. A Custom class has no limits.
+- Changes to earlier decisions: Stabilize now cancels all Market forces;
+  Accelerate pulls 50% of the gap as a Player effect; Extend lengthens every
+  Duration effect on a company, the boss or you; Echo clones onto any target;
+  Hostile Audit is a debuff (draw 1 fewer, −1 Focus). The boss brain is
+  unchanged.
+- Experimental numbers: every card number, class deck and passive in the spec.
+- Human evidence: one game per class. The classes play differently; Insider
+  was most enjoyable; one Financier run led by over +$1,000 (possibly luck);
+  Gambler felt unlucky. The creator declared the phase complete after small
+  fixes, making this the current prototype release.
+- Agent checks: rule fuzz clean; boss unchanged against a passive player;
+  simple heuristic win rates Insider 41%, Gambler 53%, Financier 34%.
+- New proposals (not accepted as rules): a boss power that clears the player's
+  effects or shortens durations; a hard mode.
+- Next useful step: wider playtests of the release, especially the Financier's
+  stacking line, before adding boss counters.
 
 ### Template for future session entries
 Date / revision:

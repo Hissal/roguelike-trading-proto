@@ -64,7 +64,7 @@ when played (locked); Suppress mirrors it (value below price).
 | Counter-audit | 1 | Im | Cancel the boss's committed attack | Also no attack next turn |
 | Expose | 1 | Im | Remove 2 Pump stacks; next tick −$5 per stack removed | All stacks |
 | Clean slate | 1 | Im | Remove every Effect on a target | Everywhere |
-| Legal team | 2 | Im | Remove Boss effects and your debuffs from a target | Every target |
+| Legal team | 1 | Im | Remove Boss effects and your debuffs from a target | Every target |
 | Extend | 1 | Im | +1 to every Duration effect on a target | +2 |
 | Echo | 1 | Im | Clone the card played earlier this turn | Clone empowered |
 | Empower | 1 | Buff | Next card empowered | Next 2 |
@@ -86,18 +86,31 @@ Rumor (Custom only for now).
 |---|---|---|---|
 | Hand / Focus | 3 / 2 | 4 / 2 | 4 / 1 |
 | Passive | Retain 1 card at End Turn | Free reroll of 1 card per turn | Your dividends ×2 |
-| Deck | 17 | 19 | 18 |
+| Deck | 17 | 19 | 19 |
 
 - Insider: Investigate 2, Foresight 2, Projection, Clean read 2, Accelerate,
   Stabilize 2, Freeze, Influence 2, Expose, Spin, Wiretap, Insider trade.
 - Gambler: Frenzy 2, Hot tip 2, Double or nothing 2, Volatility 2, Influence 2,
   Suppress, Clean slate, Barrage, Echo 2, Empower, All in, Rethink, Overtime.
 - Financier: Paid promotion 3, Hire analysts 2, Buy protection, Dividend 2,
-  Momentum 2, Influence 2, Extend 2, Injunction, All in 2, Team up.
+  Momentum 2, Influence 2, Extend 2, Injunction, All in, Accelerate, Legal
+  team, Team up.
 - Custom: any cards and counts, hand 1–5, any Focus, one passive.
 
 Selection: start-screen picker plus `?class=insider|gambler|financier|custom`.
 Same seed per class for comparison.
+
+## Playtest round 1 changes (27 September 2026, creator)
+
+- Hot tip: ±$6 per tick for 3 ticks. 50/50 when neither or both hold the
+  company; 60/40 toward up if only you hold it, 60/40 toward down if only the
+  boss does. Empowered: ±$10 and an 80/20 lean.
+- Double or nothing empowered: Triple or nothing (resolves three times, or
+  fizzles).
+- Legal team costs 1 Focus (was 2), so the Financier can play it.
+- Financier deck: one All in swapped for Accelerate, plus Legal team (19).
+- Card tags moved into the title line; they were clipped on cards with
+  Keep/Reroll buttons.
 
 ## Agent checks
 

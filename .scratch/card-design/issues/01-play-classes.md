@@ -1,6 +1,6 @@
 # Play the three classes against the boss
 
-Status: ready-for-human
+Status: resolved
 Type: prototype
 
 Playable: `card-design-prototype.html` (open by double-click). Spec:
@@ -50,3 +50,38 @@ dead-card problem?
   spends about $535 a day on cards, and its price pushes also lift the boss
   whenever it holds the same company (boss median +$237). Dividends paid to the
   boss are small (median $12).
+
+## Answer (27 September 2026, creator playtest)
+
+Phase complete: this is the current official playable prototype release,
+published on GitHub Pages.
+
+HUMAN EVIDENCE (one game per class, creator):
+- "Overall it's decent and each class plays a bit differently." Insider is the
+  most enjoyable.
+- Financier was extremely powerful in its one run: stacking everything on one
+  company and holding through everything led the boss by over +$1,000. It may
+  have been luck; more testing is needed.
+- Gambler was interesting but had bad luck. Hot tip should be an even gamble,
+  usable offensively and defensively.
+- Card tags were clipped on Insider and Gambler cards.
+
+Final changes applied (see the spec): Hot tip reworked with a holder-based lean
+(±$6, empowered ±$10 at 80/20), Triple or nothing when empowered, Legal team
+at 1 Focus, Financier deck swaps one All in for Accelerate and adds Legal team,
+and the tag clipping fix.
+
+Agent re-check after the changes (400 seeds, simple heuristic player): win rate
+Insider 41%, Gambler 53%, Financier 34%; boss unchanged against a passive
+player (median +$137). The heuristic doesn't reproduce the creator's
++$1,000 Financier line, so that remains an open balance question.
+
+Creator ideas for later (not built):
+- Give the Manipulator a way to clear the player's effects and shorten their
+  durations, to counter stacked Financier engines.
+- A hard mode where the boss is a lot more dangerous.
+- Trade UI feel: share-quantity entry is clunky (a Max button was tried and
+  removed); revisit in another session.
+
+Release polish after the playtest: effects on you moved to a full-width
+"On you" line above the hand; the hand scrolls sideways on narrow screens.
