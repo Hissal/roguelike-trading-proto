@@ -4,6 +4,12 @@ Status: round five refinements implemented; awaiting human feedback.
 
 ## Round five (current)
 
+Latest layout refinement: the white hand state and gold plays-left count now
+use separate block rows with consistent state typography, including narrow
+layouts. Active-power chips sit directly after the graph and before price
+contributions; the row remains hidden when empty. Script parsing and source
+structure checks passed. Actual visual verification remains unavailable.
+
 September 27 follow-up: the creator rates the presentation highly and prefers C's
 side dial; C is now the default (explicit variant URLs still take precedence).
 Removed the hand instruction, named discard list, cancel button and inactive
