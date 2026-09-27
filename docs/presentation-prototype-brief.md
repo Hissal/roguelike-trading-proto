@@ -1,7 +1,8 @@
 # Next session: presentation scenes
 
-Status: creator-requested next experiment; implementation belongs to the next
-session. Read `uncertain-market-playtest.md` first.
+Status: completed; the creator selected C / Side dial on September 27, 2026.
+See `presentation-session-summary.md` for the decision and handoff. The original
+brief below is retained as the experiment's scope and historical instructions.
 
 ## Question and creative scope
 

@@ -1,15 +1,17 @@
-# Next prototype direction — September 26, 2026
+# Next prototype direction — September 27, 2026
 
-Latest checkpoint: the creator reported a substantial improvement from the
-uncertain-market experiment. See [latest playtest](uncertain-market-playtest.md).
-The next session will explore radically different switchable presentation scenes
-using the [visual brief](presentation-prototype-brief.md). Rival-profit competition
-follows the presentation phase and human feedback; its rules remain open.
+Latest checkpoint: the creator selected **C / Side dial** after five presentation
+rounds and accepted the final UI. Read the
+[presentation conclusion and handoff](presentation-session-summary.md).
+The earlier [market playtest](uncertain-market-playtest.md) remains the mechanics
+evidence. The next candidate is bounded rival-profit/offensive-play design;
+its rules remain open and it was not implemented during the presentation session.
 
-Current playable: `uncertain-market-prototype.html`; implementation and temporary
-rules: `../.scratch/uncertain-market/spec.md`. Earlier card and market artifacts
-remain preserved. The material below is historical direction leading to those
-experiments, not the next session's implementation checklist.
+Current accepted playable: `presentation-prototype.html`, scene C, revision
+`6532402`; it retains the engine from `uncertain-market-prototype.html`.
+Temporary market rules: `../.scratch/uncertain-market/spec.md`. Earlier card,
+market and presentation artifacts remain preserved. The material below is
+historical direction, not the next session's implementation checklist.
 
 ## Preferred direction
 

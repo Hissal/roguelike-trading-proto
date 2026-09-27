@@ -1,6 +1,12 @@
 # Three lenses on one market
 
-Status: round five refinements implemented; awaiting human feedback.
+Status: concluded — creator selected C / Side dial on September 27, 2026.
+
+Final accepted playable: `presentation-prototype.html` at `6532402`, scene C.
+See `docs/presentation-session-summary.md` for the final decision, session
+findings, archive inventory, verification limits and next-session handoff.
+The dated iteration notes below are historical; their earlier pending-feedback
+statements do not override this completed checkpoint.
 
 ## Round five (current)
 

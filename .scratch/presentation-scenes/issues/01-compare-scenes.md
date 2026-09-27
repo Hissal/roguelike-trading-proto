@@ -1,6 +1,6 @@
 # Compare switchable presentation scenes
 
-Status: ready-for-human
+Status: resolved
 Type: prototype
 
 Question: Which presentation makes opportunities, uncertainty, exposure, and
@@ -20,6 +20,13 @@ targeting are shared. Secondary information remains in drawers. The engine
 and all earlier presentation sets are preserved.
 
 ## Answer
+
+**Final decision, September 27, 2026: scene C / Side dial is the winner.**
+The creator explicitly accepted the final presentation and requested session
+conclusion. Accepted playable: `presentation-prototype.html` at `6532402`.
+Session findings and handoff: `docs/presentation-session-summary.md`.
+The presentation question is resolved; historical feedback below documents the
+path to that choice. Rival rules and implementation remain separate work.
 
 Latest follow-up: creator says the presentation is great overall and C's radial
 exposure works best. Set C as default, removed hand guidance/discard names/cancel
@@ -47,6 +54,11 @@ the initial scene. Prior copies remain available. Await refinement feedback;
 rival mechanics remain outside this experiment.
 
 ## Comments
+
+September 27, 2026, conclusion: creator said “I think this is good now. scene C
+with the radial dial is the winner.” Recorded the accepted baseline, five rounds
+of experiments, discoveries, archive inventory and remaining verification limits.
+No further gameplay changes were made during the documentation wrap-up.
 
 September 26, 2026: source parsing and temporary in-memory checks passed for
 the full run, accounting, action handlers, and state-preserving scene switches.

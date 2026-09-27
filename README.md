@@ -2,6 +2,12 @@
 
 ## Switchable presentation experiment · round five
 
+**Presentation checkpoint complete: C / Side dial is the selected winner.**
+The creator accepted the final presentation on September 27, 2026. Read the
+[session conclusion and next-session handoff](docs/presentation-session-summary.md)
+for the work completed, discoveries, preserved versions, and validation limits.
+The switchable file remains the primary source; the accepted playable is `6532402`.
+
 Open **[presentation-prototype.html](presentation-prototype.html)** by
 double-clicking it in a modern browser. It is a portable, throwaway HTML file;
 no server, installation, or network access is needed.
@@ -87,11 +93,13 @@ Debug spoilers remain separately labelled.
 Source and in-memory smoke checks passed, including a full 12-turn run and
 state-preserving scene switches. **Browser visual review remains unperformed:**
 the browser tool blocked the file URL and prohibited workarounds. These checks
-do not establish layout quality or a presentation winner. See the
+do not establish layout quality on their own. The creator's subsequent playtest
+feedback selected C. See the
 [presentation issue](.scratch/presentation-scenes/issues/01-compare-scenes.md).
 
-Stop for human comparison before choosing or combining scenes and before
-starting rival design. Prototype branch: `codex/presentation-scenes`.
+The presentation checkpoint is concluded. Rival design is the next candidate
+experiment; its rules remain undecided and no rival was implemented here.
+Prototype branch: `codex/presentation-scenes`.
 
 Latest human feedback: [uncertain-market playtest](docs/uncertain-market-playtest.md)
 reports more tension, deliberate exposure choices, and more useful cards.
