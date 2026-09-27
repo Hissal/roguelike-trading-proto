@@ -7,9 +7,9 @@ double-clicking it in a modern browser. It is a portable, throwaway HTML file;
 no server, installation, or network access is needed.
 
 - **A — Position bar:** holdings, value and exposure in a compact bar panel.
-- **B — Compact holdings (default):** bar and shares alongside average entry
+- **B — Compact holdings:** bar and shares alongside average entry
   and unrealized P/L, immediately above the transaction buttons.
-- **C — Side dial:** a single small exposure dial beside the holdings figures;
+- **C — Side dial (default):** a single small exposure dial beside the holdings figures;
   no duplicate exposure bar.
 
 All three now use the favored right-side Actual / No cards graph annotations.
@@ -33,8 +33,11 @@ positions visible. Sell All closes the named company's remaining shares through
 the existing sale action and fee rules. No additional market mechanics were added.
 
 Every scene uses **select card, then select company**. Card icons are restored.
-Click the selected card again, Cancel selection, or Escape to cancel without
+Click the selected card again or press Escape to cancel without
 spending a play. Selection and trade quantities survive scene switches.
+The hand omits redundant targeting instructions, discard-name lists and a cancel
+button. Empty power rows are hidden. Selected cards use the same border width
+as unselected cards, with constrained grid rows and content to prevent overflow.
 
 The page uses a fixed viewport instead of a scrolling document. Quotes, charts,
 holdings, price contributions, powers, trades and card targets stay on the board.

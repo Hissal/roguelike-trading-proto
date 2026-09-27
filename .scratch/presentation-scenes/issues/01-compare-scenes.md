@@ -21,6 +21,12 @@ and all earlier presentation sets are preserved.
 
 ## Answer
 
+Latest follow-up: creator says the presentation is great overall and C's radial
+exposure works best. Set C as default, removed hand guidance/discard names/cancel
+button and empty power text. Selected-hand overflow is addressed with bounded
+grid sizing and selection styling that does not change border thickness. Actual
+browser sizing still needs human confirmation; no new mechanics were added.
+
 Round one: the creator preferred B's grouped company information and solid
 layout, with A's palette also favored. C's bright appearance was uncomfortable.
 See `docs/presentation-round-one-feedback.md` for the full findings.

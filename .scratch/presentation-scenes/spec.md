@@ -4,6 +4,16 @@ Status: round five refinements implemented; awaiting human feedback.
 
 ## Round five (current)
 
+September 27 follow-up: the creator rates the presentation highly and prefers C's
+side dial; C is now the default (explicit variant URLs still take precedence).
+Removed the hand instruction, named discard list, cancel button and inactive
+power placeholder. Re-click and Escape still cancel selection; the end-turn area
+retains the discard count. Fixed the hand's intrinsic-height risk with a bounded
+grid track, shrinkable card content and constant two-pixel selection borders.
+Full descriptions remain available through card info buttons. Source/DOM checks
+passed for default, markup, toggling and active/expired power states; browser
+overflow verification remains unavailable under the existing restriction.
+
 Applied `docs/presentation-round-four-feedback.md`: all scenes use right-side
 Actual / No cards labels, without the lower duplicate legend. Price and history
 remain at the top. A nonshrinking graph minimum protects legibility; signed
