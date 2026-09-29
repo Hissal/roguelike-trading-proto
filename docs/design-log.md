@@ -1,7 +1,7 @@
 # Roguelike Trading Game — ROLLING DESIGN DOCUMENT
 
-Revision: 5  
-Last updated: 27 September 2026 (Europe/Helsinki)  
+Revision: 6  
+Last updated: 28 September 2026 (Europe/Helsinki)  
 Status: Adopted living design record for this repository.  
 Stable repository path: `docs/design-log.md`
 
@@ -235,7 +235,9 @@ A deadline limits trading opportunities even in turn-based play. It does not dec
 
 Potential structure: ordinary trading days under the rival's influence → active boss encounter → rival defeated → next season or standard-run victory → optional endless continuation.
 
-The exact number of seasons/bosses needed for standard victory is OPEN. Do not assume the first acquisition necessarily completes the whole run. Multiple bosses per run, variable boss order, and different starting targets have all been discussed.
+WORKING DIRECTION (creator-proposed, 28 September): each boss is fought over three days with an upgrade between days. On day 1 you prepare and make money. On day 2 the boss notices you as a visible threat, which is slightly harder and may bring a small boss effect. Day 3 is the full boss encounter, won or lost. This maps to a financial calendar: one boss is one quarter, its three days are the quarter's months, and four bosses make one year. That year is the proposed standard win, followed by endless mode. The pitch presented this structure; boss count, day length and quarter-end rules are not locked. See [the pitch session summary](pitch-session-summary.md).
+
+The exact number of seasons/bosses needed for standard victory is OPEN beyond the four-quarter proposal above. Do not assume the first acquisition necessarily completes the whole run. Multiple bosses per run, variable boss order, and different starting targets have all been discussed.
 
 ### Replay and onboarding proposals from the user
 - Randomised boss order could make runs different.
@@ -254,6 +256,8 @@ Discussed alternatives: more seasons with randomised bosses, or boss-free contin
 Boss encounters must play differently from an ordinary harder day. Boss modifiers and active “attacks” should make the player adapt to what the rival does rather than repeat the same earning routine.
 
 ### Working direction
+CONFIRMED intent (creator, 28 September): a boss left unchecked should snowball. It profits, gains capital and runs bigger pumps. HUMAN EVIDENCE: the current Manipulator does not snowball, which is a missing piece of the boss design rather than a balance tweak.
+
 The active rival can influence ordinary days before the encounter. Its full active attacks occur during the confrontation. The distinction between background influence and active encounter needs specification.
 
 Some bosses may defend themselves only; more aggressive bosses may attempt a counter-takeover. Counter-takeover is an encounter-specific possibility, not a third universal failure rule.
@@ -553,6 +557,10 @@ Sources: [round 1](presentation-round-one-feedback.md),
 
 ## 15. Next useful work
 
+Pitch built 28 September; see [the pitch session summary](pitch-session-summary.md). Record the pitch feedback here when available. The strongest new prototype candidates from the pitch work are:
+- a boss that snowballs when left unchecked;
+- the three-day boss arc (prepare, boss notices you, boss fight).
+
 The presentation checkpoint is complete. Start from accepted C / Side dial;
 reopening layout exploration is not the default next task.
 
@@ -652,6 +660,22 @@ completed UI acceptance does not authorize an unbounded implementation sequence.
   effects or shortens durations; a hard mode.
 - Next useful step: wider playtests of the release, especially the Financier's
   stacking line, before adding boss counters.
+
+### 28 September 2026 — Revision 6: pitch built
+
+- Confirmed (creator, for the pitch):
+  - The working name is Rogue Market. Occult or "dark" names are deferred until the prototype conveys that theme.
+  - Wording: "todellinen arvo" (real value) is the in-game value, the company's value per share based on how it is really doing. "Koettu arvo" (perceived value) is used for real-world trading, and plain "arvo" (value) on the core mechanics slide. "Underlying value" and "hidden value" were rejected as odd.
+  - Business model: about €10 one-time purchase on PC (Steam), later expansions with bosses, classes and cards, no microtransactions.
+  - Market framing: hype and correction are counteracting forces, not good or bad for the player; with shorting, both directions can pay. Positive or negative describes a loop's direction, not its effect on the player.
+- Working direction (creator-proposed): three days per boss (prepare, boss notices you, boss fight) with upgrades between days. One boss is one quarter, and four quarters make one year, the standard win, followed by endless mode (§7).
+- Human evidence and design gap: the boss should snowball when left unchecked, and the current prototype boss does not (§8).
+- Observation: the prototype's information overload works against the short, fast runs the creator wants. "Short runs" was therefore dropped as a Balatro comparison.
+- Proposed example: general, non-company news (a long winter forecast) that moves several companies in different directions. It fits the news-rework candidate in §15.
+- Deferred: aligning `CONTEXT.md` and the prototype UI ("underlying value") with the pitch wording.
+- Built: Finnish and English decks in full and short versions, a short Finnish version where the boss is revealed late, and a speaker-notes page. The session summary lists them.
+- Open: which deck was presented and the pitch feedback.
+- Next useful step: record the pitch feedback, then consider a boss snowball and a day 1/day 2 lead-in as the next prototype topic.
 
 ### Template for future session entries
 Date / revision:
