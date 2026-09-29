@@ -41,6 +41,12 @@ this map, not inside it.
   explored the space, so [Decide the game's one main thing](issues/05-core-identity.md)
   is blocked by every prototype ticket. New prototype tickets should block it
   too.
+- Reading news is draining (feedback from
+  [Prototype quarterly reports and the news feed](issues/06-reports-and-news-format.md)):
+  a steady flood of items to read and analyse makes players quit. News should
+  be read rarely compared with the constantly repeated core loop, e.g. read
+  between rounds and traded on within them. Weigh this whenever the year,
+  quarter, month, week or day loops are prototyped.
 - One starting class (likely Insider) in the spec.
 - No course or deadline constraints.
 
@@ -52,6 +58,7 @@ this map, not inside it.
 - [Research what real quarterly reports and market news contain](issues/02-reports-and-news.md): reports reveal real value and prices react to beat/miss vs expectations, then drift; news moves perceived value (mood fades, fundamental shows in the next report); five-field report card and sector-impact news formats.
 - [Prototype the market-motion sandbox](issues/04-market-motion-sandbox.md): price follows perceived value (mode B) — a damped hype fad over health-driven real value, with reports snapping 40% and drifting the rest; wanted next: trends, developing stories, and news trades that aren't always optimal.
 - [Research how deckbuilder roguelikes keep early decisions simple and ramp up](issues/03-roguelike-ramp.md): ordinary turns have one obvious question, hard choices live between encounters; mostly-common offers; boss shown upfront; targets grow ~×2.5 then flatten, and the overshoot from a multiplicative build is the dopamine.
+- [Prototype quarterly reports and the news feed](issues/06-reports-and-news-format.md): reports hide real value and speak through Result, Revenue, Profit and Outlook; news is theoretical (fades) or concrete (changes value), told apart by wording; developing stories are expected news with a date and weighted endings whose jolt depends on what's priced in; tuning deferred.
 
 ## Not yet specified
 
@@ -70,6 +77,12 @@ this map, not inside it.
 - **Feedback and sequencing**: how events play out step by step (animation,
   event log, before/after deltas) instead of resolving in an instant.
 - **Starting deck** for the starting class in the new structure.
+- **Information cards**: what reveals hidden information (a report's exact
+  worth, a news item's kind, a story's odds or ending) and how that fits the
+  starting class and deck.
+- **News and report tuning**: how hard reports snap, how much of each news
+  kind is priced in on arrival, how often stories run. Deferred until the
+  time structure settles how often news is read.
 - **Identity presentation**: name, theme (occult?), and how the chosen core
   shows on screen.
 - **Endless-mode hook**: what continues after the fourth boss.

@@ -1,6 +1,6 @@
 # Roguelike Trading Game — ROLLING DESIGN DOCUMENT
 
-Revision: 7  
+Revision: 8  
 Last updated: 29 September 2026 (Europe/Helsinki)  
 Status: Adopted living design record for this repository.  
 Stable repository path: `docs/design-log.md`
@@ -685,6 +685,18 @@ completed UI acceptance does not authorize an unbounded implementation sequence.
 - New proposals (creator, not accepted): developing news stories told over several days (announcement, details and date, reviews, launch, results); chart intervals (e.g. 4-hour vs daily) that show different information.
 - Experimental implementation: `market-motion-prototype.html` on branch `prototype/market-motion`, from the full-run map ticket [Prototype the market-motion sandbox](../.scratch/full-run/issues/04-market-motion-sandbox.md). Parameters (φ 0.6, κ 0.25, 40% snap) are starting values, not balance.
 - Next useful step: prototype trends in the market, and developing stories in the reports-and-news prototype.
+
+### 29 September 2026 — Revision 8: reports and news
+
+- Working direction (creator, after play): quarterly reports, one-off news and developing stories together give the news far more flavour than "on tick X this jolts". This advances the news-rework candidate in §15.
+- Working direction (creator): reports do not show the exact real value. They speak through four readings: Result (graded by how far the price was off), Revenue (the past), Profit (the present) and Outlook (the future: which way real value drifts until the next report). Hiding the worth makes the player read and analyse the other fields. This keeps the CONFIRMED "the exact value is not automatically visible" and applies it to reports.
+- Working direction (creator's framing): news is theoretical (talk, forecasts, possibility; moves perceived value and fades) or concrete (something happened; changes real value and shows in the next report). The kind is told by the wording, not a label; a card could reveal it outright. It replaces the prototype's "mood/fundamental".
+- Working direction: developing stories are expected news: a known decision date, weighted endings (good, neutral, bad) shifted by hints, and a jolt set by what investors had priced in, so the gamble is educated rather than a coin flip. This accepts the revision 7 proposal in this form.
+- Human evidence and constraint (creator): reading and analysing news is very draining; a constant flood would make players quit. News should be read rarely compared with the core loop, e.g. between rounds and traded on within them. An idea for how it could show, not a plan; it bears on the time-structure prototypes.
+- Deferred (creator): tuning, since the gameplay around it may change a lot. Agent strategy checks found "buy good news, sell bad news" winning 83–95% of simulated trades under the revision 7 model; pricing part of theoretical news in on arrival brought it to about 60%. Following reports still wins about 80% because of the 40% snap and predictable drift. Starting points only, not balance.
+- New proposals (not accepted): information cards that reveal a report's exact worth, a news item's kind or a story's odds.
+- Experimental implementation: `reports-news-prototype.html` on branch `prototype/reports-and-news`, from the full-run map ticket [Prototype quarterly reports and the news feed](../.scratch/full-run/issues/06-reports-and-news-format.md).
+- Next useful step: prototype how a month breaks into play, keeping news reading rare, and trends in the market.
 
 ### Template for future session entries
 Date / revision:

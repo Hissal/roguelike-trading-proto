@@ -70,6 +70,40 @@ price momentum and pulled back toward real value when reports reveal how the
 company is doing. The price follows perceived value rather than real value.
 _Avoid_: Sentiment, hype value
 
+### News and reports
+
+**Quarterly report**:
+A company's periodic account of how it is doing, told in four readings: the
+Result (how far the price was off), Revenue (the past), Profit (the present)
+and Outlook (the future). It never states the company's real value outright;
+the player infers it from the readings and the price's reaction.
+_Avoid_: Earnings, report jolt (for the report itself)
+
+**Outlook**:
+The report's forward-looking reading, Raised, Held or Cut, which says which way
+the company's real value will drift until its next report.
+_Avoid_: Guidance
+
+**News item**:
+A public headline that moves the perceived value of one or more companies,
+arriving without warning.
+
+**Theoretical news**:
+A News item about talk, forecasts or possibilities; it moves perceived value
+only and fades. Its wording ("rumour", "analysts fear", "could") gives it away.
+_Avoid_: Mood news, rumour (as the category)
+
+**Concrete news**:
+A News item about something that has actually happened; it changes the
+company's real value, so the next Quarterly report shows it.
+_Avoid_: Fundamental news, genuine news
+
+**Developing story**:
+Expected news: an event announced ahead with a known decision date and several
+possible endings, whose hints shift the odds before the day. On the day the
+price jumps by the gap between what investors had priced in and what the ending
+delivers.
+_Avoid_: Story arc, scheduled news, binary report
 
 **Market forces**:
 The background movement of a company's price that belongs to neither player nor
