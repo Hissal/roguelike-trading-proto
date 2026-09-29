@@ -59,9 +59,21 @@ instead of its normal one.
 
 ### Price and effects
 
+**Real value**:
+What a company is actually worth per share, based on how the company is really
+doing. It is not automatically visible to the player.
+_Avoid_: Underlying value, hidden value, true value
+
+**Perceived value**:
+What investors currently believe a company is worth. It is pushed by news and
+price momentum and pulled back toward real value when reports reveal how the
+company is doing. The price follows perceived value rather than real value.
+_Avoid_: Sentiment, hype value
+
+
 **Market forces**:
 The background movement of a company's price that belongs to neither player nor
-boss: correction toward underlying value, report jolts and fluctuation.
+boss: correction toward real value, report jolts and fluctuation.
 
 **Boss effect**:
 A price or rule effect caused by the boss, separate from Market forces.
