@@ -1,0 +1,91 @@
+{
+  "import_date": "2026-09-27",
+  "sources": [
+    {
+      "original_filename": "GDD base.pdf",
+      "repository_file": "course/gdd-base.pdf",
+      "sha256": "e0f676b1adb4464a9b795198c8c9c170e3d09a62e59fbe0e8b2972cf8739c1b5",
+      "bytes": 93029,
+      "pages": 4,
+      "text_file": "course/gdd-base.md",
+      "page_text_characters": [
+        1165,
+        1347,
+        1654,
+        1448
+      ],
+      "extraction_method": "pypdf layout"
+    },
+    {
+      "original_filename": "Pitch FIN.pdf",
+      "repository_file": "course/pitch-fin.pdf",
+      "sha256": "f746f43b85638477827c8a5896d224aae3e625d9419f09ae2738fa77b74c1220",
+      "bytes": 1161898,
+      "pages": 13,
+      "text_file": "course/pitch-fin.md",
+      "page_text_characters": [
+        5,
+        161,
+        215,
+        100,
+        14,
+        108,
+        128,
+        86,
+        147,
+        87,
+        137,
+        217,
+        208
+      ],
+      "extraction_method": "pypdf plain"
+    },
+    {
+      "original_filename": "Pelisuunnittelu 102 Summary.pdf",
+      "repository_file": "course/pelisuunnittelu-102-summary.pdf",
+      "sha256": "707ec1b9f20216d626819d87007eb9ba5a27ed2e86129579286c869ff18a81db",
+      "bytes": 301075,
+      "pages": 11,
+      "text_file": "course/pelisuunnittelu-102-summary.md",
+      "page_text_characters": [
+        36,
+        412,
+        74,
+        79,
+        128,
+        71,
+        132,
+        139,
+        150,
+        37,
+        245
+      ],
+      "extraction_method": "pypdf plain"
+    },
+    {
+      "original_filename": "Game Design Concept & Pitch Template.docx.pdf",
+      "repository_file": "course/game-design-concept-and-pitch-template.pdf",
+      "sha256": "0eca96ecf046a45beac5e35ba4e1c594c6309dbad967ba5ccad5ba9e9bcf5c93",
+      "bytes": 48709,
+      "pages": 2,
+      "text_file": "course/game-design-concept-and-pitch-template.md",
+      "page_text_characters": [
+        1675,
+        929
+      ],
+      "extraction_method": "pypdf layout"
+    },
+    {
+      "original_filename": "Roguelike_Trading_Game_Design_Log (1) (1).md",
+      "repository_file": "history/roguelike-trading-game-design-log.md",
+      "sha256": "f566923dd498c97e7876b03199837f66ee6ccf4c8372ee39e638ae9a00612b25",
+      "bytes": 38459
+    },
+    {
+      "original_filename": "Session_2026-09-26_01 (1).md",
+      "repository_file": "history/session-2026-09-26-01.md",
+      "sha256": "313d1992adec2a06e4b4ec9becc1b40b713810a26159317c3e8958e3d58892dc",
+      "bytes": 11630
+    }
+  ]
+}

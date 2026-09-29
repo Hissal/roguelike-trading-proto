@@ -1,5 +1,17 @@
 # Trading prototypes
 
+Start with the **[living design log](docs/design-log.md)** for current design
+intent, accepted decisions, prototype findings, open questions, and the next
+useful work. Revision 4 adopts the earlier project log and backfills the repo's
+September 26–27 experiments; temporary prototype rules remain distinct from
+final-game decisions.
+
+The [imported ChatGPT project sources](docs/sources/chatgpt-project/README.md)
+contain the school pitch/design materials, original PDFs with searchable text,
+historical design and session notes, and archived former project instructions.
+The source index explains their provenance and how they relate to later prototype
+decisions.
+
 ## Switchable presentation experiment · round five
 
 **Presentation checkpoint complete: C / Side dial is the selected winner.**
