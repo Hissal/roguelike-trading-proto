@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reports and News</title>
+<style>
+:root{font-family:Segoe UI,system-ui,sans-serif;font-size:15px;color-scheme:dark;--bg:#14211d;--panel:#22362e;--line:#4c6555;--ink:#ecebdf;--muted:#bdcdc0;--accent:#e1c78c;--up:#b7dca9;--down:#ffb5a5;--real:#8fc3e8;--story:#d6a8e8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit;color:inherit;border:1px solid var(--line);border-radius:.3rem;background:#ffffff08}
+button{cursor:pointer;padding:.35rem .7rem}button:hover:enabled{border-color:var(--accent)}button:disabled{opacity:.4;cursor:default}
+button[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:#e1c78c14}
+.primary{background:var(--accent);color:#252111;border-color:var(--accent);font-weight:700}
+h1,h2,h3,p{margin:0}small,.muted{color:var(--muted)}.up{color:var(--up)}.down{color:var(--down)}
+main>*,.co,.panel{min-width:0}
+main{max-width:1280px;margin:0 auto;padding:1rem 16px 3rem;display:grid;gap:1rem}
+header h1{font-family:Georgia,serif;font-weight:400;font-size:1.7rem}header p{color:var(--muted);margin-top:.35rem;max-width:66rem;line-height:1.45;font-size:.92rem}
+.proto{display:inline-block;font-size:.65rem;letter-spacing:.12rem;border:1px solid var(--accent);color:var(--accent);padding:.05rem .4rem;border-radius:.2rem;margin-bottom:.4rem}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:.6rem .8rem;border:1px solid var(--line);border-radius:.6rem;background:var(--panel)}
+.bar .sep{width:1px;align-self:stretch;background:var(--line);margin:0 .3rem}.bar .grow{flex:1}
+.stat small{display:block;font-size:.68rem}.stat b{font:700 1.1rem Consolas,monospace}
+.companies{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr));gap:1rem}
+.co{border:1px solid var(--line);border-radius:.7rem;background:var(--panel);padding:.7rem .9rem;display:grid;gap:.45rem}
+.co-head{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.co-head h2{font-family:Georgia,serif;font-weight:400;font-size:1.2rem}.co-head .sector{font-size:.72rem;color:var(--muted);margin-left:.3rem}
+.price{font:700 1.45rem Consolas,monospace;white-space:nowrap}
+.co svg{width:100%;height:170px;display:block}
+svg text{font:9px Consolas,monospace;fill:var(--muted)}
+.trade{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;font-size:.85rem}.trade button{font-size:.82rem;padding:.25rem .55rem}
+.xr{color:var(--real);font-size:.78rem}
+.legend{display:flex;flex-wrap:wrap;gap:.8rem;font-size:.72rem;color:var(--muted)}
+.lower{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:1rem;align-items:start}
+@media(max-width:860px){.lower{grid-template-columns:1fr}}
+.col{display:grid;gap:1rem;min-width:0}
+.panel{border:1px solid var(--line);border-radius:.7rem;background:var(--panel);padding:.8rem 1rem;min-width:0}
+.panel h3{font-size:.95rem;color:var(--accent);margin-bottom:.5rem}
+.feed{max-height:560px;overflow:auto;display:grid;gap:.5rem;align-content:start}
+.card{border:1px solid var(--line);border-left-width:4px;border-radius:.4rem;padding:.45rem .6rem;background:#ffffff05;display:grid;gap:.3rem}
+.card .meta{font-size:.7rem;color:var(--muted);letter-spacing:.03rem}
+.card .hl{font-size:.95rem}
+.card.news{border-left-color:var(--accent)}.card.story{border-left-color:var(--story)}
+.card.report{border-left-color:var(--real);background:#8fc3e80d}
+.card.month{border-left-color:var(--muted);font-weight:600;font-size:.85rem}
+.card.new{box-shadow:0 0 0 1px var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:.3rem}
+.chip{font-size:.75rem;border:1px solid var(--line);border-radius:1rem;padding:.05rem .5rem}
+.chip.up{border-color:#b7dca966}.chip.down{border-color:#ffb5a566}
+.kind{font-size:.7rem;border-radius:.2rem;padding:0 .35rem;background:#ffffff10}
+.next{font-size:.78rem;color:var(--story)}
+.rgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+.rgrid div{background:#00000022;border-radius:.3rem;padding:.25rem .4rem}
+.rgrid small{display:block;font-size:.65rem}.rgrid b{font:700 1rem Consolas,monospace}
+.quote{font-style:italic;font-size:.85rem;color:var(--muted)}
+.stories{display:grid;gap:.6rem}
+.st{border-left:3px solid var(--story);padding:.2rem .6rem;font-size:.84rem;display:grid;gap:.15rem}
+.st.done{opacity:.6}.st b{font-size:.9rem}.st ol{margin:.1rem 0 0 1.1rem;padding:0;color:var(--muted);font-size:.78rem}
+.up-list{display:grid;gap:.3rem;font-size:.84rem}
+.tabs{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.6rem}.tabs button{font-size:.82rem}
+.steps{display:grid;gap:.3rem;margin-top:.6rem}.steps button{text-align:left;font-size:.85rem}.steps button.done{opacity:.55;text-decoration:line-through}
+.scen-desc{font-size:.86rem;line-height:1.5;color:var(--muted)}
+.poke{display:grid;gap:.5rem;font-size:.82rem}.poke div{display:flex;flex-wrap:wrap;gap:.3rem;align-items:center}.poke button{font-size:.8rem;padding:.25rem .5rem}
+.poke .who{min-width:6.5rem;color:var(--muted)}
+table{border-collapse:collapse;font-size:.84rem;width:100%}th,td{text-align:right;padding:.25rem .5rem;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}
+.knobs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:.5rem 1.2rem;font-size:.82rem}.knobs label{display:grid;grid-template-columns:1fr 4.2rem;gap:.1rem .5rem;align-items:center}
+.knobs input{grid-column:1/-1;width:100%}.knobs output{font-family:Consolas,monospace;text-align:right}
+details summary{cursor:pointer;color:var(--accent);font-size:.95rem}
+</style></head>
+<body><main>
+<header>
+  <span class="proto">THROWAWAY PROTOTYPE</span>
+  <h1>Quarterly reports and the news feed</h1>
+  <p><b>The question:</b> what do a company's <i>quarterly report</i> and a general <i>news item</i> look like, and does the split read clearly? Reports reveal what a company is really worth, and the price snaps part of the way there. News moves <i>perceived value</i>, sometimes for several companies at once. <b>Mood</b> news fades; <b>fundamental</b> news also changes the company and shows up in its next report. Flip <b>News style</b> to compare one-off items with <b>developing stories</b>, news told over several days whose ending is not known yet. Which gives better decisions? One more constraint: "buy good news, sell bad news" may usually work, but it must not be the best play. The strategy check at the bottom measures that. One day is one tick; a month is 20 days.</p>
+</header>
+
+<div class="bar">
+  <span class="muted">News style</span>
+  <button id="styleOne">One-off items</button>
+  <button id="styleStory">Developing stories</button>
+  <button id="kindBtn" title="Show whether each news item is mood or fundamental">Show news kind</button>
+  <button id="pricedBtn" title="On: a quarter of a mood move is already in the price when you read it, so mood news pays less to chase. Off: the market-motion sandbox, where every item runs on as momentum.">Mood partly priced in</button>
+  <button id="autoBtn" title="Random news and stories arrive on their own">Background news</button>
+  <span class="sep"></span>
+  <button id="play" class="primary">▶ Play</button>
+  <button id="stepBtn">Next day</button>
+  <select id="speed" title="Days per second"><option value="1">1 day/s</option><option value="2" selected>2 days/s</option><option value="4">4 days/s</option><option value="8">8 days/s</option></select>
+  <span class="sep"></span>
+  <button id="xray" title="Show hidden real value and story endings (not visible in the real game)">X-ray</button>
+  <label class="muted">Seed <input id="seed" type="number" value="7" style="width:4.5rem"></label>
+  <button id="reset">New run</button>
+  <span class="grow"></span>
+  <div class="stat"><small>Day</small><b id="day">0</b></div>
+  <div class="stat"><small>Cash</small><b id="cash"></b></div>
+  <div class="stat"><small>Net worth</small><b id="worth"></b></div>
+</div>
+
+<div class="companies" id="companies"></div>
+
+<div class="lower">
+  <div class="panel">
+    <h3>News and reports <small id="msg" class="down" style="font-weight:400"></small></h3>
+    <div class="feed" id="feed"></div>
+  </div>
+  <div class="col">
+    <div class="panel"><h3>Developing stories</h3><div class="stories" id="stories"></div></div>
+    <div class="panel"><h3>Coming reports</h3><div class="up-list" id="upcoming"></div></div>
+    <div class="panel">
+      <h3>Guided walkthroughs</h3>
+      <div class="tabs" id="tabs"></div>
+      <p class="scen-desc" id="scenDesc"></p>
+      <div class="steps" id="steps"></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h3>Poke the market yourself</h3>
+  <div class="poke" id="poke"></div>
+</div>
+
+<div class="panel">
+  <h3>Does "buy good news, sell bad news" win?</h3>
+  <p class="muted" style="font-size:.82rem;margin-bottom:.5rem">Plays many months without you and trades by rule, at the price just after each item. <b>Follow all news</b>: on every ▲ buy $200 of that company, on every ▼ short $200, and close after the hold. The mood-only and fundamental-only rows do the same for one kind of news, the edge a player gets from knowing an item's kind. <b>Follow the reports</b>: buy on a BEAT, short on a MISS. <b>Random</b> is the baseline: the same trade size on a coin flip. If following the news clearly beats random in a style, that style hands out free money.</p>
+  <div class="trade"><label class="muted">Hold for <select id="hold"><option>1</option><option selected>3</option><option>5</option><option>10</option></select> days</label>
+    <label class="muted">over <select id="runs"><option value="100">100</option><option value="300" selected>300</option></select> months</label>
+    <button id="evalBtn" class="primary">Run the check</button></div>
+  <div id="evalOut" style="margin-top:.6rem"></div>
+</div>
+
+<div class="panel"><details><summary>Tuning knobs</summary><div class="knobs" id="knobs" style="margin-top:.7rem"></div></details></div>
+</main>
+
+<!-- ============ MARKET MODEL: pure, no DOM; the part worth lifting ============ -->
+<script>
+const MarketModel = (() => {
+  function mulberry32(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  function gauss(r){let u=0;while(!u)u=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*r())}
+  const pick = (arr, r) => arr[Math.floor(r() * arr.length)];
+
+  const DEFAULTS = {
+    // perceived value: price = real × exp(fad); the fad is a damped oscillator kicked by news (validated by the market-motion sandbox)
+    phi: 0.6, kappa: 0.25, fadNoise: 0.007, hypeSize: 0.05,
+    // share of a news move already in the price when the player reads it (a jump), the rest runs on as momentum
+    moodInstant: 0.25, fundInstant: 0, instantScale: 2.5,
+    // real value: health is a slow AR(1) that sets the growth rate
+    healthHalfLife: 15, healthSpread: 0.6, healthGrowth: 0.006, baseGrowth: 0.0008, valueNoise: 0.003,
+    // fundamental news changes health and real value
+    substanceHealth: 0.8, substanceJump: 0.02,
+    // reports: snap part of the gap, drift the rest; a hyped stock that misses falls harder
+    reportEvery: 20, reportSnap: 0.4, hypedMissExtra: 0.25, hypedAt: 0.08, driftTicks: 4, driftRate: 0.35, outlookKick: 0.5,
+    // a story's ending collapses the hype built on it ("priced in")
+    settleSnap: 0.6,
+    // news flow
+    newsStyle: 'oneoff', autoNews: true, newsEvery: 4, substanceChance: 0.5, worldChance: 0.35,
+    storyChance: 0.3, maxStories: 2, storyNewsEvery: 10,
+  };
+
+  const COMPANIES = [
+    { name: 'Brightleaf Foods', short: 'Brightleaf', sector: 'Food', start: 60, reportOffset: 0,
+      good: ['Brightleaf posts record orders for its snack line', 'Brightleaf is tipped as a takeover target', 'Brightleaf’s new cereal is a hit with families'],
+      bad: ['Brightleaf recalls a batch of cereal', 'Brightleaf loses a key distributor', 'Brightleaf’s factory fire halts one line'] },
+    { name: 'Tidewater Shipping', short: 'Tidewater', sector: 'Shipping', start: 40, reportOffset: 7,
+      good: ['Tidewater wins a new Pacific route', 'Tidewater orders a fleet of fast ships', 'Tidewater lands a long contract with a car maker'],
+      bad: ['Tidewater has a ship stuck in the canal', 'Tidewater faces a dockworkers’ strike', 'Tidewater loses a cargo in heavy seas'] },
+    { name: 'Pixelforge Games', short: 'Pixelforge', sector: 'Games', start: 25, reportOffset: 14,
+      good: ['Pixelforge’s old hit tops the charts again', 'Pixelforge signs a film deal', 'Pixelforge hires a star designer'],
+      bad: ['Pixelforge’s servers crash on a busy weekend', 'Pixelforge loses its lead designer', 'Pixelforge faces a patent lawsuit'] },
+  ];
+
+  // world and sector news: one headline, several companies
+  const WORLD = [
+    { headline: 'Fuel prices jump 20%', effects: [[1, -1, 1], [0, -1, 0.5]], nature: 'fundamental' },
+    { headline: 'Shoppers splurge over the holidays', effects: [[0, 1, 0.8], [2, 1, 1]], nature: 'mood' },
+    { headline: 'Trade talks between big economies stall', effects: [[1, -1, 1], [0, -1, 0.4]], nature: 'mood' },
+    { headline: 'Chip shortage eases; consoles back in stock', effects: [[2, 1, 1]], nature: 'fundamental' },
+    { headline: 'Heatwave boosts cold-drink sales', effects: [[0, 1, 0.8]], nature: 'fundamental' },
+    { headline: 'Jitters sweep the whole market', effects: [[0, -1, 0.7], [1, -1, 0.7], [2, -1, 0.7]], nature: 'mood' },
+    { headline: 'Central bank cuts interest rates', effects: [[0, 1, 0.6], [1, 1, 0.6], [2, 1, 0.6]], nature: 'mood' },
+    { headline: 'Canal reopens after a long closure', effects: [[1, 1, 1], [0, 1, 0.3]], nature: 'fundamental' },
+  ];
+
+  // Developing stories. The ending is decided when the story starts; the hint beat tells the truth 75% of the time.
+  // Each beat: at (days after start), headline, effects [[company, dir, size]], nature, settle (ending: collapse the hype), next (what's coming).
+  const STORIES = {
+    game: { title: 'Pixelforge’s new game', who: [2], odds: 0.55, endLabel: ['flops', 'is a hit'], beats: (good, hint) => [
+      { at: 0, headline: 'Pixelforge starts work on a secret new game', effects: [[2, 1, 0.5]], nature: 'mood', next: 'A reveal is expected within a week' },
+      { at: 5, headline: 'Pixelforge reveals Starfall, out in 7 days', effects: [[2, 1, 1.2]], nature: 'mood', next: 'Previews in about 4 days, reviews on launch day' },
+      hint ? { at: 9, headline: 'Early previews call Starfall “stunning”', effects: [[2, 1, 0.6]], nature: 'mood', next: 'Reviews in 3 days' }
+           : { at: 9, headline: 'Early previews of Starfall are lukewarm', effects: [[2, -1, 0.6]], nature: 'mood', next: 'Reviews in 3 days' },
+      good ? { at: 12, headline: 'Starfall reviews are in: 9 out of 10', effects: [[2, 1, 1.2]], nature: 'fundamental', settle: true, next: 'First-week sales in 3 days' }
+           : { at: 12, headline: 'Starfall reviews are in: 5 out of 10', effects: [[2, -1, 1.5]], nature: 'fundamental', settle: true, next: 'First-week sales in 3 days' },
+      good ? { at: 15, headline: 'Starfall sells a million copies in its first week', effects: [[2, 1, 1]], nature: 'fundamental' }
+           : { at: 15, headline: 'Starfall sales fall short of plan', effects: [[2, -1, 1]], nature: 'fundamental' },
+    ] },
+    probe: { title: 'Tidewater safety probe', who: [1], odds: 0.6, endLabel: ['is fined', 'is cleared'], beats: (good, hint) => [
+      { at: 0, headline: 'Regulator opens a safety probe into Tidewater; ruling due in 6 days', effects: [[1, -1, 1.4]], nature: 'mood', next: 'Ruling in 6 days' },
+      hint ? { at: 3, headline: 'Sources: inspectors found only minor issues at Tidewater', effects: [[1, 1, 0.5]], nature: 'mood', next: 'Ruling in 3 days' }
+           : { at: 3, headline: 'Leaked memo points to serious breaches at Tidewater', effects: [[1, -1, 0.6]], nature: 'mood', next: 'Ruling in 3 days' },
+      good ? { at: 6, headline: 'Tidewater cleared by the regulator', effects: [[1, 1, 0.6]], nature: 'mood', settle: true }
+           : { at: 6, headline: 'Tidewater fined; two ships grounded', effects: [[1, -1, 1.5]], nature: 'fundamental', settle: true },
+    ] },
+    deal: { title: 'Brightleaf and MegaMart', who: [0], odds: 0.5, endLabel: ['talks collapse', 'deal signed'], beats: (good, hint) => [
+      { at: 0, headline: 'Brightleaf in talks with MegaMart over a nationwide supply deal', effects: [[0, 1, 1]], nature: 'mood', next: 'Decision expected in about a week' },
+      hint ? { at: 4, headline: 'Brightleaf–MegaMart talks said to be in the final stage', effects: [[0, 1, 0.5]], nature: 'mood', next: 'Decision in 3 days' }
+           : { at: 4, headline: 'MegaMart reportedly talking to Brightleaf’s rivals too', effects: [[0, -1, 0.5]], nature: 'mood', next: 'Decision in 3 days' },
+      good ? { at: 7, headline: 'Brightleaf signs the MegaMart deal', effects: [[0, 1, 1.5]], nature: 'fundamental', settle: true }
+           : { at: 7, headline: 'MegaMart talks collapse', effects: [[0, -1, 0.8]], nature: 'mood', settle: true },
+    ] },
+    storm: { title: 'Tropical storm', who: [1, 0], odds: 0.55, endLabel: ['hits the ports', 'turns out to sea'], beats: (good, hint) => [
+      { at: 0, headline: 'Tropical storm forming; it could reach the main shipping lanes next week', effects: [[1, -1, 1], [0, -1, 0.4]], nature: 'mood', next: 'Landfall forecast in about 6 days' },
+      hint ? { at: 3, headline: 'Forecasters: storm weakening, may turn out to sea', effects: [[1, 1, 0.5]], nature: 'mood', next: 'Landfall or not in 3 days' }
+           : { at: 3, headline: 'Forecasters: storm strengthening and on course', effects: [[1, -1, 0.6], [0, -1, 0.3]], nature: 'mood', next: 'Landfall in 3 days' },
+      good ? { at: 6, headline: 'Storm turns out to sea; ports stay open', effects: [[1, 1, 0.6], [0, 1, 0.3]], nature: 'mood', settle: true }
+           : { at: 6, headline: 'Storm closes three ports for a week', effects: [[1, -1, 1.4], [0, -1, 0.6]], nature: 'fundamental', settle: true },
+    ] },
+  };
+
+  const QUOTES = {
+    Raised: ['“Demand is running ahead of plan; we are raising our outlook.”', '“We have never been busier. Next quarter looks even better.”'],
+    Held: ['“A solid quarter. Our outlook is unchanged.”', '“We are on plan and staying the course.”'],
+    Cut: ['“Conditions are tougher than we expected; we are lowering our outlook.”', '“We face headwinds and are cutting costs.”'],
+  };
+
+  function create(seed, params = {}) {
+    const p = { ...DEFAULTS, ...params };
+    return {
+      seed, tick: 0, params: p, cash: 1000, startWorth: 1000, log: [], stories: [], nextId: 1,
+      rng: { real: mulberry32(seed * 3 + 1), fad: mulberry32(seed * 5 + 2), news: mulberry32(seed * 7 + 3), story: mulberry32(seed * 11 + 4) },
+      companies: COMPANIES.map(def => ({
+        def, name: def.name, real: def.start, h: 0, u: 0, v: 0, price: def.start, shares: 0, drift: null,
+        lastReportValue: def.start, reports: [], marks: [], history: [{ tick: 0, price: def.start, real: def.start }],
+      })),
+    };
+  }
+
+  function health(c) { return c.h > 0.4 ? 'thriving' : c.h < -0.4 ? 'struggling' : 'steady'; }
+  function reprice(c) { c.price = c.real * Math.exp(c.u); }
+
+  // One company feels one news effect. Mood moves perception only; fundamental also changes the company.
+  function feel(s, i, dir, size, nature) {
+    const p = s.params, c = s.companies[i];
+    if (nature === 'fundamental') { c.h += dir * p.substanceHealth * size; c.real *= Math.exp(dir * p.substanceJump * size); }
+    const inst = nature === 'fundamental' ? p.fundInstant : p.moodInstant;
+    c.u += dir * p.hypeSize * size * inst * p.instantScale;
+    c.v += dir * p.hypeSize * size * (1 - inst);
+    reprice(c);
+  }
+  // The ending of a story: the hype built on it is removed (partly), before the ending itself lands.
+  function settle(s, i) { const c = s.companies[i]; c.u *= 1 - s.params.settleSnap; c.v *= 0.3; reprice(c); }
+
+  // Publish a news item: { headline, effects: [[i, dir, size]], nature, settle?, story?, next? }
+  function publish(s, item) {
+    if (item.settle) for (const [i] of item.effects) settle(s, i);
+    for (const [i, dir, size] of item.effects) { feel(s, i, dir, size, item.nature); s.companies[i].marks.push({ tick: s.tick, dir, story: !!item.story, nature: item.nature }); }
+    const e = { kind: 'news', tick: s.tick, ...item };
+    s.log.push(e); return e;
+  }
+
+  function oneOff(s, i, dir, nature) {
+    const c = s.companies[i];
+    return publish(s, { headline: pick(dir > 0 ? c.def.good : c.def.bad, s.rng.news), effects: [[i, dir, 1]], nature });
+  }
+  function worldNews(s) { const w = pick(WORLD, s.rng.news); return publish(s, { headline: w.headline, effects: w.effects, nature: w.nature }); }
+
+  // Start a developing story. forced: true/false fixes the ending (for walkthroughs); undefined rolls it.
+  function startStory(s, key, forced) {
+    const t = STORIES[key], r = s.rng.story;
+    const good = forced ?? (r() < t.odds), hintTrue = r() < 0.75;
+    const st = { id: s.nextId++, key, title: t.title, who: t.who, good, ending: t.endLabel[good ? 1 : 0], hintTrue,
+      beats: t.beats(good, hintTrue ? good : !good), start: s.tick, fired: [], done: false, doneTick: null };
+    s.stories.push(st);
+    fireStory(s, st);
+    return st;
+  }
+  function fireStory(s, st) {
+    for (const b of st.beats) if (b.at === s.tick - st.start && !st.fired.includes(b)) {
+      st.fired.push(b);
+      publish(s, { ...b, story: st.id, storyTitle: st.title, part: st.fired.length });
+    }
+    if (st.fired.length === st.beats.length && !st.done) { st.done = true; st.doneTick = s.tick; }
+  }
+
+  function report(s, i) {
+    const p = s.params, c = s.companies[i];
+    const before = c.price, gap = before / c.real - 1;
+    const result = gap > 0.03 ? 'MISSED' : gap < -0.03 ? 'BEAT' : 'MET';
+    const hypedMiss = result === 'MISSED' && gap > p.hypedAt;
+    c.u *= 1 - (p.reportSnap + (hypedMiss ? p.hypedMissExtra : 0)); c.v *= 0.5; c.drift = { ticks: p.driftTicks };
+    const growth = c.real / c.lastReportValue - 1;
+    const revenue = growth > 0.02 ? '▲' : growth < -0.02 ? '▼' : '▬';
+    const profit = c.h > 0.2 ? '▲' : c.h < -0.2 ? '▼' : '▬';
+    const outlook = c.h > 0.4 ? 'Raised' : c.h < -0.4 ? 'Cut' : 'Held';
+    if (outlook === 'Raised') c.v += p.outlookKick * p.hypeSize;
+    if (outlook === 'Cut') c.v -= 1.5 * p.outlookKick * p.hypeSize; // cuts hurt more than raises help
+    reprice(c);
+    const r = { kind: 'report', tick: s.tick, i, value: c.real, expected: before, priceBefore: before, priceAfter: c.price, gap, result, hypedMiss,
+      revenue, profit, outlook, quote: pick(QUOTES[outlook], s.rng.news), health: health(c) };
+    c.lastReportValue = c.real; c.reports.push(r); s.log.push(r);
+    return r;
+  }
+
+  function step(s) {
+    const p = s.params; s.tick++;
+    const aH = Math.pow(0.5, 1 / p.healthHalfLife), sH = p.healthSpread * Math.sqrt(1 - aH * aH);
+    for (const c of s.companies) {
+      c.h = aH * c.h + sH * gauss(s.rng.real);
+      c.real *= Math.exp(p.baseGrowth + p.healthGrowth * c.h + p.valueNoise * gauss(s.rng.real));
+      c.v = p.phi * c.v - p.kappa * c.u + p.fadNoise * gauss(s.rng.fad);
+      c.u += c.v;
+      if (c.drift && c.drift.ticks > 0) { c.u -= p.driftRate * c.u; c.drift.ticks--; }
+      reprice(c);
+    }
+    for (const st of s.stories) if (!st.done) fireStory(s, st);
+    if (p.autoNews) {
+      const r = s.rng.news;
+      if (p.newsStyle === 'stories') {
+        const live = s.stories.filter(st => !st.done), busy = live.flatMap(st => st.who);
+        const free = Object.keys(STORIES).filter(k => !STORIES[k].who.some(i => busy.includes(i)));
+        if (live.length < p.maxStories && free.length && s.rng.story() < p.storyChance) startStory(s, pick(free, s.rng.story));
+        if (r() < 1 / p.storyNewsEvery) worldNews(s);
+      } else if (r() < 1 / p.newsEvery) {
+        if (r() < p.worldChance) worldNews(s);
+        else oneOff(s, Math.floor(r() * s.companies.length), r() < 0.5 ? 1 : -1, r() < p.substanceChance ? 'fundamental' : 'mood');
+      }
+    }
+    s.companies.forEach((c, i) => { if ((s.tick + c.def.reportOffset) % p.reportEvery === 0) report(s, i); });
+    for (const c of s.companies) c.history.push({ tick: s.tick, price: c.price, real: c.real });
+    if (s.tick % 20 === 0) s.log.push({ kind: 'month', tick: s.tick, worth: worth(s) });
+  }
+
+  function worth(s) { return s.cash + s.companies.reduce((t, c) => t + c.shares * c.price, 0); }
+  function daysToReport(s, i) { return s.params.reportEvery - ((s.tick + s.companies[i].def.reportOffset) % s.params.reportEvery); }
+
+  // qty > 0 buys, qty < 0 sells (going short below zero). Returns an error string or null.
+  function trade(s, i, qty) {
+    const c = s.companies[i], cost = qty * c.price;
+    if (qty > 0 && cost > s.cash + 1e-9) return 'Not enough cash';
+    const after = c.shares + qty;
+    if (after < 0 && -after * c.price > worth(s)) return 'Short too large for your net worth';
+    s.cash -= cost; c.shares = after; return null;
+  }
+  function close(s, i) { const c = s.companies[i]; if (c.shares) { s.cash += c.shares * c.price; c.shares = 0; } }
+
+  // Rule-based trader over many one-month runs. strategy: 'news' | 'mood' | 'fundamental' | 'fade' | 'reports' | 'random'.
+  function evaluate(params, strategy, runs, hold, days = 20) {
+    let trades = 0, wins = 0, pnl = 0;
+    for (let k = 0; k < runs; k++) {
+      const s = create(5000 + k, params), rr = mulberry32(k * 13 + 5), open = [];
+      for (let d = 0; d < days + hold; d++) {
+        const from = s.log.length; step(s);
+        for (let j = open.length - 1; j >= 0; j--) { const o = open[j]; if (s.tick >= o.exit) { const g = o.qty * (s.companies[o.i].price - o.entry); pnl += g; trades++; if (g > 0) wins++; open.splice(j, 1); } }
+        if (d >= days) continue;
+        const enter = (i, dir) => { const c = s.companies[i]; open.push({ i, qty: dir * 200 / c.price, entry: c.price, exit: s.tick + hold }); };
+        for (const e of s.log.slice(from)) {
+          if (strategy === 'news' && e.kind === 'news') for (const [i, dir] of e.effects) enter(i, dir);
+          if ((strategy === 'mood' || strategy === 'fundamental') && e.kind === 'news' && e.nature === strategy) for (const [i, dir] of e.effects) enter(i, dir);
+          if (strategy === 'fade' && e.kind === 'news') for (const [i, dir] of e.effects) enter(i, -dir);
+          if (strategy === 'reports' && e.kind === 'report' && e.result !== 'MET') enter(e.i, e.result === 'BEAT' ? 1 : -1);
+          if (strategy === 'random' && (e.kind === 'news' || e.kind === 'report')) for (const _ of (e.effects || [0])) enter(Math.floor(rr() * 3), rr() < 0.5 ? 1 : -1);
+        }
+      }
+    }
+    return { trades, winRate: trades ? wins / trades : 0, avg: trades ? pnl / trades : 0, perMonth: pnl / runs };
+  }
+
+  return { DEFAULTS, STORIES, create, step, publish, oneOff, worldNews, startStory, report, trade, close, worth, health, daysToReport, evaluate };
+})();
+</script>
+
+<!-- ============ PAGE: throwaway shell ============ -->
+<script>
+const $ = id => document.getElementById(id);
+const money = n => (n < 0 ? '−$' : '$') + Math.abs(n).toFixed(2);
+const pct = n => (n >= 0 ? '+' : '−') + Math.abs(n * 100).toFixed(1) + '%';
+let sim, xray = false, showKind = true, timer = null, knobValues = {}, stopAt = null, lastSeenLog = 0;
+
+function newRun(seed, opts = {}) {
+  stop();
+  const prev = sim ? { newsStyle: sim.params.newsStyle, autoNews: sim.params.autoNews } : {};
+  sim = MarketModel.create(seed ?? +$('seed').value, { ...knobValues, ...prev, ...opts });
+  $('seed').value = sim.seed; lastSeenLog = 0; $('msg').textContent = ''; render();
+}
+function tick(n = 1) { lastSeenLog = sim.log.length; for (let k = 0; k < n; k++) MarketModel.step(sim); render(); }
+function play(untilTick) {
+  stop(); stopAt = untilTick ?? null;
+  timer = setInterval(() => { tick(); if (stopAt !== null && sim.tick >= stopAt) stop(); }, 1000 / +$('speed').value);
+  $('play').textContent = '❚❚ Pause';
+}
+function stop() { clearInterval(timer); timer = null; stopAt = null; $('play').textContent = '▶ Play'; }
+
+function chart(c) {
+  const W = 460, H = 170, L = 44, R = 10, T = 18, B = 16, span = Math.min(60, Math.max(20, sim.tick));
+  const from = Math.max(0, sim.tick - span), pts = c.history.filter(h => h.tick >= from);
+  const vals = pts.flatMap(h => xray ? [h.price, h.real] : [h.price]).concat(c.reports.filter(r => r.tick >= from).map(r => r.value));
+  let lo = Math.min(...vals), hi = Math.max(...vals); const pad = Math.max((hi - lo) * 0.12, hi * 0.03); lo -= pad; hi += pad;
+  const x = t => L + (t - from) / span * (W - L - R), y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+  const line = key => pts.map(h => `${x(h.tick).toFixed(1)},${y(h[key]).toFixed(1)}`).join(' ');
+  let g = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${c.name} price chart">`;
+  for (let k = 0; k <= 3; k++) { const v = lo + (hi - lo) * k / 3; g += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#ffffff10"/><text x="2" y="${y(v) + 3}">${money(v)}</text>`; }
+  for (let t = Math.ceil(from / 20) * 20; t <= from + span; t += 20) if (t > 0) g += `<line x1="${x(t)}" x2="${x(t)}" y1="${T}" y2="${H - B}" stroke="#ffffff18" stroke-dasharray="2 3"/><text x="${x(t) - 12}" y="${H - 3}">M${t / 20} end</text>`;
+  if (xray) g += `<polyline points="${line('real')}" fill="none" stroke="var(--real)" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  g += `<polyline points="${line('price')}" fill="none" stroke="var(--accent)" stroke-width="2.2"/>`;
+  for (const m of c.marks) if (m.tick >= from) {
+    const col = m.story ? 'var(--story)' : m.dir > 0 ? 'var(--up)' : 'var(--down)';
+    g += `<line x1="${x(m.tick)}" x2="${x(m.tick)}" y1="${T}" y2="${H - B}" stroke="${col}" stroke-opacity=".25"/><text x="${x(m.tick) - 4}" y="${T - 5}" style="fill:${col};font-size:11px">${m.dir > 0 ? '▲' : '▼'}</text>`;
+  }
+  for (const r of c.reports) if (r.tick >= from) g += `<rect x="${x(r.tick) - 4}" y="${y(r.value) - 4}" width="8" height="8" fill="var(--real)" transform="rotate(45 ${x(r.tick)} ${y(r.value)})"/>`;
+  const last = pts[pts.length - 1]; g += `<circle cx="${x(last.tick)}" cy="${y(last.price)}" r="3.5" fill="var(--accent)"/>`;
+  return g + '</svg>';
+}
+
+function kindTag(e) {
+  if (!showKind) return `<span class="kind">Kind: ?</span>`;
+  return e.nature === 'mood' ? `<span class="kind">Mood · fades in days</span>` : `<span class="kind">Fundamental · shows in the next report</span>`;
+}
+function card(e, isNew) {
+  const nw = isNew ? ' new' : '';
+  if (e.kind === 'month') return `<div class="card month">End of month ${e.tick / 20}: net worth ${money(e.worth)} (${pct(e.worth / sim.startWorth - 1)})</div>`;
+  if (e.kind === 'news') {
+    const st = e.story ? sim.stories.find(x => x.id === e.story) : null;
+    const chips = e.effects.map(([i, d]) => `<span class="chip ${d > 0 ? 'up' : 'down'}">${d > 0 ? '▲' : '▼'} ${sim.companies[i].def.short}</span>`).join('');
+    return `<div class="card ${e.story ? 'story' : 'news'}${nw}">
+      <div class="meta">Day ${e.tick} · ${e.story ? `STORY: ${e.storyTitle.toUpperCase()} · part ${e.part}` : 'NEWS'} ${kindTag(e)}</div>
+      <div class="hl">${e.headline}</div><div class="chips">${chips}</div>
+      ${e.next ? `<div class="next">Coming: ${e.next}</div>` : ''}
+      ${xray && st && e.part === 1 ? `<div class="xr">X-ray: ends when it ${st.ending}${st.hintTrue ? '' : '; the hint will mislead'}</div>` : ''}</div>`;
+  }
+  const c = sim.companies[e.i], cls = e.result === 'BEAT' ? 'up' : e.result === 'MISSED' ? 'down' : '';
+  const arrow = a => `<b class="${a === '▲' ? 'up' : a === '▼' ? 'down' : ''}">${a}</b>`;
+  return `<div class="card report${nw}">
+    <div class="meta">Day ${e.tick} · QUARTERLY REPORT · ${c.name.toUpperCase()}</div>
+    <div class="rgrid"><div><small>Result</small><b class="${cls}">${e.result}</b></div><div><small>Revenue</small>${arrow(e.revenue)}</div><div><small>Profit</small>${arrow(e.profit)}</div>
+      <div><small>Outlook</small><b class="${e.outlook === 'Raised' ? 'up' : e.outlook === 'Cut' ? 'down' : ''}">${e.outlook}</b></div></div>
+    <div class="quote">${e.quote}</div>
+    <div class="meta">Revealed worth <b style="color:var(--real)">${money(e.value)}</b> a share · price ${money(e.priceBefore)} → ${money(e.priceAfter)} (${pct(e.priceAfter / e.priceBefore - 1)})${e.hypedMiss ? ' · hyped and missed: falls harder' : ''}</div></div>`;
+}
+
+function render() {
+  const s = sim, p = s.params, w = MarketModel.worth(s);
+  $('styleOne').setAttribute('aria-pressed', p.newsStyle === 'oneoff'); $('styleStory').setAttribute('aria-pressed', p.newsStyle === 'stories');
+  $('kindBtn').setAttribute('aria-pressed', showKind); $('autoBtn').setAttribute('aria-pressed', p.autoNews); $('pricedBtn').setAttribute('aria-pressed', p.moodInstant > 0); $('xray').setAttribute('aria-pressed', xray);
+  $('day').textContent = `${s.tick} · M${Math.floor(s.tick / 20) + 1} W${Math.floor(s.tick % 20 / 5) + 1}`;
+  $('cash').textContent = money(s.cash);
+  $('worth').innerHTML = `${money(w)} <small class="${w >= s.startWorth ? 'up' : 'down'}">${pct(w / s.startWorth - 1)}</small>`;
+  $('companies').innerHTML = s.companies.map((c, i) => {
+    const prev = c.history[Math.max(0, c.history.length - 2)].price, ch = c.price / prev - 1;
+    return `<section class="co">
+      <div class="co-head"><h2>${c.name}<span class="sector">${c.def.sector}</span></h2><span class="price">${money(c.price)} <small class="${ch >= 0 ? 'up' : 'down'}" style="font-size:.75rem">${pct(ch)}</small></span></div>
+      ${chart(c)}
+      <div class="legend"><span style="color:var(--accent)">━ price</span><span style="color:var(--real)">◆ report</span><span>▲▼ news</span><span style="color:var(--story)">▲▼ story</span>${xray ? '<span style="color:var(--real)">┅ real value</span>' : ''}</div>
+      ${xray ? `<div class="xr">Real ${money(c.real)} · price vs real ${pct(c.price / c.real - 1)} · ${MarketModel.health(c)}</div>` : ''}
+      <div class="trade"><span class="muted">Holding <b style="color:var(--ink)">${c.shares}</b>${c.shares ? ` (${money(c.shares * c.price)})` : ''}</span><span style="flex:1"></span>
+        <button onclick="doTrade(${i},10)">Buy 10</button><button onclick="doTrade(${i},-10)">Sell / short 10</button><button onclick="doClose(${i})" ${c.shares ? '' : 'disabled'}>Close</button></div>
+    </section>`;
+  }).join('');
+  const log = s.log.map((e, k) => [e, k]).reverse().slice(0, 80);
+  $('feed').innerHTML = log.length ? log.map(([e, k]) => card(e, k >= lastSeenLog && s.tick > 0)).join('') : '<p class="muted">Nothing yet. Press Next day or Play.</p>';
+  const shown = s.stories.filter(st => !st.done || s.tick - st.doneTick <= 8).reverse();
+  $('stories').innerHTML = shown.length ? shown.map(st => {
+    const nextBeat = st.beats.find(b => !st.fired.includes(b));
+    return `<div class="st ${st.done ? 'done' : ''}"><b>${st.title}</b>
+      <ol>${st.fired.map(b => `<li>Day ${st.start + b.at}: ${b.headline}</li>`).join('')}</ol>
+      ${st.done ? '<span class="muted">Over.</span>' : `<span class="next">Next: ${st.fired[st.fired.length - 1].next || 'more news soon'}${nextBeat ? ` (day ${st.start + nextBeat.at})` : ''}</span>`}
+      ${xray && !st.done ? `<span class="xr">X-ray: ends when it ${st.ending}</span>` : ''}</div>`;
+  }).join('') : `<p class="muted" style="font-size:.84rem">${p.newsStyle === 'stories' ? 'No story running. One will start soon, or start one below.' : 'Switch News style to Developing stories, or start one below.'}</p>`;
+  $('upcoming').innerHTML = s.companies.map((c, i) => {
+    const d = MarketModel.daysToReport(s, i), lr = c.reports[c.reports.length - 1];
+    return `<div><b>${c.def.short}</b> reports in <b>${d}</b> day${d === 1 ? '' : 's'}. The market prices it at ${money(c.price)}${lr ? `; last report said ${money(lr.value)}` : ''}.</div>`;
+  }).join('');
+  renderSteps();
+}
+
+function doTrade(i, q) { $('msg').textContent = MarketModel.trade(sim, i, q) || ''; render(); }
+function doClose(i) { MarketModel.close(sim, i); render(); }
+function act(fn) { lastSeenLog = sim.log.length; fn(); render(); }
+
+function renderPoke() {
+  const rows = sim.companies.map((c, i) => `<div><span class="who">${c.def.short}</span>
+    <button onclick="act(()=>MarketModel.oneOff(sim,${i},1,'mood'))">Good mood news</button><button onclick="act(()=>MarketModel.oneOff(sim,${i},-1,'mood'))">Bad mood news</button>
+    <button onclick="act(()=>MarketModel.oneOff(sim,${i},1,'fundamental'))">Good fundamental news</button><button onclick="act(()=>MarketModel.oneOff(sim,${i},-1,'fundamental'))">Bad fundamental news</button>
+    <button onclick="act(()=>MarketModel.report(sim,${i}))">Report now</button></div>`).join('');
+  const stories = Object.entries(MarketModel.STORIES).map(([k, t]) => `<button onclick="act(()=>MarketModel.startStory(sim,'${k}'))">${t.title}</button>`).join('');
+  $('poke').innerHTML = rows + `<div><span class="who">World</span><button onclick="act(()=>MarketModel.worldNews(sim))">Random world news</button></div>
+    <div><span class="who">Start a story</span>${stories}</div>`;
+}
+
+// ---- strategy check ----
+function runEval() {
+  const hold = +$('hold').value, runs = +$('runs').value;
+  const rows = [['One-off items', 'oneoff'], ['Developing stories', 'stories']].flatMap(([label, style]) =>
+    [['Follow all news', 'news'], ['Follow mood news only', 'mood'], ['Follow fundamental news only', 'fundamental'], ['Follow the reports', 'reports'], ['Random', 'random']].map(([sl, st]) => {
+      const r = MarketModel.evaluate({ ...knobValues, newsStyle: style, autoNews: true }, st, runs, hold);
+      return `<tr><td>${label}: ${sl}</td><td>${r.trades}</td><td>${(r.winRate * 100).toFixed(0)}%</td><td class="${r.avg >= 0 ? 'up' : 'down'}">${money(r.avg)}</td><td class="${r.perMonth >= 0 ? 'up' : 'down'}">${money(r.perMonth)}</td></tr>`;
+    }));
+  $('evalOut').innerHTML = `<table><tr><th>Style and rule</th><th>Trades</th><th>Won</th><th>Avg per $200 trade</th><th>Per month</th></tr>${rows.join('')}</table>`;
+}
+
+// ---- knobs ----
+const KNOBS = [
+  ['How long hype keeps running (momentum)', 'phi', 0, 0.9, 0.05],
+  ['How hard reality pulls back', 'kappa', 0.05, 0.6, 0.01],
+  ['Size of a news kick', 'hypeSize', 0, 0.15, 0.005],
+  ['Mood news: share already priced in', 'moodInstant', 0, 1, 0.05],
+  ['Fundamental news: share already priced in', 'fundInstant', 0, 1, 0.05],
+  ['Share of the gap a report closes on the day', 'reportSnap', 0, 1, 0.05],
+  ['Extra snap when a hyped stock misses', 'hypedMissExtra', 0, 0.6, 0.05],
+  ['Share of the hype a story’s ending removes', 'settleSnap', 0, 1, 0.05],
+  ['One-off: days between news items (average)', 'newsEvery', 2, 20, 1],
+  ['One-off: chance an item is fundamental', 'substanceChance', 0, 1, 0.05],
+  ['Stories: daily chance a new story starts', 'storyChance', 0, 1, 0.05],
+  ['Stories: most stories at once', 'maxStories', 1, 4, 1],
+];
+function renderKnobs() {
+  $('knobs').innerHTML = KNOBS.map(([label, key, min, max, st]) =>
+    `<label>${label}<output id="o-${key}">${sim.params[key]}</output><input type="range" min="${min}" max="${max}" step="${st}" value="${sim.params[key]}" oninput="knob('${key}',this.value)"></label>`).join('') +
+    `<div><button onclick="knobValues={};newRun();renderKnobs()">Reset knobs</button></div>`;
+}
+function knob(key, v) { knobValues[key] = +v; sim.params[key] = +v; $('o-' + key).textContent = v; }
+
+// ---- walkthroughs ----
+const quiet = (seed, style = 'stories') => { xray = true; newRun(seed, { newsStyle: style, autoNews: false }); };
+const SCENARIOS = [
+  { title: 'Read a report card', desc: 'A quiet market, X-ray on. Two mood items lift Brightleaf above its real value (dashed blue). Then its report lands: the card says MISSED, the revealed worth is lower than the price, and because the stock was hyped it falls harder than usual, then keeps drifting down. Is the card readable at a glance? Is the trade after the report obvious, too obvious?',
+    steps: [['Start: seed 11, quiet market', () => quiet(11, 'oneoff')], ['Good mood news for Brightleaf', () => act(() => MarketModel.oneOff(sim, 0, 1, 'mood'))], ['Two days, then more good mood news', () => { tick(2); act(() => MarketModel.oneOff(sim, 0, 1, 'mood')); }],
+      ['Two more days', () => tick(2)], ['Brightleaf reports now', () => act(() => MarketModel.report(sim, 0))], ['Next day', () => tick()], ['Four more days', () => tick(4)]] },
+  { title: 'Mood vs fundamental', desc: 'Same headline size, different kind. Tidewater gets bad mood news, and Pixelforge gets bad fundamental news. Both dip. Watch Tidewater recover on its own, and Pixelforge stay down, because its real value fell. Then turn "Show news kind" off: could you still tell them apart?',
+    steps: [['Start: seed 11, quiet market', () => quiet(11, 'oneoff')], ['Bad mood news for Tidewater', () => act(() => MarketModel.oneOff(sim, 1, -1, 'mood'))], ['Bad fundamental news for Pixelforge', () => act(() => MarketModel.oneOff(sim, 2, -1, 'fundamental'))],
+      ['Three days', () => tick(3)], ['Four more days', () => tick(4)], ['Five more days', () => tick(5)]] },
+  { title: 'A game studio’s story', desc: 'Pixelforge starts a game, reveals it, gets previews, then reviews and sales. This time the game is a hit. Hype builds at the reveal and then fades. When the good reviews land, the leftover hype is removed first, so great news can still move the price less than you hoped. Do you buy the reveal and sell before the reviews, or hold for the ending?',
+    steps: [['Start: seed 5, quiet market', () => quiet(5)], ['Pixelforge starts a game (it will be a hit)', () => act(() => MarketModel.startStory(sim, 'game', true))], ['Five days: the reveal', () => tick(5)],
+      ['Two days', () => tick(2)], ['Two days: previews', () => tick(2)], ['Three days: reviews', () => tick(3)], ['Three days: first-week sales', () => tick(3)], ['Four more days', () => tick(4)]] },
+  { title: 'Buy the fear?', desc: 'A regulator probes Tidewater and the price falls on fear alone. The probe ends with Tidewater cleared: the fear is removed and the price jumps back. Buying bad news was the right play here. Replay with "Start a story" below to see the fined ending too.',
+    steps: [['Start: seed 8, quiet market', () => quiet(8)], ['Regulator opens a probe (Tidewater will be cleared)', () => act(() => MarketModel.startStory(sim, 'probe', true))], ['Next day', () => tick()], ['Two days: the hint', () => tick(2)],
+      ['Three days: the ruling', () => tick(3)], ['Four more days', () => tick(4)]] },
+  { title: 'One storm, two companies', desc: 'One story, two companies: a storm threatens the shipping lanes. Tidewater takes the main hit; Brightleaf, which imports ingredients by sea, takes a smaller one. The storm hits, so the ending is fundamental. Does one headline moving two charts read clearly?',
+    steps: [['Start: seed 9, quiet market', () => quiet(9)], ['A storm forms (it will hit)', () => act(() => MarketModel.startStory(sim, 'storm', false))], ['Three days: the forecast', () => tick(3)], ['Three days: landfall', () => tick(3)], ['Five more days', () => tick(5)]] },
+  { title: 'Trade a month: one-off', desc: 'X-ray off, like the real game. Play a month of one-off news and trade on what you see. Note your net worth, then run the next tab on the same seed.',
+    steps: [['Start: seed 23, one-off news, X-ray off', () => { xray = false; newRun(23, { newsStyle: 'oneoff', autoNews: true }); }], ['Play the month (trade as it runs)', () => play(20)], ['Reveal what was really going on', () => { xray = true; render(); }]] },
+  { title: 'Trade a month: stories', desc: 'The same seed and the same company health as the previous tab, but the news comes as developing stories. Were your decisions better, easier or more fun?',
+    steps: [['Start: seed 23, stories, X-ray off', () => { xray = false; newRun(23, { newsStyle: 'stories', autoNews: true }); }], ['Play the month (trade as it runs)', () => play(20)], ['Reveal what was really going on', () => { xray = true; render(); }]] },
+];
+let scen = 0, scenStep = 0;
+function renderTabs() { $('tabs').innerHTML = SCENARIOS.map((sc, k) => `<button aria-pressed="${k === scen}" onclick="scen=${k};scenStep=0;renderTabs();renderSteps()">${sc.title}</button>`).join(''); }
+function renderSteps() {
+  const sc = SCENARIOS[scen]; $('scenDesc').textContent = sc.desc;
+  $('steps').innerHTML = sc.steps.map(([label], k) => `<button class="${k < scenStep ? 'done' : ''}" ${k === scenStep ? '' : 'disabled'} onclick="runStep(${k})">${k + 1}. ${label}</button>`).join('') +
+    (scenStep >= sc.steps.length ? `<button onclick="scenStep=0;renderSteps()">Restart this walkthrough</button>` : '');
+}
+function runStep(k) { scenStep = k + 1; SCENARIOS[scen].steps[k][1](); renderSteps(); }
+
+$('styleOne').onclick = () => newRun(sim.seed, { newsStyle: 'oneoff' });
+$('styleStory').onclick = () => newRun(sim.seed, { newsStyle: 'stories' });
+$('kindBtn').onclick = () => { showKind = !showKind; render(); };
+$('pricedBtn').onclick = () => { knobValues.moodInstant = sim.params.moodInstant > 0 ? 0 : 0.25; sim.params.moodInstant = knobValues.moodInstant; renderKnobs(); render(); };
+$('autoBtn').onclick = () => { sim.params.autoNews = !sim.params.autoNews; render(); };
+$('play').onclick = () => timer ? stop() : play(); $('stepBtn').onclick = () => { stop(); tick(); };
+$('speed').onchange = () => { if (timer) play(stopAt); };
+$('xray').onclick = () => { xray = !xray; render(); };
+$('reset').onclick = () => newRun(Math.floor(Math.random() * 1000));
+$('evalBtn').onclick = () => { $('evalOut').innerHTML = '<p class="muted">Running…</p>'; setTimeout(runEval, 20); };
+newRun(7, { newsStyle: 'stories', autoNews: true }); renderKnobs(); renderPoke(); renderTabs();
+</script>
+</body></html>
