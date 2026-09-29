@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Market Motion Sandbox</title>
+<style>
+:root{font-family:Segoe UI,system-ui,sans-serif;font-size:15px;color-scheme:dark;--bg:#14211d;--panel:#22362e;--line:#4c6555;--ink:#ecebdf;--muted:#bdcdc0;--accent:#e1c78c;--up:#b7dca9;--down:#ffb5a5;--real:#8fc3e8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit;color:inherit;border:1px solid var(--line);border-radius:.3rem;background:#ffffff08}
+button{cursor:pointer;padding:.35rem .7rem}button:hover:enabled{border-color:var(--accent)}button:disabled{opacity:.4;cursor:default}
+button[aria-pressed=true]{border-color:var(--accent);color:var(--accent);background:#e1c78c14}
+.primary{background:var(--accent);color:#252111;border-color:var(--accent);font-weight:700}
+h1,h2,h3,p{margin:0}small,.muted{color:var(--muted)}.up{color:var(--up)}.down{color:var(--down)}
+main>*,.co,.panel{min-width:0}.co svg{max-width:100%}
+main{max-width:1200px;margin:0 auto;padding:1rem 16px 3rem;display:grid;gap:1rem}
+header h1{font-family:Georgia,serif;font-weight:400;font-size:1.7rem}header p{color:var(--muted);margin-top:.35rem;max-width:62rem;line-height:1.45;font-size:.92rem}
+.proto{display:inline-block;font-size:.65rem;letter-spacing:.12rem;border:1px solid var(--accent);color:var(--accent);padding:.05rem .4rem;border-radius:.2rem;margin-bottom:.4rem}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:.6rem .8rem;border:1px solid var(--line);border-radius:.6rem;background:var(--panel)}
+.bar .sep{width:1px;align-self:stretch;background:var(--line);margin:0 .3rem}
+.bar .grow{flex:1}
+.stat small{display:block;font-size:.68rem}.stat b{font:700 1.1rem Consolas,monospace}
+.companies{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:1rem}
+.co{border:1px solid var(--line);border-radius:.7rem;background:var(--panel);padding:.8rem 1rem;display:grid;gap:.5rem}
+.co-head{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.co-head h2{font-family:Georgia,serif;font-weight:400;font-size:1.3rem}
+.price{font:700 1.7rem Consolas,monospace}
+.co svg{width:100%;height:200px;display:block}
+svg text{font:9px Consolas,monospace;fill:var(--muted)}
+.trade{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center}.trade button{font-size:.85rem}
+.inspect{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem .8rem;font-size:.8rem;border-top:1px solid var(--line);padding-top:.5rem}
+.inspect b{font-family:Consolas,monospace;display:block}
+.inspect .hidden b{color:var(--real)}
+.lower{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:1rem}
+@media(max-width:800px){.lower{grid-template-columns:1fr}.inspect{grid-template-columns:repeat(2,1fr)}}
+.panel{border:1px solid var(--line);border-radius:.7rem;background:var(--panel);padding:.8rem 1rem}
+.panel h3{font-size:.95rem;color:var(--accent);margin-bottom:.5rem}
+.feed{max-height:300px;overflow:auto;display:grid;gap:.35rem;font-size:.85rem}
+.feed div{border-left:3px solid var(--line);padding:.2rem .5rem}
+.feed .report{border-color:var(--real);background:#8fc3e810}.feed .news{border-color:var(--accent)}.feed .month{border-color:var(--muted);background:#ffffff08;font-weight:600}
+.feed .xr{color:var(--real);font-size:.75rem}
+.tabs{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.6rem}
+.steps{display:grid;gap:.3rem;margin-top:.6rem}.steps button{text-align:left}.steps button.done{opacity:.55;text-decoration:line-through}
+.scen-desc{font-size:.87rem;line-height:1.5;color:var(--muted)}
+.knobs{display:grid;gap:.45rem;font-size:.82rem}.knobs label{display:grid;grid-template-columns:1fr 4.2rem;gap:.1rem .5rem;align-items:center}
+.knobs input{grid-column:1/-1;width:100%}.knobs output{font-family:Consolas,monospace;text-align:right}
+details summary{cursor:pointer;color:var(--accent);font-size:.95rem}
+.flash{animation:none}
+.legend{display:flex;gap:1rem;font-size:.72rem;color:var(--muted)}
+</style></head>
+<body><main>
+<header>
+  <span class="proto">THROWAWAY PROTOTYPE</span>
+  <h1>Market-motion sandbox</h1>
+  <p><b>The question:</b> without any cards, does a market where each company's <i>real value</i> drifts with its health, and whose price wobbles randomly around a target, read well and feel alive? Flip the toggle to compare the two targets. <b>A:</b> the price follows real value directly, and news only matters when it's genuine. <b>B:</b> the price follows <i>perceived value</i>, which news and momentum push around and quarterly reports pull back to the truth. Which is easier to read, and more fun to trade by eye? One tick is one trading day; a month is 20 days.</p>
+</header>
+
+<div class="bar">
+  <span class="muted">Price follows</span>
+  <button id="modeA">A · Real value</button>
+  <button id="modeB">B · Perceived value</button>
+  <span class="sep"></span>
+  <button id="play" class="primary">▶ Play</button>
+  <button id="stepBtn">Next day</button>
+  <select id="speed" title="Days per second"><option value="1">1 day/s</option><option value="2" selected>2 days/s</option><option value="4">4 days/s</option><option value="8">8 days/s</option></select>
+  <span class="sep"></span>
+  <button id="xray" title="Show the hidden real value (not visible in the real game)">X-ray real value</button>
+  <label class="muted">Seed <input id="seed" type="number" value="7" style="width:5rem"></label>
+  <button id="reset">New run</button>
+  <span class="grow"></span>
+  <div class="stat"><small>Day</small><b id="day">0</b></div>
+  <div class="stat"><small>Cash</small><b id="cash"></b></div>
+  <div class="stat"><small>Net worth</small><b id="worth"></b></div>
+</div>
+
+<div class="companies" id="companies"></div>
+
+<div class="lower">
+  <div class="panel">
+    <h3>Guided walkthroughs</h3>
+    <div class="tabs" id="tabs"></div>
+    <p class="scen-desc" id="scenDesc"></p>
+    <div class="steps" id="steps"></div>
+  </div>
+  <div class="panel">
+    <h3>News and reports</h3>
+    <div class="feed" id="feed"></div>
+  </div>
+</div>
+
+<div class="panel">
+  <h3>Poke the market yourself</h3>
+  <div class="trade" id="poke"></div>
+  <p class="muted" style="font-size:.78rem;margin-top:.4rem">A "rumour" is news with nothing behind it: in B it moves perceived value only. A "genuine" story also changes the company's health, which the next report will show.</p>
+</div>
+
+<div class="panel"><details><summary>Tuning knobs</summary><div class="knobs" id="knobs" style="margin-top:.7rem"></div></details></div>
+</main>
+
+<!-- ============ MARKET MODEL: pure, no DOM; the part worth lifting ============ -->
+<script>
+const MarketModel = (() => {
+  function mulberry32(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  function gauss(r){let u=0;while(!u)u=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*r())}
+
+  const DEFAULTS = {
+    mode: 'perceived',   // 'direct' (A) or 'perceived' (B)
+    // A: price = real × exp(wobble), wobble is a plain mean-reverting AR(1)
+    halfLife: 3, wobble: 0.02,
+    // B: price = real × exp(fad), fad is a damped oscillator kicked by news
+    phi: 0.6, kappa: 0.25, fadNoise: 0.007, hypeSize: 0.05,
+    // real value: health is a slow AR(1) that sets the growth rate
+    healthHalfLife: 15, healthSpread: 0.6, healthGrowth: 0.006, baseGrowth: 0.0008, valueNoise: 0.003,
+    // news and reports
+    newsEvery: 6, substanceChance: 0.5, substanceHealth: 0.8, substanceJump: 0.02,
+    reportEvery: 20, reportSnap: 0.4, driftTicks: 4, driftRate: 0.35,
+  };
+
+  const COMPANIES = [
+    { name: 'Brightleaf Foods', start: 60, reportOffset: 0,
+      good: ['signs a supermarket supply deal', 'posts record orders for its snack line', 'is tipped as a takeover target'],
+      bad: ['recalls a batch of cereal', 'loses a key distributor', 'is hit by rising grain prices'] },
+    { name: 'Tidewater Shipping', start: 40, reportOffset: 10,
+      good: ['wins a new Pacific route', 'sees freight rates spike', 'orders a fleet of fast ships'],
+      bad: ['has a ship stuck in the canal', 'faces a dockworkers strike', 'warns of weak freight demand'] },
+  ];
+
+  function create(seed, params = {}) {
+    const p = { ...DEFAULTS, ...params };
+    const s = {
+      seed, tick: 0, params: p, cash: 1000, startWorth: 1000, log: [],
+      rng: { real: mulberry32(seed * 3 + 1), fad: mulberry32(seed * 5 + 2), news: mulberry32(seed * 7 + 3) },
+      companies: COMPANIES.map(def => ({
+        def, name: def.name, real: def.start, h: 0, u: 0, v: 0, price: def.start,
+        shares: 0, drift: null, reports: [], news: [], history: [{ tick: 0, price: def.start, real: def.start }],
+      })),
+    };
+    return s;
+  }
+
+  function health(c) { return c.h > 0.4 ? 'thriving' : c.h < -0.4 ? 'struggling' : 'steady'; }
+
+  function applyNews(s, i, dir, substantive, text) {
+    const p = s.params, c = s.companies[i];
+    if (substantive) { c.h += dir * p.substanceHealth; c.real *= Math.exp(dir * p.substanceJump); }
+    if (p.mode === 'perceived') c.v += dir * p.hypeSize;
+    const item = { tick: s.tick, i, dir, substantive, text: text || `${c.name} ${pick(dir > 0 ? c.def.good : c.def.bad, s.rng.news)}` };
+    c.news.push(item); s.log.push({ kind: 'news', ...item });
+    reprice(s, c);
+  }
+
+  function report(s, i) {
+    const p = s.params, c = s.companies[i];
+    const before = c.price, gap = before / c.real - 1;
+    if (p.mode === 'perceived') { c.u *= 1 - p.reportSnap; c.v *= 0.5; c.drift = { ticks: p.driftTicks }; }
+    reprice(s, c);
+    const r = { tick: s.tick, value: c.real, priceBefore: before, priceAfter: c.price, gap, health: health(c) };
+    c.reports.push(r); s.log.push({ kind: 'report', i, ...r });
+  }
+
+  function reprice(s, c) {
+    c.price = c.real * Math.exp(c.u);
+  }
+
+  function step(s) {
+    const p = s.params; s.tick++;
+    const aH = Math.pow(0.5, 1 / p.healthHalfLife), sH = p.healthSpread * Math.sqrt(1 - aH * aH);
+    for (const c of s.companies) {
+      // real value: health sets the drift
+      c.h = aH * c.h + sH * gauss(s.rng.real);
+      c.real *= Math.exp(p.baseGrowth + p.healthGrowth * c.h + p.valueNoise * gauss(s.rng.real));
+      const n = gauss(s.rng.fad);
+      if (p.mode === 'perceived') {
+        c.v = p.phi * c.v - p.kappa * c.u + p.fadNoise * n;
+        c.u += c.v;
+        if (c.drift && c.drift.ticks > 0) { c.u -= p.driftRate * c.u; c.drift.ticks--; }
+      } else {
+        const a = Math.pow(0.5, 1 / p.halfLife);
+        c.u = a * c.u + p.wobble * Math.sqrt(1 - a * a) * n; c.v = 0;
+      }
+      reprice(s, c);
+    }
+    // scheduled news: same draws in both modes, so a seed gives the same real-value story
+    const roll = s.rng.news(), who = Math.floor(s.rng.news() * s.companies.length), up = s.rng.news() < 0.5, sub = s.rng.news() < p.substanceChance;
+    if (roll < 1 / p.newsEvery) applyNews(s, who, up ? 1 : -1, sub);
+    s.companies.forEach((c, i) => { if ((s.tick + c.def.reportOffset) % p.reportEvery === 0) report(s, i); });
+    for (const c of s.companies) c.history.push({ tick: s.tick, price: c.price, real: c.real });
+    if (s.tick % 20 === 0) s.log.push({ kind: 'month', tick: s.tick, worth: worth(s) });
+  }
+
+  function pick(arr, r) { return arr[Math.floor(r() * arr.length)]; }
+  function worth(s) { return s.cash + s.companies.reduce((t, c) => t + c.shares * c.price, 0); }
+
+  // qty > 0 buys, qty < 0 sells (going short below zero). Returns an error string or null.
+  function trade(s, i, qty) {
+    const c = s.companies[i], cost = qty * c.price;
+    if (qty > 0 && cost > s.cash + 1e-9) return 'Not enough cash';
+    const after = c.shares + qty;
+    if (after < 0 && -after * c.price > worth(s)) return 'Short too large for your net worth';
+    s.cash -= cost; c.shares = after; return null;
+  }
+  function close(s, i) { const c = s.companies[i]; if (c.shares) { s.cash += c.shares * c.price; c.shares = 0; } }
+
+  return { DEFAULTS, create, step, applyNews, report, trade, close, worth, health };
+})();
+</script>
+
+<!-- ============ PAGE: throwaway shell ============ -->
+<script>
+const $ = id => document.getElementById(id);
+const money = n => (n < 0 ? '−$' : '$') + Math.abs(n).toFixed(2);
+const pct = n => (n >= 0 ? '+' : '−') + Math.abs(n * 100).toFixed(1) + '%';
+let sim, xray = false, timer = null, knobValues = {}, stopAt = null, msg = '';
+
+function newRun(seed, mode) {
+  stop();
+  sim = MarketModel.create(seed ?? +$('seed').value, { ...knobValues, mode: mode ?? (sim ? sim.params.mode : 'perceived') });
+  $('seed').value = sim.seed; msg = ''; render();
+}
+function setMode(mode) { newRun(sim.seed, mode); }
+function tick(n = 1) { for (let k = 0; k < n; k++) MarketModel.step(sim); render(); }
+function play(untilTick) {
+  stop(); stopAt = untilTick ?? null;
+  timer = setInterval(() => { tick(); if (stopAt !== null && sim.tick >= stopAt) stop(); }, 1000 / +$('speed').value);
+  $('play').textContent = '❚❚ Pause';
+}
+function stop() { clearInterval(timer); timer = null; stopAt = null; $('play').textContent = '▶ Play'; }
+
+function chart(c) {
+  const W = 520, H = 200, L = 44, R = 10, T = 16, B = 18, span = Math.min(80, Math.max(20, sim.tick));
+  const from = Math.max(0, sim.tick - span), pts = c.history.filter(h => h.tick >= from);
+  const vals = pts.flatMap(h => xray ? [h.price, h.real] : [h.price]).concat(c.reports.filter(r => r.tick >= from).map(r => r.value));
+  let lo = Math.min(...vals), hi = Math.max(...vals); const pad = Math.max((hi - lo) * 0.12, hi * 0.03); lo -= pad; hi += pad;
+  const x = t => L + (t - from) / span * (W - L - R), y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+  const line = key => pts.map(h => `${x(h.tick).toFixed(1)},${y(h[key]).toFixed(1)}`).join(' ');
+  let g = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${c.name} price chart">`;
+  for (let k = 0; k <= 3; k++) { const v = lo + (hi - lo) * k / 3; g += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#ffffff10"/><text x="2" y="${y(v) + 3}">${money(v)}</text>`; }
+  for (let t = Math.ceil(from / 20) * 20; t <= from + span; t += 20) if (t > 0) g += `<line x1="${x(t)}" x2="${x(t)}" y1="${T}" y2="${H - B}" stroke="#ffffff18" stroke-dasharray="2 3"/><text x="${x(t) - 12}" y="${H - 4}">M${t / 20} end</text>`;
+  if (xray) g += `<polyline points="${line('real')}" fill="none" stroke="var(--real)" stroke-width="1.6" stroke-dasharray="4 3"/>`;
+  g += `<polyline points="${line('price')}" fill="none" stroke="var(--accent)" stroke-width="2.3"/>`;
+  for (const n of c.news) if (n.tick >= from) g += `<text x="${x(n.tick) - 4}" y="${T - 4}" style="fill:${n.dir > 0 ? 'var(--up)' : 'var(--down)'};font-size:11px">${n.dir > 0 ? '▲' : '▼'}</text>` + (xray && !n.substantive ? `<text x="${x(n.tick) - 3}" y="${T + 7}" style="fill:var(--real);font-size:8px">r</text>` : '');
+  for (const r of c.reports) if (r.tick >= from) g += `<rect x="${x(r.tick) - 4}" y="${y(r.value) - 4}" width="8" height="8" fill="var(--real)" transform="rotate(45 ${x(r.tick)} ${y(r.value)})"/>`;
+  const last = pts[pts.length - 1]; g += `<circle cx="${x(last.tick)}" cy="${y(last.price)}" r="3.5" fill="var(--accent)"/>`;
+  return g + '</svg>';
+}
+
+function render() {
+  const s = sim, p = s.params, w = MarketModel.worth(s);
+  $('modeA').setAttribute('aria-pressed', p.mode === 'direct'); $('modeB').setAttribute('aria-pressed', p.mode === 'perceived');
+  $('xray').setAttribute('aria-pressed', xray);
+  $('day').textContent = `${s.tick} · M${Math.floor(s.tick / 20) + 1} W${Math.floor(s.tick % 20 / 5) + 1}`;
+  $('cash').textContent = money(s.cash);
+  $('worth').innerHTML = `${money(w)} <small class="${w >= s.startWorth ? 'up' : 'down'}">${pct(w / s.startWorth - 1)}</small>`;
+  $('companies').innerHTML = s.companies.map((c, i) => {
+    const prev = c.history[Math.max(0, c.history.length - 2)].price, ch = c.price / prev - 1;
+    const lr = c.reports[c.reports.length - 1];
+    const nextReport = p.reportEvery - ((s.tick + c.def.reportOffset) % p.reportEvery);
+    return `<section class="co">
+      <div class="co-head"><h2>${c.name}</h2><span class="price">${money(c.price)} <small class="${ch >= 0 ? 'up' : 'down'}" style="font-size:.8rem">${pct(ch)}</small></span></div>
+      ${chart(c)}
+      <div class="legend"><span style="color:var(--accent)">━ price</span>${xray ? '<span style="color:var(--real)">┅ real value (hidden)</span>' : ''}<span style="color:var(--real)">◆ report</span><span>▲▼ news${xray ? ' (r = rumour)' : ''}</span></div>
+      <div class="trade">
+        <span class="muted">Holding <b style="color:var(--ink)">${c.shares}</b>${c.shares ? ` (${money(c.shares * c.price)})` : ''}</span>
+        <span style="flex:1"></span>
+        <button onclick="doTrade(${i},10)">Buy 10</button><button onclick="doTrade(${i},-10)">Sell / short 10</button><button onclick="doClose(${i})" ${c.shares ? '' : 'disabled'}>Close</button>
+      </div>
+      <div class="inspect">
+        <div><small>Last report</small><b>${lr ? money(lr.value) + ' (day ' + lr.tick + ')' : '—'}</b></div>
+        <div><small>Next report in</small><b>${nextReport} days</b></div>
+        <div><small>Price vs last report</small><b>${lr ? pct(c.price / lr.value - 1) : '—'}</b></div>
+        ${xray ? `<div class="hidden"><small>Real value</small><b>${money(c.real)}</b></div>
+        <div class="hidden"><small>Price vs real</small><b>${pct(c.price / c.real - 1)}</b></div>
+        <div class="hidden"><small>Health</small><b>${MarketModel.health(c)} (${c.h.toFixed(2)})</b></div>
+        ${p.mode === 'perceived' ? `<div class="hidden"><small>Hype speed</small><b>${pct(c.v)}/day</b></div><div class="hidden"><small>Settling after report</small><b>${c.drift && c.drift.ticks ? c.drift.ticks + ' days' : 'no'}</b></div>` : ''}` : ''}
+      </div>
+    </section>`;
+  }).join('');
+  $('feed').innerHTML = (msg ? `<div class="month">${msg}</div>` : '') + s.log.slice().reverse().slice(0, 60).map(e => {
+    const c = s.companies[e.i];
+    if (e.kind === 'month') return `<div class="month">End of month ${e.tick / 20}: net worth ${money(e.worth)} (${pct(e.worth / s.startWorth - 1)})</div>`;
+    if (e.kind === 'news') return `<div class="news"><small>Day ${e.tick}</small> <span class="${e.dir > 0 ? 'up' : 'down'}">${e.dir > 0 ? '▲' : '▼'}</span> ${e.text}${xray ? ` <span class="xr">${e.substantive ? 'genuine' : 'rumour only'}</span>` : ''}</div>`;
+    const verdict = Math.abs(e.gap) < 0.03 ? 'price was about right' : e.gap > 0 ? `price was ${pct(e.gap)} too high: a miss` : `price was ${pct(-e.gap).slice(1)} too low: a beat`;
+    return `<div class="report"><small>Day ${e.tick}</small> <b>${c.name} report</b>: worth ${money(e.value)} a share, company ${e.health}. ${verdict}. Price ${money(e.priceBefore)} → ${money(e.priceAfter)}.</div>`;
+  }).join('');
+  renderPoke(); renderSteps();
+}
+
+function doTrade(i, q) { const err = MarketModel.trade(sim, i, q); msg = err || ''; render(); }
+function doClose(i) { MarketModel.close(sim, i); render(); }
+
+function renderPoke() {
+  $('poke').innerHTML = sim.companies.map((c, i) => `<span class="muted" style="margin-left:.4rem">${c.name.split(' ')[0]}:</span>
+    <button onclick="news(${i},1,false)">Good rumour</button><button onclick="news(${i},-1,false)">Bad rumour</button>
+    <button onclick="news(${i},1,true)">Genuine good news</button><button onclick="news(${i},-1,true)">Genuine bad news</button>
+    <button onclick="rep(${i})">Report now</button>`).join('<span class="sep" style="width:100%"></span>');
+}
+function news(i, d, sub) { MarketModel.applyNews(sim, i, d, sub); render(); }
+function rep(i) { MarketModel.report(sim, i); render(); }
+
+// ---- knobs ----
+const KNOBS = [
+  ['B · How long hype keeps running (momentum)', 'phi', 0, 0.9, 0.05],
+  ['B · How hard reality pulls back', 'kappa', 0.05, 0.6, 0.01],
+  ['B · Daily hype noise', 'fadNoise', 0, 0.03, 0.001],
+  ['B · Size of a news kick', 'hypeSize', 0, 0.15, 0.005],
+  ['B · Share of the gap a report closes on the day', 'reportSnap', 0, 1, 0.05],
+  ['A · Days for a wobble to halve', 'halfLife', 1, 10, 0.5],
+  ['A · Wobble size', 'wobble', 0, 0.08, 0.005],
+  ['Days between news items (average)', 'newsEvery', 2, 20, 1],
+  ['Chance news is genuine', 'substanceChance', 0, 1, 0.05],
+  ['How strongly health drives value', 'healthGrowth', 0, 0.02, 0.001],
+  ['How far health swings', 'healthSpread', 0, 1.5, 0.05],
+  ['Days between reports', 'reportEvery', 5, 60, 5],
+];
+function renderKnobs() {
+  $('knobs').innerHTML = KNOBS.map(([label, key, min, max, st]) =>
+    `<label>${label}<output id="o-${key}">${sim.params[key]}</output><input type="range" min="${min}" max="${max}" step="${st}" value="${sim.params[key]}" oninput="knob('${key}',this.value)"></label>`).join('') +
+    `<button onclick="knobValues={};newRun();renderKnobs()">Reset knobs</button>`;
+}
+function knob(key, v) { knobValues[key] = +v; sim.params[key] = +v; $('o-' + key).textContent = v; }
+
+// ---- walkthroughs ----
+const SCENARIOS = [
+  { title: 'Hype with nothing behind it', desc: 'Mode B, X-ray on. A rumour lifts Tidewater, but its real value (dashed blue) does not move. Watch the price keep climbing for 2–4 days, peak, then fall back past real value before settling. Could you have bought early and sold near the top by eye?',
+    steps: [['Start: seed 11, mode B, X-ray on', () => { xray = true; newRun(11, 'perceived'); }], ['Let 3 quiet days pass', () => tick(3)],
+      ['Good rumour about Tidewater', () => news(1, 1, false)], ['Next day', () => tick()], ['Next day', () => tick()], ['Next day', () => tick()], ['Next day', () => tick()], ['Four more days', () => tick(4)]] },
+  { title: 'A report snaps the gap', desc: 'Mode B. Two rumours inflate Brightleaf well above its real value. Then its quarterly report reveals the truth: the price closes 40% of the gap that day and drifts the rest of the way over the next few days. Is there a readable trade after the report, not just before?',
+    steps: [['Start: seed 11, mode B, X-ray on', () => { xray = true; newRun(11, 'perceived'); }], ['Good rumour about Brightleaf', () => news(0, 1, false)], ['Another good rumour', () => { tick(2); news(0, 1, false); }],
+      ['Let 2 days pass', () => tick(2)], ['Brightleaf reports now', () => rep(0)], ['Next day', () => tick()], ['Next day', () => tick()], ['Three more days', () => tick(3)]] },
+  { title: 'Same news in mode A', desc: 'Mode A: the price follows real value directly. A rumour does nothing at all; only genuine news moves the price, and it moves at once. Quieter and more honest, but is there anything to read?',
+    steps: [['Start: seed 11, mode A, X-ray on', () => { xray = true; newRun(11, 'direct'); }], ['Let 3 quiet days pass', () => tick(3)], ['Good rumour about Tidewater', () => news(1, 1, false)],
+      ['Four days', () => tick(4)], ['Genuine good news for Tidewater', () => news(1, 1, true)], ['Next day', () => tick()], ['Four more days', () => tick(4)]] },
+  { title: 'Trade a month by eye: B', desc: 'X-ray off, like the real game. Play one month (20 days) of mode B and trade on what you see: news, reports and the wiggle. Note your net worth, then run the next tab on the same seed to compare.',
+    steps: [['Start: seed 23, mode B, X-ray off', () => { xray = false; newRun(23, 'perceived'); }], ['Play the month (trade as it runs)', () => play(20)], ['Reveal what was really going on', () => { xray = true; render(); }]] },
+  { title: 'Trade a month by eye: A', desc: 'The same seed and the same underlying company story as the previous tab, but the price follows real value directly. Was it easier or harder to profit? More or less fun?',
+    steps: [['Start: seed 23, mode A, X-ray off', () => { xray = false; newRun(23, 'direct'); }], ['Play the month (trade as it runs)', () => play(20)], ['Reveal what was really going on', () => { xray = true; render(); }]] },
+];
+let scen = 0, scenStep = 0;
+function renderTabs() { $('tabs').innerHTML = SCENARIOS.map((sc, k) => `<button aria-pressed="${k === scen}" onclick="scen=${k};scenStep=0;renderTabs();renderSteps()">${sc.title}</button>`).join(''); }
+function renderSteps() {
+  const sc = SCENARIOS[scen]; $('scenDesc').textContent = sc.desc;
+  $('steps').innerHTML = sc.steps.map(([label], k) => `<button class="${k < scenStep ? 'done' : ''}" ${k === scenStep ? '' : 'disabled'} onclick="runStep(${k})">${k + 1}. ${label}</button>`).join('') +
+    (scenStep >= sc.steps.length ? `<button onclick="scenStep=0;renderSteps()">Restart this walkthrough</button>` : '');
+}
+function runStep(k) { scenStep = k + 1; SCENARIOS[scen].steps[k][1](); renderSteps(); }
+
+$('modeA').onclick = () => setMode('direct'); $('modeB').onclick = () => setMode('perceived');
+$('play').onclick = () => timer ? stop() : play(); $('stepBtn').onclick = () => { stop(); tick(); };
+$('speed').onchange = () => { if (timer) play(stopAt); };
+$('xray').onclick = () => { xray = !xray; render(); };
+$('reset').onclick = () => newRun(Math.floor(Math.random() * 1000));
+newRun(7, 'perceived'); renderKnobs(); renderTabs(); renderSteps();
+</script>
+</body></html>
