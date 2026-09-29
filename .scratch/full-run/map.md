@@ -30,12 +30,17 @@ this map, not inside it.
 - Gameplay is decided by playing, not on paper. Prefer `prototype` tickets for
   anything about feel; use the `prototype` skill. Grill only where a real
   choice can be made without play.
-- Perceived value is an idea under test. The glossary defines the term, but
-  whether the market uses it (versus price following real value directly) is
-  decided by prototype.
+- The market uses perceived value: price follows perceived value, which news
+  and momentum push and reports pull back to real value (settled by
+  [Prototype the market-motion sandbox](issues/04-market-motion-sandbox.md)).
+- Balancing: "buy good news, sell bad news" may usually work but must never be
+  the optimal play.
 - Core identity is undecided between "hype vs truth" (stock-leaning) and "card
   engine multiplying gains" (game-leaning); the creator leans towards the
-  latter but keeps both open.
+  latter but keeps both open. It is decided last, once the prototypes have
+  explored the space, so [Decide the game's one main thing](issues/05-core-identity.md)
+  is blocked by every prototype ticket. New prototype tickets should block it
+  too.
 - One starting class (likely Insider) in the spec.
 - No course or deadline constraints.
 
@@ -45,6 +50,7 @@ this map, not inside it.
 
 - [Research price-motion models for a wavy, readable market](issues/01-price-motion-models.md): real value drifts with health; price = real value × damped mean-reverting fad (momentum then overshoot); reports reveal value and close the gap over a few ticks.
 - [Research what real quarterly reports and market news contain](issues/02-reports-and-news.md): reports reveal real value and prices react to beat/miss vs expectations, then drift; news moves perceived value (mood fades, fundamental shows in the next report); five-field report card and sector-impact news formats.
+- [Prototype the market-motion sandbox](issues/04-market-motion-sandbox.md): price follows perceived value (mode B) — a damped hype fad over health-driven real value, with reports snapping 40% and drifting the rest; wanted next: trends, developing stories, and news trades that aren't always optimal.
 - [Research how deckbuilder roguelikes keep early decisions simple and ramp up](issues/03-roguelike-ramp.md): ordinary turns have one obvious question, hard choices live between encounters; mostly-common offers; boss shown upfront; targets grow ~×2.5 then flatten, and the overshoot from a multiplicative build is the dopamine.
 
 ## Not yet specified
@@ -67,6 +73,8 @@ this map, not inside it.
 - **Identity presentation**: name, theme (occult?), and how the chosen core
   shows on screen.
 - **Endless-mode hook**: what continues after the fourth boss.
+- **Chart intervals**: whether switching views (e.g. intraday vs daily) shows
+  different, useful information. Hangs on how a month breaks into play.
 
 ## Out of scope
 

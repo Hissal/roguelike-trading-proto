@@ -1,7 +1,7 @@
 # Roguelike Trading Game — ROLLING DESIGN DOCUMENT
 
-Revision: 6  
-Last updated: 28 September 2026 (Europe/Helsinki)  
+Revision: 7  
+Last updated: 29 September 2026 (Europe/Helsinki)  
 Status: Adopted living design record for this repository.  
 Stable repository path: `docs/design-log.md`
 
@@ -103,7 +103,7 @@ The player should primarily feel clever: recognising an opportunity, choosing us
 ### Confirmed market and information standards — 26 September
 - Public signals must support understandable decisions before information upgrades. Challenge comes from deciding how and when to act, not requiring specialist jargon or chart-pattern expertise.
 - Events have understandable directional implications, while timing, magnitude, and competing influences preserve uncertainty. These are game-design standards, not promises about real financial markets.
-- Market price is observable. Underlying value can change with events and is not automatically shown exactly. Prices tend toward it rather than matching it immediately; the numerical model is OPEN.
+- Market price is observable. Underlying value can change with events and is not automatically shown exactly. Prices tend toward it rather than matching it immediately; the numerical model is OPEN. WORKING DIRECTION (creator, 29 September, after the market-motion sandbox): price follows perceived value, which news and momentum push around and reports pull back toward real value; see §14, revision 7.
 - Estimating value gives analysis and information upgrades a purpose. Correctly identifying undervaluation does not guarantee a rise before today's closing.
 - Analysis can make existing evidence easier to interpret; experienced players may infer the same relationships without that upgrade and choose other upgrades instead.
 - Interpretation of public evidence is different from revealing unavailable facts. Player experience cannot substitute for a genuinely nonpublic fact or supernatural future knowledge.
@@ -676,6 +676,15 @@ completed UI acceptance does not authorize an unbounded implementation sequence.
 - Built: Finnish and English decks in full and short versions, a short Finnish version where the boss is revealed late, and a speaker-notes page. The session summary lists them.
 - Open: which deck was presented and the pitch feedback.
 - Next useful step: record the pitch feedback, then consider a boss snowball and a day 1/day 2 lead-in as the next prototype topic.
+
+### 29 September 2026 — Revision 7: market motion
+
+- Working direction (creator, after play): the market uses perceived value. Price follows perceived value (real value × a damped hype fad); news kicks the fad, momentum carries it 2–4 days before it overshoots and settles, and a report closes about 40% of the price-to-real gap on the day and drifts the rest. The alternative, price following real value directly, was judged less interesting. This refines the CONFIRMED "prices tend toward changing underlying value" rather than superseding it.
+- Human evidence: the wavy motion is clearly better than the card-design prototype's market. It still feels a little too random: real prices trend (higher highs and higher lows, a break, a neutral range), and the sandbox only hints at this.
+- Observation and balancing concern: report snap and drift hand out trades; "buy good news, sell bad news" nearly always works. That is acceptable as a baseline but must not become the optimal play; cards may partly address it.
+- New proposals (creator, not accepted): developing news stories told over several days (announcement, details and date, reviews, launch, results); chart intervals (e.g. 4-hour vs daily) that show different information.
+- Experimental implementation: `market-motion-prototype.html` on branch `prototype/market-motion`, from the full-run map ticket [Prototype the market-motion sandbox](../.scratch/full-run/issues/04-market-motion-sandbox.md). Parameters (φ 0.6, κ 0.25, 40% snap) are starting values, not balance.
+- Next useful step: prototype trends in the market, and developing stories in the reports-and-news prototype.
 
 ### Template for future session entries
 Date / revision:

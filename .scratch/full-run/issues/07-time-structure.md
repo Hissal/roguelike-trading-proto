@@ -2,7 +2,7 @@
 
 Status: open
 Type: prototype
-Blocked by: 04, 05
+Blocked by: 04
 
 ## Question
 
